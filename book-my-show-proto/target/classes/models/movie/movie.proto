@@ -1,0 +1,40 @@
+syntax = "proto3";
+
+option java_outer_classname = "MovieProto";
+option java_package = "com.strique.models.movie";
+
+import "google/protobuf/timestamp.proto";
+
+// Simple Date type
+message Date {
+  int32 year  = 1;  // e.g. 2025
+  int32 month = 2;  // 1–12
+  int32 day   = 3;  // 1–31
+}
+
+enum Genre {
+  GENRE_UNSPECIFIED = 0;  // default / unknown
+
+  ACTION    = 1;
+  COMEDY    = 2;
+  DRAMA     = 3;
+  THRILLER  = 4;
+  HORROR    = 5;
+  ROMANCE   = 6;
+  SCI_FI    = 7;
+  FANTASY   = 8;
+  ANIMATION = 9;
+  DOCUMENTARY = 10;
+}
+
+message MovieCreateRequest {
+  string title         = 1;
+  string description   = 2;
+  Genre  genre         = 3;
+  uint32 duration_mins = 4;
+
+  Date       release_date = 5;
+  double                 rating       = 6;
+  string                 image_key    = 7;
+  google.protobuf.Timestamp created_at = 8;
+}

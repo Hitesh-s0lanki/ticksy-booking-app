@@ -6,7 +6,7 @@ type Props = {};
 
 const SportsList = ({}: Props) => {
   return (
-    <div className="py-5">
+    <div className="py-5 px-5 md:px-10 lg:px-20">
       <SportsHeader />
       <div className="container mx-auto px-4 pb-10">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">

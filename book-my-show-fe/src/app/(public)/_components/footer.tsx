@@ -5,7 +5,7 @@ import Link from "next/link";
 const Footer = () => {
   return (
     <footer className="bg-gray-900 text-gray-300">
-      <div className="container mx-auto px-4 py-12">
+      <div className="px-5 md:px-10 lg:px-20 py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Brand */}
           <div className="col-span-1 md:col-span-2">
@@ -32,32 +32,28 @@ const Footer = () => {
               <li>
                 <Link
                   href="/movies"
-                  className="hover:text-white transition-colors"
-                >
+                  className="hover:text-white transition-colors">
                   Movies
                 </Link>
               </li>
               <li>
                 <Link
                   href="/events"
-                  className="hover:text-white transition-colors"
-                >
+                  className="hover:text-white transition-colors">
                   Events
                 </Link>
               </li>
               <li>
                 <Link
                   href="/sports"
-                  className="hover:text-white transition-colors"
-                >
+                  className="hover:text-white transition-colors">
                   Sports
                 </Link>
               </li>
               <li>
                 <Link
-                  href="/bookings"
-                  className="hover:text-white transition-colors"
-                >
+                  href="/my-booking"
+                  className="hover:text-white transition-colors">
                   My Bookings
                 </Link>
               </li>
@@ -71,32 +67,28 @@ const Footer = () => {
               <li>
                 <Link
                   href="/help"
-                  className="hover:text-white transition-colors"
-                >
+                  className="hover:text-white transition-colors">
                   Help Center
                 </Link>
               </li>
               <li>
                 <Link
                   href="/contact"
-                  className="hover:text-white transition-colors"
-                >
+                  className="hover:text-white transition-colors">
                   Contact Us
                 </Link>
               </li>
               <li>
                 <Link
                   href="/terms"
-                  className="hover:text-white transition-colors"
-                >
+                  className="hover:text-white transition-colors">
                   Terms of Service
                 </Link>
               </li>
               <li>
                 <Link
                   href="/privacy"
-                  className="hover:text-white transition-colors"
-                >
+                  className="hover:text-white transition-colors">
                   Privacy Policy
                 </Link>
               </li>
