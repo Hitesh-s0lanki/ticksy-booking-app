@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN" monitorInterval="30" packages="">
+    <!-- Read env/system properties -->
+    <Properties>
+        <Property name="APP_NAME">${env:APP_NAME:-my-service}</Property>
+        <Property name="LOG_DIR">${env:LOG_DIR:-logs}</Property>
+        <Property name="LOG_PATTERN">%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg %X{traceId} %n</Property>
+        <!-- File sizes & rollover -->
+        <Property name="MAX_FILE_SIZE">20MB</Property>
+        <Property name="MAX_HISTORY">30</Property>
+    </Properties>
+
+    <Appenders>
+        <!-- Human-friendly console for local/dev -->
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+        </Console>
+
+        <!-- Compact JSON for production observability -->
+        <RollingFile name="FileJson"
+                     fileName="${LOG_DIR}/${APP_NAME}.log"
+                     filePattern="${LOG_DIR}/archive/${APP_NAME}-%d{yyyy-MM-dd}-%i.log.gz">
+            <JsonLayout compact="true" eventEol="true" stacktraceAsString="true"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+                <SizeBasedTriggeringPolicy size="${MAX_FILE_SIZE}"/>
+            </Policies>
+            <DefaultRolloverStrategy max="${MAX_HISTORY}"/>
+        </RollingFile>
+    </Appenders>
+
+    <!-- DEV profile: console only; PROD: console + file (JSON) -->
+    <Loggers>
+        <!-- Tune noisy libs as needed -->
+        <Logger name="org.springframework" level="INFO"/>
+        <Logger name="org.hibernate.SQL" level="WARN"/>
+        <Logger name="org.apache.http" level="WARN"/>
+
+        <!-- Root loggers per environment -->
+        <Root level="${sys:LOG_LEVEL:-INFO}">
+            <AppenderRef ref="Console"/>
+            <!-- The FileJson appender will be active in all profiles; 
+                 if you want strictly prod-only, see the profile routers below -->
+            <AppenderRef ref="FileJson"/>
+        </Root>
+    </Loggers>
+
+    <!-- Example: Spring profile-based routing (optional)
+    <SpringProfile name="dev">
+        <Loggers>
+            <Root level="DEBUG">
+                <AppenderRef ref="Console"/>
+            </Root>
+        </Loggers>
+    </SpringProfile>
+
+    <SpringProfile name="prod">
+        <Loggers>
+            <Root level="INFO">
+                <AppenderRef ref="Console"/>
+                <AppenderRef ref="FileJson"/>
+            </Root>
+        </Loggers>
+    </SpringProfile>
+    -->
+</Configuration>
