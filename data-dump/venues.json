@@ -1,0 +1,142 @@
+[
+  {
+    "name": "Jio World Convention Centre",
+    "address": "Bandra Kurla Complex (BKC), Mumbai, Maharashtra, India",
+    "venueType": "SEMINAR",
+    "description": "Large, premium convention complex with divisible halls, top-tier AV, and easy BKC access—ideal for tech and corporate seminars.",
+    "mapUrl": "https://maps.google.com/?q=Jio+World+Convention+Centre+BKC+Mumbai"
+  },
+  {
+    "name": "NESCO (Bombay Exhibition Centre) — Hall 1",
+    "address": "Western Express Highway, Goregaon East, Mumbai, Maharashtra, India",
+    "venueType": "SEMINAR",
+    "description": "High-capacity exhibition & conference hall frequently used for industry summits, trainings, and trade seminars.",
+    "mapUrl": "https://maps.google.com/?q=NESCO+Bombay+Exhibition+Centre+Goregaon+Mumbai"
+  },
+  {
+    "name": "NCPA — Tata Theatre",
+    "address": "NCPA Marg, Nariman Point, Mumbai, Maharashtra, India",
+    "venueType": "SEMINAR",
+    "description": "Iconic auditorium with excellent acoustics and seating; hosts talks, book launches, and policy forums.",
+    "mapUrl": "https://maps.google.com/?q=NCPA+Tata+Theatre+Nariman+Point+Mumbai"
+  },
+  {
+    "name": "St. Andrew’s Auditorium",
+    "address": "St. Dominic Road, Bandra West, Mumbai, Maharashtra, India",
+    "venueType": "SEMINAR",
+    "description": "Well-equipped proscenium auditorium popular for conferences, workshops, and community seminars.",
+    "mapUrl": "https://maps.google.com/?q=St.+Andrew%E2%80%99s+Auditorium+Bandra+Mumbai"
+  },
+  {
+    "name": "IIT Bombay — Convocation Hall",
+    "address": "Main Gate Rd, Powai, Mumbai, Maharashtra, India",
+    "venueType": "SEMINAR",
+    "description": "University auditorium used for academic conferences, tech talks, and industry seminars inside the IITB campus.",
+    "mapUrl": "https://maps.google.com/?q=IIT+Bombay+Convocation+Hall+Powai+Mumbai"
+  },
+  {
+    "name": "PVR ICON — Phoenix Palladium",
+    "address": "High Street Phoenix, Lower Parel, Mumbai, Maharashtra, India",
+    "venueType": "CINEMA",
+    "description": "Premium multiplex with recliners and advanced projection; popular for premieres and weekend shows.",
+    "mapUrl": "https://maps.google.com/?q=PVR+ICON+Phoenix+Palladium+Lower+Parel+Mumbai"
+  },
+  {
+    "name": "INOX — R City Mall",
+    "address": "R City Mall, Ghatkopar West, Mumbai, Maharashtra, India",
+    "venueType": "CINEMA",
+    "description": "Busy eastern-suburb multiplex offering multiple screens, Dolby sound, and ample parking.",
+    "mapUrl": "https://maps.google.com/?q=INOX+R+City+Mall+Ghatkopar+Mumbai"
+  },
+  {
+    "name": "PVR — Phoenix Marketcity Kurla",
+    "address": "Phoenix Marketcity, LBS Marg, Kurla West, Mumbai, Maharashtra, India",
+    "venueType": "CINEMA",
+    "description": "Large mall multiplex with frequent showtimes and convenient F&B options.",
+    "mapUrl": "https://maps.google.com/?q=PVR+Phoenix+Marketcity+Kurla+Mumbai"
+  },
+  {
+    "name": "PVR — Oberoi Mall Goregaon",
+    "address": "Oberoi Mall, Film City Rd, Goregaon East, Mumbai, Maharashtra, India",
+    "venueType": "CINEMA",
+    "description": "Modern multiplex serving the Goregaon–Film City area; known for clean auditoriums and quick access.",
+    "mapUrl": "https://maps.google.com/?q=PVR+Oberoi+Mall+Goregaon+Mumbai"
+  },
+  {
+    "name": "PVR — Inorbit Mall Malad",
+    "address": "Inorbit Mall, Link Rd, Malad West, Mumbai, Maharashtra, India",
+    "venueType": "CINEMA",
+    "description": "Popular western-suburb multiplex with multiple screens and late-night shows.",
+    "mapUrl": "https://maps.google.com/?q=PVR+Inorbit+Mall+Malad+Mumbai"
+  },
+  {
+    "name": "PVR ICON — Infiniti Mall Andheri (Versova)",
+    "address": "Infiniti Mall, New Link Rd, Andheri West, Mumbai, Maharashtra, India",
+    "venueType": "CINEMA",
+    "description": "High-end multiplex with plush seating and strong show line-up for Andheri/Versova audiences.",
+    "mapUrl": "https://maps.google.com/?q=PVR+ICON+Infiniti+Mall+Andheri+West+Mumbai"
+  },
+  {
+    "name": "PVR — Juhu (Dynamix Mall)",
+    "address": "Dynamix Mall, Juhu Tara Rd, Juhu, Mumbai, Maharashtra, India",
+    "venueType": "CINEMA",
+    "description": "Neighbourhood favourite multiplex close to Juhu beach with balanced Hindi & Hollywood programming.",
+    "mapUrl": "https://maps.google.com/?q=PVR+Juhu+Dynamix+Mall+Mumbai"
+  },
+  {
+    "name": "Metro INOX Cinemas",
+    "address": "M.G. Road, Dhobi Talao, Marine Lines, Mumbai, Maharashtra, India",
+    "venueType": "CINEMA",
+    "description": "Art-deco heritage cinema upgraded with modern projection and sound systems.",
+    "mapUrl": "https://maps.google.com/?q=Metro+INOX+Cinemas+Marine+Lines+Mumbai"
+  },
+  {
+    "name": "Regal Cinema",
+    "address": "Colaba Causeway, Apollo Bandar, Colaba, Mumbai, Maharashtra, India",
+    "venueType": "CINEMA",
+    "description": "Historic single-screen landmark near Gateway of India; a classic movie-going experience.",
+    "mapUrl": "https://maps.google.com/?q=Regal+Cinema+Colaba+Mumbai"
+  },
+  {
+    "name": "G7 Multiplex (Gaiety–Galaxy)",
+    "address": "S.V. Road, Bandra West, Mumbai, Maharashtra, India",
+    "venueType": "CINEMA",
+    "description": "Seven-screen complex famous for first-day-first-show energy for big Bollywood releases.",
+    "mapUrl": "https://maps.google.com/?q=G7+Multiplex+Gaiety+Galaxy+Bandra+Mumbai"
+  },
+  {
+    "name": "Maratha Mandir",
+    "address": "Dr. Anandrao Nair Marg, Mumbai Central, Mumbai, Maharashtra, India",
+    "venueType": "CINEMA",
+    "description": "Legendary single screen known for long theatrical runs; retains old-school charm.",
+    "mapUrl": "https://maps.google.com/?q=Maratha+Mandir+Mumbai+Central"
+  },
+  {
+    "name": "INOX — Atria Mall (INSIGNIA)",
+    "address": "Atria Mall, Annie Besant Rd, Worli, Mumbai, Maharashtra, India",
+    "venueType": "CINEMA",
+    "description": "Luxury screens with lounge seating and curated F&B in central Mumbai.",
+    "mapUrl": "https://maps.google.com/?q=INOX+Atria+Mall+Worli+Mumbai"
+  },
+  {
+    "name": "PVR — Nirmal Lifestyle Mulund",
+    "address": "Nirmal Lifestyle Mall, LBS Rd, Mulund West, Mumbai, Maharashtra, India",
+    "venueType": "CINEMA",
+    "description": "Convenient option for central & north-eastern suburbs with multiple daily showtimes.",
+    "mapUrl": "https://maps.google.com/?q=PVR+Nirmal+Lifestyle+Mulund+Mumbai"
+  },
+  {
+    "name": "Cinépolis — Andheri (Fun Republic)",
+    "address": "Fun Republic, Veera Desai Rd, Andheri West, Mumbai, Maharashtra, India",
+    "venueType": "CINEMA",
+    "description": "Well-known Andheri venue with upgraded projection and comfortable seating.",
+    "mapUrl": "https://maps.google.com/?q=Cinepolis+Fun+Republic+Andheri+West+Mumbai"
+  },
+  {
+    "name": "INOX — Growel's 101",
+    "address": "Growel's 101 Mall, Akurli Rd, Kandivali East, Mumbai, Maharashtra, India",
+    "venueType": "CINEMA",
+    "description": "Family-friendly suburban multiplex with easy parking and food options.",
+    "mapUrl": "https://maps.google.com/?q=INOX+Growel%E2%80%99s+101+Kandivali+East+Mumbai"
+  }
+]

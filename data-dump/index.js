@@ -47,7 +47,57 @@ async function fetchEventsUpload() {
   }
 }
 
+async function fetchVenuesUpload() {
+  try {
+    const venues = fs.readFileSync("./venues.json");
+    const venuesData = JSON.parse(venues);
+
+    await Promise.all(
+      venuesData.map(async (venue) => {
+        const response = await axios.post(
+          "http://localhost:8080/api/venues",
+          venue
+        );
+        console.log(
+          `Uploaded venue: ${venue.name}, Response: ${response.status}`
+        );
+      })
+    );
+
+    console.log("Venues data fetched and saved to venues.json");
+  } catch (error) {
+    console.error("Error fetching venues data:", error);
+  }
+}
+
+async function fetchShowtimesUpload(showtimes) {
+  try {
+    const showtimes = fs.readFileSync("./showtimes.json");
+    const showtimesData = JSON.parse(showtimes);
+
+    await Promise.all(
+      showtimesData.map(async (showtime) => {
+        const response = await axios.post(
+          "http://localhost:8080/api/showtimes",
+          showtime
+        );
+        console.log(
+          `Uploaded showtime for movie ID: ${showtime.movieId}, Response: ${response.status}`
+        );
+      })
+    );
+
+    console.log("Showtimes data uploaded successfully");
+  } catch (error) {
+    console.error("Error uploading showtimes data:", error);
+  }
+}
+
 // Uncomment the function you want to run
-fetchEventsUpload();
+// fetchEventsUpload();
 
 // fetchMoviesUpload();
+
+// fetchVenuesUpload();
+
+fetchShowtimesUpload();

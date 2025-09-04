@@ -26,11 +26,11 @@ public class Showtime {
     private Venue venue;
 
     @ManyToOne
-    @JoinColumn(name = "event_id")
+    @JoinColumn(name = "event_id", nullable = true)
     private Event event;
 
     @ManyToOne
-    @JoinColumn(name = "movie_id")
+    @JoinColumn(name = "movie_id", nullable = true)
     private Movie movie;
 
     @Column(name = "start_at", nullable = false)

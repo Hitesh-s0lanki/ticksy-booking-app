@@ -2,7 +2,11 @@ package com.bookmyshow.controller;
 
 import com.bookmyshow.models.Venue;
 import com.bookmyshow.service.VenueService;
+
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,8 +18,8 @@ public class VenueController {
     private VenueService venueService;
 
     @GetMapping()
-    public ResponseEntity<?> getAllVenues() {
-        return venueService.getAllVenues();
+    public ResponseEntity<?> getAllVenues(@Param("venueType") String venueType) {
+        return venueService.getAllVenues(Optional.ofNullable(venueType));
     }
 
     @GetMapping("{id}")

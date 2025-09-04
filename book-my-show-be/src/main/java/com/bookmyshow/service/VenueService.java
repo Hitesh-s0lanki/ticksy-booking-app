@@ -1,5 +1,6 @@
 package com.bookmyshow.service;
 
+import com.bookmyshow.enums.VenueType;
 import com.bookmyshow.interfaces.VenueServiceInter;
 import com.bookmyshow.models.Venue;
 import com.bookmyshow.repository.VenueRepository;
@@ -20,9 +21,15 @@ public class VenueService implements VenueServiceInter {
     private VenueRepository venueRepository;
 
     @Override
-    public ResponseEntity<?> getAllVenues() {
+    public ResponseEntity<?> getAllVenues(Optional<String> venueType) {
         try {
-            List<Venue> venues = venueRepository.findAll();
+            List<Venue> venues;
+
+            if (venueType.isPresent()) {
+                venues = venueRepository.findByVenueType(VenueType.valueOf(venueType.get()));
+            } else {
+                venues = venueRepository.findAll();
+            }
             return ResponseEntity.ok(venues);
         } catch (Exception e) {
             log.error("Failed to fetch all venues. Error: {}", e.getMessage());
@@ -47,6 +54,11 @@ public class VenueService implements VenueServiceInter {
     @Override
     public ResponseEntity<?> createVenue(Venue venue) {
         try {
+
+            if (venue == null || venue.getName() == null || venue.getName().isEmpty()) {
+                throw new Exception("Venue Payload is invalid");
+            }
+
             return ResponseEntity.ok(venueRepository.save(venue));
         } catch (Exception e) {
             log.error("Failed to create venue: {}. Error: {}", venue, e.getMessage());
