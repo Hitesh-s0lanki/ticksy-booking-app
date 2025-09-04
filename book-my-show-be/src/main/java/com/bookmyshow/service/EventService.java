@@ -6,6 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.bookmyshow.dto.EventInput;
+import com.bookmyshow.enums.EventCategoryEnum;
+import com.bookmyshow.enums.EventTypeEnum;
 import com.bookmyshow.interfaces.EventServiceInter;
 import com.bookmyshow.models.Event;
 import com.bookmyshow.repository.EventRepository;
@@ -37,9 +40,37 @@ public class EventService implements EventServiceInter {
     }
 
     @Override
-    public ResponseEntity<?> createEvent(Event event) {
+    public ResponseEntity<?> createEvent(EventInput event) {
         try {
-            return ResponseEntity.ok(eventRepository.save(event));
+
+            if (event == null
+                    || event.getTitle() == null || event.getTitle().isEmpty()
+                    || event.getDescription() == null || event.getDescription().isEmpty()) {
+                throw new Exception("Event Payload is invalid");
+            }
+
+            if (event.getCategoryType() == null) {
+                throw new Exception("Event category is required");
+            }
+
+            if (event.getEventType() == null) {
+                throw new Exception("Event type is required");
+            }
+
+            // parse event object
+            Event newEvent = new Event();
+            newEvent.setTitle(event.getTitle());
+            newEvent.setDescription(event.getDescription());
+            newEvent.setCategoryType(EventCategoryEnum.valueOf(event.getCategoryType().toUpperCase()));
+            newEvent.setOrganizerName(event.getOrganizerName());
+            newEvent.setStartDate(
+                    event.getStartDate() != null ? java.time.LocalDate.parse(event.getStartDate()) : null);
+            newEvent.setEndDate(
+                    event.getEndDate() != null ? java.time.LocalDate.parse(event.getEndDate()) : null);
+            newEvent.setBannerUrl(event.getBannerUrl());
+            newEvent.setEventType(EventTypeEnum.valueOf(event.getEventType().toUpperCase()));
+
+            return ResponseEntity.ok(eventRepository.save(newEvent));
         } catch (Exception e) {
             log.error("Failed to create event: {}. Error: {}", event, e.getMessage());
             return ResponseEntity.status(500).body("Failed to create event: " + e.getMessage());
@@ -61,7 +92,6 @@ public class EventService implements EventServiceInter {
                         existingEvent.setDescription(event.getDescription());
                         existingEvent.setCategoryType(event.getCategoryType());
                         existingEvent.setOrganizerName(event.getOrganizerName());
-                        existingEvent.setOrganizerEmail(event.getOrganizerEmail());
                         existingEvent.setStartDate(event.getStartDate());
                         existingEvent.setEndDate(event.getEndDate());
                         existingEvent.setBannerUrl(event.getBannerUrl());

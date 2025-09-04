@@ -2,6 +2,7 @@ package com.bookmyshow.interfaces;
 
 import org.springframework.http.ResponseEntity;
 
+import com.bookmyshow.dto.EventInput;
 import com.bookmyshow.models.Event;
 
 public interface EventServiceInter {
@@ -10,7 +11,7 @@ public interface EventServiceInter {
 
     public ResponseEntity<?> getEventById(String eventId);
 
-    public ResponseEntity<?> createEvent(Event event);
+    public ResponseEntity<?> createEvent(EventInput event);
 
     public ResponseEntity<?> updateEvent(String eventId, Event event);
 

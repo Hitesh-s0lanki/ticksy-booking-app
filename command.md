@@ -16,3 +16,11 @@ mvn spring-boot:run
 docker exec -i ticksy-booking-app-postgres-1 \
  psql -U postgres -d mydb \
  -c 'TRUNCATE TABLE "movies" RESTART IDENTITY CASCADE;'
+
+docker exec -i ticksy-booking-app-postgres-1 \
+ psql -U postgres -d mydb \
+ -c "SELECT column_name, is_nullable, data_type FROM information_schema.columns WHERE table_name = 'events' ORDER BY ordinal_position;"
+
+docker exec -i ticksy-booking-app-postgres-1 \
+ psql -U postgres -d mydb \
+ -c "ALTER TABLE events DROP COLUMN IF EXISTS movie_id;"

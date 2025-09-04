@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 import com.bookmyshow.enums.EventCategoryEnum;
+import com.bookmyshow.enums.EventTypeEnum;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -19,7 +20,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "events")
+@Table(name = "events_show")
 public class Event {
 
     @Id
@@ -33,14 +34,14 @@ public class Event {
     @Column(columnDefinition = "TEXT")
     private String description;
 
+    @Column(name = "event_type", nullable = false)
+    private EventTypeEnum eventType = EventTypeEnum.GENERAL;
+
     @Column(name = "category_type")
-    private EventCategoryEnum categoryType = EventCategoryEnum.GENERAL;
+    private EventCategoryEnum categoryType = EventCategoryEnum.SEMINAR;
 
     @Column(name = "organizer_name", length = 100)
     private String organizerName;
-
-    @Column(name = "organizer_email", length = 100)
-    private String organizerEmail;
 
     @Column(name = "start_date")
     private LocalDate startDate;

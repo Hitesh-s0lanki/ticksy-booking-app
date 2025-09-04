@@ -3,6 +3,7 @@ package com.bookmyshow.controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.bookmyshow.dto.EventInput;
 import com.bookmyshow.models.Event;
 import com.bookmyshow.service.EventService;
 
@@ -33,7 +34,7 @@ public class EventController {
     }
 
     @PostMapping()
-    public ResponseEntity<?> createEvent(@RequestBody Event event) {
+    public ResponseEntity<?> createEvent(@RequestBody EventInput event) {
         return eventService.createEvent(event);
     }
 
