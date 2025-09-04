@@ -1,0 +1,79 @@
+[
+  {
+    "title": "Spider-Man: Across the Spider-Verse",
+    "description": "Traveling across the multiverse, Miles Morales meets a new team of Spider-People, made up of heroes from different dimensions. But when the heroes clash over how to deal with a new threat, Miles finds himself at a crossroads.",
+    "genre": ["Action", "Adventure", "Animation"],
+    "durationMins": 140,
+    "releaseDate": "2023-06-02",
+    "rating": 8.5,
+    "imageKey": "https://m.media-amazon.com/images/M/MV5BNThiZjA3MjItZGY5Ni00ZmJhLWEwN2EtOTBlYTA4Y2E0M2ZmXkEyXkFqcGc@.jpg",
+    "posterKey": "https://www.youtube.com/watch?v=cqGjhVJWtEg",
+    "languages": ["en"]
+  },
+  {
+    "title": "12th Fail",
+    "description": "The real-life story of IPS Officer Manoj Kumar Sharma and IRS Officer Shraddha Joshi.",
+    "genre": ["Biography", "Drama"],
+    "durationMins": 152,
+    "releaseDate": "2023-10-27",
+    "rating": 6.2,
+    "imageKey": "https://m.media-amazon.com/images/M/MV5BNTE3OTIxZDYtNjA0NC00N2YxLTg1NGQtOTYxNmZkMDkwOWNjXkEyXkFqcGc@.jpg",
+    "posterKey": "https://www.youtube.com/watch?v=WeMJo701mvQ",
+    "languages": ["hi", "en"]
+  },
+  {
+    "title": "3 Idiots",
+    "description": "Two friends are searching for their long lost companion. They revisit their college days and recall the memories of their friend who inspired them to think differently, even as the rest of the world called them \"idiots\".",
+    "genre": ["Biography", "Drama"],
+    "durationMins": 170,
+    "releaseDate": "2009-12-25",
+    "rating": 6.2,
+    "imageKey": "https://m.media-amazon.com/images/M/MV5BNzc4ZWQ3NmYtODE0Ny00YTQ4LTlkZWItNTBkMGQ0MmUwMmJlXkEyXkFqcGc@.jpg",
+    "posterKey": "https://www.youtube.com/watch?v=xvszmNXdM4w",
+    "languages": ["hi", "en"]
+  },
+  {
+    "title": "Mahavatar Narsimha",
+    "description": "The demon Hiranyakashyap seeks revenge on Vishnu and declares himself a god. His son Prahlad remains devoted to Vishnu. Vishnu manifests as Narsimha to defeat the demon and restore balance.",
+    "genre": ["Action", "Animation", "Drama"],
+    "durationMins": 130,
+    "releaseDate": "2025-07-25",
+    "rating": 9.1,
+    "imageKey": "https://m.media-amazon.com/images/M/MV5BNzhkMjFhOTItMTczNi00YWM1LTlhZjItOTc4OTA0OWVhZTIzXkEyXkFqcGc@.jpg",
+    "posterKey": null,
+    "languages": ["hi", "en", "kn", "te", "ta", "ml"]
+  },
+  {
+    "title": "Dangal",
+    "description": "Mahavir Singh Phogat, a former wrestler, decides to fulfill his dream of winning a gold medal for his country by training his daughters for the Commonwealth Games despite the existing social stigmas.",
+    "genre": ["Action", "Biography", "Drama"],
+    "durationMins": 161,
+    "releaseDate": "2016-12-21",
+    "rating": 8.3,
+    "imageKey": "https://m.media-amazon.com/images/M/MV5BMTQ4MzQzMzM2Nl5BMl5BanBnXkFtZTgwMTQ1NzU3MDI@.jpg",
+    "posterKey": "https://www.youtube.com/watch?v=x_7YlGv9u1g",
+    "languages": ["hi", "en"]
+  },
+  {
+    "title": "K.G.F: Chapter 1",
+    "description": "In the 1970s, a gangster named Rocky goes undercover as a slave to assassinate the owner of a notorious gold mine known as the Kolar Gold Fields.",
+    "genre": ["Action", "Crime", "Drama"],
+    "durationMins": 154,
+    "releaseDate": "2018-12-20",
+    "rating": 8.2,
+    "imageKey": "https://m.media-amazon.com/images/M/MV5BM2M0YmIxNzItOWI4My00MmQzLWE0NGYtZTM3NjllNjIwZjc5XkEyXkFqcGc@.jpg",
+    "posterKey": "https://www.youtube.com/watch?v=3oxo-wacE50",
+    "languages": ["kn"]
+  },
+  {
+    "title": "K.G.F: Chapter 2",
+    "description": "In the blood-soaked Kolar Gold Fields, Rocky's name strikes fear into his foes, while the government sees him as a threat to law and order. Rocky must battle threats from all sides for unchallenged supremacy.",
+    "genre": ["Action", "Crime", "Drama"],
+    "durationMins": 166,
+    "releaseDate": "2022-04-13",
+    "rating": 8.2,
+    "imageKey": "https://m.media-amazon.com/images/M/MV5BZmQzZjVkZTUtYjI4ZC00ZDJmLWI0ZDUtZTFmMGM1Mzc5ZjIyXkEyXkFqcGc@.jpg",
+    "posterKey": "https://www.youtube.com/watch?v=JKa05nyUmuQ",
+    "languages": ["kn"]
+  }
+]
