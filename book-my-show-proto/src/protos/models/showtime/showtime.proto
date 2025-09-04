@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+option java_outer_classname = "ShowtimeProto";
+option java_package = "com.strique.models.showtime";
+
+import "google/protobuf/timestamp.proto";
+
+message Showtime {
+  string showtime_id = 1;
+  string venue_id = 2;
+  string event_id = 3;
+  string movie_id = 4;
+  google.protobuf.Timestamp start_at = 5;
+  google.protobuf.Timestamp end_at = 6;
+  google.protobuf.Timestamp date = 7;
+}
