@@ -59,7 +59,7 @@ public class EventService implements EventServiceInter {
                     .map(existingEvent -> {
                         existingEvent.setTitle(event.getTitle());
                         existingEvent.setDescription(event.getDescription());
-                        existingEvent.setCategoryId(event.getCategoryId());
+                        existingEvent.setCategoryType(event.getCategoryType());
                         existingEvent.setOrganizerName(event.getOrganizerName());
                         existingEvent.setOrganizerEmail(event.getOrganizerEmail());
                         existingEvent.setStartDate(event.getStartDate());

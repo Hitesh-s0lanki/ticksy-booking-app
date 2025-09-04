@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+import com.bookmyshow.enums.EventCategoryEnum;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -31,8 +33,8 @@ public class Event {
     @Column(columnDefinition = "TEXT")
     private String description;
 
-    @Column(name = "category_id", length = 100)
-    private String categoryId;
+    @Column(name = "category_type")
+    private EventCategoryEnum categoryType = EventCategoryEnum.GENERAL;
 
     @Column(name = "organizer_name", length = 100)
     private String organizerName;
