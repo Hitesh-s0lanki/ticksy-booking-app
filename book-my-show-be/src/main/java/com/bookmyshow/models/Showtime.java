@@ -21,17 +21,14 @@ public class Showtime {
     @Column(name = "showtime_id", updatable = false, nullable = false)
     private UUID showtimeId;
 
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "venue_id", nullable = false)
-    private Venue venue;
+    @Column(name = "venue_id", nullable = false)
+    private UUID venueId;
 
-    @ManyToOne
-    @JoinColumn(name = "event_id", nullable = true)
-    private Event event;
+    @Column(name = "event_id", nullable = true)
+    private UUID eventId;
 
-    @ManyToOne
-    @JoinColumn(name = "movie_id", nullable = true)
-    private Movie movie;
+    @Column(name = "movie_id", nullable = true)
+    private UUID movieId;
 
     @Column(name = "start_at", nullable = false)
     private LocalDateTime startAt;

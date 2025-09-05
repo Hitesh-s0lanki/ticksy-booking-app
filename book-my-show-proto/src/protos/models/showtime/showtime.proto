@@ -1,16 +1,170 @@
 syntax = "proto3";
 
+package bookmyshow.showtime.v1;
+
+option java_package = "com.bookmyshow.proto.showtime.v1";
+option java_multiple_files = true;
 option java_outer_classname = "ShowtimeProto";
-option java_package = "com.strique.models.showtime";
 
 import "google/protobuf/timestamp.proto";
+import "google/protobuf/empty.proto";
+import "google/protobuf/field_mask.proto";
 
+// ---------------- Common types ----------------
+
+/** Mirrors java.time.LocalDate without timezone ambiguity */
+message Date {
+  int32 year  = 1; // e.g. 2025
+  int32 month = 2; // 1..12
+  int32 day   = 3; // 1..31
+}
+
+/** Standardized error payload for all responses */
+enum ErrorCode {
+  ERROR_CODE_UNSPECIFIED = 0;
+  INVALID_ARGUMENT       = 1;
+  NOT_FOUND              = 2;
+  ALREADY_EXISTS         = 3;
+  FAILED_PRECONDITION    = 4;
+  OUT_OF_RANGE           = 5;
+  UNAUTHENTICATED        = 6;
+  PERMISSION_DENIED      = 7;
+  UNAVAILABLE            = 8;
+  INTERNAL               = 9;
+}
+
+message Error {
+  ErrorCode code = 1;                     // machine-parseable error category
+  string message = 2;                     // human-readable summary
+  map<string, string> details = 3;        // optional key-value context (e.g., field -> reason)
+}
+
+// ---------------- Entity & DTOs ----------------
+
+/** Mirrors your JPA entity */
 message Showtime {
+  string showtime_id = 1; // UUID
+  string venue_id    = 2; // UUID
+  string event_id    = 3; // UUID (optional)
+  string movie_id    = 4; // UUID (optional)
+
+  google.protobuf.Timestamp start_at = 5; // LocalDateTime -> Timestamp (store/send in UTC)
+  google.protobuf.Timestamp end_at   = 6; // optional
+
+  Date show_date = 7; // LocalDate
+}
+
+/** Request DTO equivalent */
+message ShowtimeInput {
+  string venue_id = 1;                    // required
+  string movie_id = 2;                    // optional if event_id provided
+  string event_id = 3;                    // optional if movie_id provided
+  Date show_date = 4;                     // required
+  google.protobuf.Timestamp start_at = 5; // required
+  // end_at intentionally omitted; server may compute when movie duration is known
+}
+
+/** Compact details for schedules */
+message ShowtimeDetails {
   string showtime_id = 1;
-  string venue_id = 2;
-  string event_id = 3;
-  string movie_id = 4;
-  google.protobuf.Timestamp start_at = 5;
-  google.protobuf.Timestamp end_at = 6;
-  google.protobuf.Timestamp date = 7;
+  google.protobuf.Timestamp start_at = 2;
+  google.protobuf.Timestamp end_at = 3;   // may be unset
+}
+
+/** Grouping by venue for a given movie+date (your UI DTO) */
+message ShowtimeMovieResponse {
+  string venue_id = 1;
+  string venue_name = 2;
+  string venue_map_url = 3;
+  string venue_location = 4;
+  repeated ShowtimeDetails showtimes = 5;
+}
+
+// ---------------- Requests ----------------
+
+message CreateShowtimeRequest {
+  ShowtimeInput input = 1;
+}
+
+message GetShowtimeRequest {
+  string showtime_id = 1;
+}
+
+message DeleteShowtimeRequest {
+  string showtime_id = 1;
+}
+
+message UpdateShowtimeRequest {
+  Showtime showtime = 1;                  // partial entity with fields to mutate
+  google.protobuf.FieldMask update_mask = 2; // e.g. "start_at,end_at,show_date"
+}
+
+/** Generic listing with simple filters & pagination */
+message ListShowtimesRequest {
+  string movie_id = 1;   // optional filter
+  string venue_id = 2;   // optional filter
+  Date show_date = 3;    // optional filter
+  int32 page_size = 10;  // optional
+  string page_token = 11;// optional
+}
+
+/** Useful for your "showtimes page" grouped by venue for a movie+date */
+message ListShowtimesByMovieRequest {
+  string movie_id = 1; // required
+  Date show_date = 2;  // required
+}
+
+// ---------------- Response payloads (outputs) ----------------
+
+message ListShowtimesPayload {
+  repeated Showtime showtimes = 1;
+  string next_page_token = 2;
+}
+
+message ListShowtimesByMoviePayload {
+  repeated ShowtimeMovieResponse venues = 1; // each item corresponds to a venue with its showtimes
+}
+
+// ---------------- Response wrappers with oneof { output | error } ----------------
+
+message CreateShowtimeResponse {
+  oneof result {
+    Showtime output = 1;
+    Error error = 2;
+  }
+}
+
+message GetShowtimeResponse {
+  oneof result {
+    Showtime output = 1;
+    Error error = 2;
+  }
+}
+
+message UpdateShowtimeResponse {
+  oneof result {
+    Showtime output = 1;
+    Error error = 2;
+  }
+}
+
+message DeleteShowtimeResponse {
+  oneof result {
+    google.protobuf.Empty output = 1; // success = empty
+    Error error = 2;
+  }
+}
+
+message ListShowtimesResponse {
+  oneof result {
+    ListShowtimesPayload output = 1;
+    Error error = 2;
+  }
+}
+
+message ListShowtimesByMovieResponse {
+  oneof result {
+    ListShowtimesByMoviePayload output = 1;
+    Error error = 2;
+  }
 }
