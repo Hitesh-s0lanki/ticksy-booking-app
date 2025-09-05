@@ -1,5 +1,7 @@
 package com.bookmyshow.service;
 
+import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,15 +23,23 @@ public class MovieService implements MovieServiceInter {
 
     @Override
     public ResponseEntity<?> getAllMovies() {
-        return ResponseEntity.ok(movieRepository.findAll());
+        try {
+            List<Movie> movies = movieRepository.findAll();
+            return ResponseEntity.ok(movies);
+        } catch (Exception e) {
+            log.error("Failed to fetch all movies. Error: {}", e.getMessage());
+            return ResponseEntity.status(500).body("[ERROR]: " + e.getMessage());
+        }
     }
 
     @Override
     public ResponseEntity<?> getMovieById(String movieId) {
         try {
-            return movieRepository.findById(UUID.fromString(movieId))
-                    .map(ResponseEntity::ok)
-                    .orElse(ResponseEntity.notFound().build());
+            Optional<Movie> movieOpt = movieRepository.findById(UUID.fromString(movieId));
+            if (movieOpt.isEmpty()) {
+                throw new Exception("Movie not found with ID: " + movieId);
+            }
+            return ResponseEntity.ok(movieOpt.get());
         } catch (Exception e) {
             log.error("Failed to fetch movie by ID: {}. Error: {}", movieId, e.getMessage());
             return ResponseEntity.status(500).body("[ERROR]: " + e.getMessage());

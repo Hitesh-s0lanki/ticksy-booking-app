@@ -34,8 +34,9 @@ public class Movie {
     @Column(columnDefinition = "TEXT")
     private String description;
 
+    @ElementCollection
     @Column(length = 50)
-    private String genre;
+    private List<String> genre;
 
     @Column(name = "duration_mins", nullable = false)
     private Integer durationMins;
