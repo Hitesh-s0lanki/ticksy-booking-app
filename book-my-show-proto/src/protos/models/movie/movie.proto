@@ -1,7 +1,0 @@
-syntax = "proto3";
-
-option java_outer_classname = "MovieProto";
-option java_package = "com.bookmyshow.models.movie";
-
-package movie;
-
