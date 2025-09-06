@@ -1,0 +1,44 @@
+syntax = "proto3";
+
+option java_package = "com.bookmyshow.proto";
+option java_outer_classname = "ShowtimeProto";
+
+message Showtime {
+  string showtimeId = 1;
+  string venueId = 2;
+  string movieId = 3;
+  string eventId = 4;
+  string date = 5;
+  string startAt = 6;
+  string endAt = 7;
+}
+
+message ShowtimeInput {
+  string venueId = 1;
+  string movieId = 2;
+  string eventId = 3;
+  string date = 4;
+  string startAt = 5;
+}
+
+message ShowtimeDetails {
+  string showtimeId = 1;
+  string startAt = 2;
+  string endAt = 3;
+}
+
+message ShowtimeMovieResponse {
+  string venueId = 1;
+  string venueName = 2;
+  string venueMapUrl = 3;
+  string venueLocation = 4;
+  repeated ShowtimeDetails showtimes = 5;
+}
+
+message ShowtimeMovieResponseList {
+  repeated ShowtimeMovieResponse responses = 1;
+}
+
+message ShowtimeList {
+  repeated Showtime showtimes = 1;
+}
