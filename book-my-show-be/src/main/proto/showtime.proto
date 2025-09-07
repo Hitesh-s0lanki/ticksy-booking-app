@@ -10,8 +10,6 @@ message ShowtimeSuccessResponse {
 }
 
 message AllShowtimesResponse {
-  string message = 1;
-  int32 status = 2;
   repeated Showtime showtimes = 3;
 }
 

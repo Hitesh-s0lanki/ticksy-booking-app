@@ -58,20 +58,13 @@ public class ShowtimeService implements ShowtimeServiceInter {
                     .collect(Collectors.toList());
 
             ShowtimeProto.AllShowtimesResponse response = ShowtimeProto.AllShowtimesResponse.newBuilder()
-                    .setMessage("Showtimes fetched successfully")
-                    .setStatus(200)
                     .addAllShowtimes(showtimeProtos)
                     .build();
 
             return ResponseEntity.ok(response);
         } catch (Exception e) {
             log.error("Failed to fetch all showtimes. Error: {}", e.getMessage());
-            ShowtimeProto.AllShowtimesResponse response = ShowtimeProto.AllShowtimesResponse.newBuilder()
-                    .setMessage("Failed to fetch all showtimes " + e.getMessage())
-                    .addAllShowtimes(List.of())
-                    .setStatus(500)
-                    .build();
-            return ResponseEntity.status(500).body(response);
+            return ResponseEntity.status(500).body("[ERROR]: " + e.getMessage());
         }
     }
 
@@ -262,14 +255,13 @@ public class ShowtimeService implements ShowtimeServiceInter {
             }
 
             // proceed to update
-            Showtime existingShowtime = showtimeRepository.findById(uuid)
-                    .orElseThrow(() -> new Exception("Showtime not found"));
+            Showtime uShowtime = new Showtime();
+            uShowtime.setShowtimeId(UUID.fromString(showtimeId));
+            uShowtime.setStartAt(LocalDateTime.parse(showtime.getStartAt()));
+            uShowtime.setEndAt(LocalDateTime.parse(showtime.getEndAt()));
+            uShowtime.setDate(LocalDate.parse(showtime.getDate()));
 
-            existingShowtime.setStartAt(LocalDateTime.parse(showtime.getStartAt()));
-            existingShowtime.setEndAt(LocalDateTime.parse(showtime.getEndAt()));
-            existingShowtime.setDate(LocalDate.parse(showtime.getDate()));
-
-            showtimeRepository.save(existingShowtime);
+            showtimeRepository.save(uShowtime);
 
             ShowtimeProto.ShowtimeSuccessResponse response = ShowtimeProto.ShowtimeSuccessResponse.newBuilder()
                     .setMessage("Showtime updated successfully")
@@ -277,7 +269,7 @@ public class ShowtimeService implements ShowtimeServiceInter {
                     .setShowtimeId(showtimeId)
                     .build();
 
-            log.info("Updated showtime: {}", existingShowtime);
+            log.info("Updated showtime: {}", uShowtime);
 
             return ResponseEntity.ok(response);
 
