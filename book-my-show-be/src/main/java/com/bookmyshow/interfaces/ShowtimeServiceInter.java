@@ -2,8 +2,7 @@ package com.bookmyshow.interfaces;
 
 import org.springframework.http.ResponseEntity;
 
-import com.bookmyshow.dto.ShowtimeInput;
-import com.bookmyshow.models.Showtime;
+import com.bookmyshow.proto.ShowtimeProto;
 
 public interface ShowtimeServiceInter {
 
@@ -11,9 +10,9 @@ public interface ShowtimeServiceInter {
 
     ResponseEntity<?> getShowtimeById(String showtimeId);
 
-    ResponseEntity<?> createShowtime(ShowtimeInput showtime);
+    ResponseEntity<?> createShowtime(ShowtimeProto.ShowtimeInput showtime);
 
-    ResponseEntity<?> updateShowtime(String showtimeId, Showtime showtime);
+    ResponseEntity<?> updateShowtime(String showtimeId, ShowtimeProto.Showtime showtime);
 
     ResponseEntity<?> deleteShowtime(String showtimeId);
 
