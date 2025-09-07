@@ -1,8 +1,5 @@
 package com.bookmyshow.service;
 
-import com.bookmyshow.dto.ShowtimeDetails;
-import com.bookmyshow.dto.ShowtimeInput;
-import com.bookmyshow.dto.ShowtimeMovieResponse;
 import com.bookmyshow.interfaces.ShowtimeServiceInter;
 import com.bookmyshow.models.Movie;
 import com.bookmyshow.models.Showtime;
@@ -19,11 +16,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
+
+import com.bookmyshow.proto.ShowtimeProto;
 
 @Service
 @Slf4j
@@ -45,7 +44,24 @@ public class ShowtimeService implements ShowtimeServiceInter {
     public ResponseEntity<?> getAllShowtimes() {
         try {
             List<Showtime> showtimes = showtimeRepository.findAll();
-            return ResponseEntity.ok(showtimes);
+
+            List<ShowtimeProto.Showtime> showtimeProtos = showtimes.stream()
+                    .map(showtime -> ShowtimeProto.Showtime.newBuilder()
+                            .setShowtimeId(showtime.getShowtimeId().toString())
+                            .setMovieId(showtime.getMovieId().toString())
+                            .setEventId(showtime.getEventId().toString())
+                            .setVenueId(showtime.getVenueId().toString())
+                            .setStartAt(showtime.getStartAt().toString())
+                            .setEndAt(showtime.getEndAt().toString())
+                            .setDate(showtime.getDate().toString())
+                            .build())
+                    .collect(Collectors.toList());
+
+            ShowtimeProto.AllShowtimesResponse response = ShowtimeProto.AllShowtimesResponse.newBuilder()
+                    .addAllShowtimes(showtimeProtos)
+                    .build();
+
+            return ResponseEntity.ok(response);
         } catch (Exception e) {
             log.error("Failed to fetch all showtimes. Error: {}", e.getMessage());
             return ResponseEntity.status(500).body("[ERROR]: " + e.getMessage());
@@ -59,7 +75,18 @@ public class ShowtimeService implements ShowtimeServiceInter {
             if (showtimeOpt.isEmpty()) {
                 throw new Exception("Showtime not found with ID: " + showtimeId);
             }
-            return ResponseEntity.ok(showtimeOpt.get());
+
+            ShowtimeProto.Showtime showtimeProto = ShowtimeProto.Showtime.newBuilder()
+                    .setShowtimeId(showtimeOpt.get().getShowtimeId().toString())
+                    .setMovieId(showtimeOpt.get().getMovieId().toString())
+                    .setEventId(showtimeOpt.get().getEventId().toString())
+                    .setVenueId(showtimeOpt.get().getVenueId().toString())
+                    .setStartAt(showtimeOpt.get().getStartAt().toString())
+                    .setEndAt(showtimeOpt.get().getEndAt().toString())
+                    .setDate(showtimeOpt.get().getDate().toString())
+                    .build();
+
+            return ResponseEntity.ok(showtimeProto);
         } catch (Exception e) {
             log.error("Failed to fetch showtime by ID: {}. Error: {}", showtimeId, e.getMessage());
             return ResponseEntity.status(500).body("[ERROR]: " + e.getMessage());
@@ -86,8 +113,8 @@ public class ShowtimeService implements ShowtimeServiceInter {
                     LocalDate.parse(date));
 
             // Group the showtimes by venue Id and get the venue details + movies
-
-            List<ShowtimeMovieResponse> response = new ArrayList<>();
+            ShowtimeProto.ShowtimeMovieResponseList.Builder showtimeProtoResponses = ShowtimeProto.ShowtimeMovieResponseList
+                    .newBuilder();
 
             // step 1: group by venue id
             var groupedByVenue = showtimes.stream()
@@ -98,26 +125,28 @@ public class ShowtimeService implements ShowtimeServiceInter {
             groupedByVenue.forEach((venueId, showtimeList) -> {
                 venueRepository.findById(venueId).ifPresent(venue -> {
                     // step 3: construct the response object
-                    ShowtimeMovieResponse smr = new ShowtimeMovieResponse();
-                    smr.setVenueId(venue.getVenueId().toString());
-                    smr.setVenueName(venue.getName());
-                    smr.setVenueLocation(venue.getAddress());
-                    smr.setVenueMapUrl(venue.getMapUrl());
+                    ShowtimeProto.ShowtimeMovieResponse.Builder smrBuilder = ShowtimeProto.ShowtimeMovieResponse
+                            .newBuilder()
+                            .setVenueId(venue.getVenueId().toString())
+                            .setVenueName(venue.getName())
+                            .setVenueLocation(venue.getAddress())
+                            .setVenueMapUrl(venue.getMapUrl());
 
-                    var showtimeDetails = showtimeList.stream().map(st -> {
-                        var std = new ShowtimeDetails();
-                        std.setShowtimeId(st.getShowtimeId().toString());
-                        std.setStartAt(st.getStartAt().toString());
-                        std.setEndAt(st.getEndAt().toString());
-                        return std;
-                    }).collect(Collectors.toList());
+                    showtimeList.forEach(showtime -> {
+                        ShowtimeProto.ShowtimeDetails stProto = ShowtimeProto.ShowtimeDetails.newBuilder()
+                                .setShowtimeId(showtime.getShowtimeId().toString())
+                                .setStartAt(showtime.getStartAt().toString())
+                                .setEndAt(showtime.getEndAt().toString())
+                                .build();
 
-                    smr.setShowtimes(showtimeDetails);
-                    response.add(smr);
+                        smrBuilder.addShowtimes(stProto);
+                    });
+
+                    showtimeProtoResponses.addResponses(smrBuilder.build());
                 });
             });
 
-            return ResponseEntity.ok(response);
+            return ResponseEntity.ok(showtimeProtoResponses.build());
         } catch (Exception e) {
             log.error("Failed to fetch showtimes by movie ID: {}. Error: {}", movieId, e.getMessage());
             return ResponseEntity.status(500).body("[ERROR]: " + e.getMessage());
@@ -125,7 +154,7 @@ public class ShowtimeService implements ShowtimeServiceInter {
     }
 
     @Override
-    public ResponseEntity<?> createShowtime(ShowtimeInput showtime) {
+    public ResponseEntity<?> createShowtime(ShowtimeProto.ShowtimeInput showtime) {
         try {
 
             if (showtime == null || showtime.getStartAt() == null || showtime.getDate() == null) {
@@ -164,21 +193,38 @@ public class ShowtimeService implements ShowtimeServiceInter {
             newShowtime.setVenueId(venueUuid);
             newShowtime.setMovieId(movieUuid);
             newShowtime.setEventId(eventUuid);
-            newShowtime.setDate(showtime.getDate());
-            newShowtime.setStartAt(showtime.getStartAt());
+            // convert string to LocalDate
+            newShowtime.setDate(LocalDate.parse(showtime.getDate()));
+            newShowtime.setStartAt(LocalDateTime.parse(showtime.getStartAt()));
 
             if (movieUuid != null) {
                 Movie movie = movieRepository.findById(movieUuid)
                         .orElseThrow(() -> new EntityNotFoundException("Movie not found"));
-                newShowtime.setEndAt(showtime.getStartAt().plusMinutes(movie.getDurationMins()));
+                newShowtime.setEndAt(LocalDateTime.parse(showtime.getStartAt()).plusMinutes(movie.getDurationMins()));
             } else if (eventUuid != null) {
                 eventRepository.findById(eventUuid)
                         .orElseThrow(() -> new EntityNotFoundException("Event not found"));
-                newShowtime.setEndAt(showtime.getStartAt().plusHours(2)); // Default 2 hours for events
+                newShowtime.setEndAt(LocalDateTime.parse(showtime.getStartAt()).plusHours(2)); // Default 2 hours for
+                                                                                               // events
             }
 
             Showtime saved = showtimeRepository.save(newShowtime);
-            return ResponseEntity.ok(saved);
+
+            log.info("Created new showtime: {}", saved);
+
+            // Return the created showtime as protobuf
+            ShowtimeProto.Showtime showtimeProto = ShowtimeProto.Showtime.newBuilder()
+                    .setShowtimeId(saved.getShowtimeId().toString())
+                    .setMovieId(saved.getMovieId().toString())
+                    .setEventId(saved.getEventId().toString())
+                    .setVenueId(saved.getVenueId().toString())
+                    .setStartAt(saved.getStartAt().toString())
+                    .setEndAt(saved.getEndAt().toString())
+                    .setDate(saved.getDate().toString())
+                    .build();
+
+            return ResponseEntity.ok(showtimeProto);
+
         } catch (EntityNotFoundException e) {
             log.error("Referenced entity not found: {}", e.getMessage());
             return ResponseEntity.badRequest().body("Invalid venue/movie/event id: " + e.getMessage());
@@ -192,20 +238,41 @@ public class ShowtimeService implements ShowtimeServiceInter {
     }
 
     @Override
-    public ResponseEntity<?> updateShowtime(String showtimeId, Showtime showtime) {
+    public ResponseEntity<?> updateShowtime(String showtimeId, ShowtimeProto.Showtime showtime) {
         try {
             if (showtime == null || showtime.getStartAt() == null || showtime.getDate() == null) {
                 throw new Exception("Showtime Payload is invalid");
             }
 
-            return showtimeRepository.findById(UUID.fromString(showtimeId))
-                    .map(existingShowtime -> {
-                        existingShowtime.setStartAt(showtime.getStartAt());
-                        existingShowtime.setEndAt(showtime.getEndAt());
-                        existingShowtime.setDate(showtime.getDate());
-                        return ResponseEntity.ok(showtimeRepository.save(existingShowtime));
-                    })
-                    .orElse(ResponseEntity.notFound().build());
+            if (showtimeId == null || showtimeId.trim().isEmpty()) {
+                throw new Exception("Invalid showtime ID");
+            }
+
+            // check UUID format validity
+            UUID uuid = UUID.fromString(showtimeId);
+            if (!showtimeRepository.existsById(uuid)) {
+                throw new Exception("Showtime not found");
+            }
+
+            // proceed to update
+            Showtime uShowtime = new Showtime();
+            uShowtime.setShowtimeId(UUID.fromString(showtimeId));
+            uShowtime.setStartAt(LocalDateTime.parse(showtime.getStartAt()));
+            uShowtime.setEndAt(LocalDateTime.parse(showtime.getEndAt()));
+            uShowtime.setDate(LocalDate.parse(showtime.getDate()));
+
+            showtimeRepository.save(uShowtime);
+
+            ShowtimeProto.ShowtimeSuccessResponse response = ShowtimeProto.ShowtimeSuccessResponse.newBuilder()
+                    .setMessage("Showtime updated successfully")
+                    .setStatus(200)
+                    .setShowtimeId(showtimeId)
+                    .build();
+
+            log.info("Updated showtime: {}", uShowtime);
+
+            return ResponseEntity.ok(response);
+
         } catch (Exception e) {
             log.error("Failed to update showtime with ID: {}. Error: {}", showtimeId, e.getMessage());
             return ResponseEntity.status(500).body("[ERROR]: " + e.getMessage());
@@ -215,12 +282,30 @@ public class ShowtimeService implements ShowtimeServiceInter {
     @Override
     public ResponseEntity<?> deleteShowtime(String showtimeId) {
         try {
-            return showtimeRepository.findById(UUID.fromString(showtimeId))
-                    .map(showtime -> {
-                        showtimeRepository.delete(showtime);
-                        return ResponseEntity.ok().build();
-                    })
-                    .orElse(ResponseEntity.notFound().build());
+
+            if (showtimeId == null || showtimeId.trim().isEmpty()) {
+                throw new Exception("Invalid showtime ID");
+            }
+
+            // check UUID format validity
+            UUID uuid = UUID.fromString(showtimeId);
+
+            if (!showtimeRepository.existsById(uuid)) {
+                throw new Exception("Showtime not found");
+            }
+
+            // proceed to delete
+            showtimeRepository.deleteById(uuid);
+
+            log.info("Deleted showtime with ID: {}", showtimeId);
+
+            ShowtimeProto.ShowtimeSuccessResponse response = ShowtimeProto.ShowtimeSuccessResponse.newBuilder()
+                    .setMessage("Showtime deleted successfully")
+                    .setStatus(200)
+                    .setShowtimeId(showtimeId)
+                    .build();
+
+            return ResponseEntity.ok(response);
         } catch (Exception e) {
             log.error("Failed to delete showtime with ID: {}. Error: {}", showtimeId, e.getMessage());
             return ResponseEntity.status(500).body("[ERROR]: " + e.getMessage());
