@@ -3,6 +3,18 @@ syntax = "proto3";
 option java_package = "com.bookmyshow.proto";
 option java_outer_classname = "ShowtimeProto";
 
+message ShowtimeSuccessResponse {
+  string message = 1;
+  int32 status = 2;
+  string showtimeId = 3;
+}
+
+message AllShowtimesResponse {
+  string message = 1;
+  int32 status = 2;
+  repeated Showtime showtimes = 3;
+}
+
 message Showtime {
   string showtimeId = 1;
   string venueId = 2;

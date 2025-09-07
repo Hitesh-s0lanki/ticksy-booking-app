@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -26,23 +27,27 @@
 		<tag/>
 		<url/>
 	</scm>
+
 	<properties>
 		<java.version>21</java.version>
+		<maven.compiler.source>21</maven.compiler.source>
+		<maven.compiler.target>21</maven.compiler.target>
+		<protobuf.version>4.31.1</protobuf.version>
+		<protobuf.maven.plugin.version>0.6.1</protobuf.maven.plugin.version>
 	</properties>
+
 	<dependencies>
 		<!-- Spring Web Dependencies -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-		<!-- Spring Web Dependencies -->
 
 		<!-- Data JPA lib -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
-		<!-- Data JPA lib -->
 
 		<!-- Postgres -->
 		<dependency>
@@ -50,7 +55,6 @@
 			<artifactId>postgresql</artifactId>
 			<scope>runtime</scope>
 		</dependency>
-		<!-- Postgres -->
 
 		<!-- Lombok for code generate -->
 		<dependency>
@@ -58,7 +62,6 @@
 			<artifactId>lombok</artifactId>
 			<optional>true</optional>
 		</dependency>
-		<!-- Lombok for code generate -->
 
 		<!-- DevTools for dev -->
 		<dependency>
@@ -67,28 +70,19 @@
 			<scope>runtime</scope>
 			<optional>true</optional>
 		</dependency>
-		<!-- DevTools for dev -->
 
-                <!-- Use Log4j2 instead of Logback -->
-                <dependency>
-                        <groupId>org.springframework.boot</groupId>
-                        <artifactId>spring-boot-starter-log4j2</artifactId>
-                </dependency>
-                <!-- Use Log4j2 instead of Logback -->
+		<!-- Use Log4j2 instead of Logback -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-log4j2</artifactId>
+		</dependency>
 
-                <!-- Protobuf -->
-                <dependency>
-                        <groupId>com.google.protobuf</groupId>
-                        <artifactId>protobuf-java</artifactId>
-                        <version>3.25.1</version>
-                </dependency>
-                <dependency>
-                        <groupId>com.google.protobuf</groupId>
-                        <artifactId>protobuf-java-util</artifactId>
-                        <version>3.25.1</version>
-                </dependency>
-                <!-- Protobuf -->
-
+		<!-- Protobuf dependencies  -->
+		<dependency>
+			<groupId>com.google.protobuf</groupId>
+			<artifactId>protobuf-java</artifactId>
+			<version>${protobuf.version}</version>
+		</dependency>
 
 		<!-- Test -->
 		<dependency>
@@ -96,52 +90,83 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		<!-- Test -->
-
 	</dependencies>
+
 	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<configuration>
-					<annotationProcessorPaths>
-						<path>
-							<groupId>org.projectlombok</groupId>
-							<artifactId>lombok</artifactId>
-						</path>
-					</annotationProcessorPaths>
-				</configuration>
-			</plugin>
-                        <plugin>
-                                <groupId>org.springframework.boot</groupId>
-                                <artifactId>spring-boot-maven-plugin</artifactId>
-                                <configuration>
-                                        <excludes>
-                                                <exclude>
-                                                        <groupId>org.projectlombok</groupId>
-                                                        <artifactId>lombok</artifactId>
-                                                </exclude>
-                                        </excludes>
-                                </configuration>
-                        </plugin>
-                        <plugin>
-                                <groupId>org.xolstice.maven.plugins</groupId>
-                                <artifactId>protobuf-maven-plugin</artifactId>
-                                <version>0.6.1</version>
-                                <configuration>
-                                        <protocArtifact>com.google.protobuf:protoc:3.25.1:exe:linux-x86_64</protocArtifact>
-                                </configuration>
-                                <executions>
-                                        <execution>
-                                                <goals>
-                                                        <goal>compile</goal>
-                                                        <goal>compile-custom</goal>
-                                                </goals>
-                                        </execution>
-                                </executions>
-                        </plugin>
-                </plugins>
-        </build>
+  <plugins>
+    <!-- Spring Boot -->
+    <plugin>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-maven-plugin</artifactId>
+      <configuration>
+        <excludes>
+          <exclude>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+          </exclude>
+        </excludes>
+      </configuration>
+    </plugin>
+
+    <!-- Single compiler plugin -->
+    <plugin>
+      <groupId>org.apache.maven.plugins</groupId>
+      <artifactId>maven-compiler-plugin</artifactId>
+      <version>3.12.1</version>
+      <configuration>
+        <source>${maven.compiler.source}</source>
+        <target>${maven.compiler.target}</target>
+        <annotationProcessorPaths>
+          <path>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+          </path>
+        </annotationProcessorPaths>
+      </configuration>
+    </plugin>
+
+    <!-- Protobuf -->
+    <plugin>
+      <groupId>org.xolstice.maven.plugins</groupId>
+      <artifactId>protobuf-maven-plugin</artifactId>
+      <version>${protobuf.maven.plugin.version}</version>
+      <extensions>true</extensions>
+      <executions>
+        <execution>
+          <id>generate-sources</id>
+          <goals>
+            <goal>compile</goal>
+            <goal>test-compile</goal>
+          </goals>
+        </execution>
+      </executions>
+      <configuration>
+        <protocArtifact>
+          com.google.protobuf:protoc:${protobuf.version}:exe:${os.detected.classifier}
+        </protocArtifact>
+        <protoSourceRoot>${project.basedir}/src/main/proto</protoSourceRoot>
+        <outputDirectory>${project.build.directory}/generated-sources/protobuf/java</outputDirectory>
+        <!-- IMPORTANT: add generated sources to the compile path -->
+        <addCompileSourceRoot>true</addCompileSourceRoot>
+        <addTestCompileSourceRoot>true</addTestCompileSourceRoot>
+      </configuration>
+    </plugin>
+  </plugins>
+
+  <extensions>
+    <extension>
+      <groupId>kr.motd.maven</groupId>
+      <artifactId>os-maven-plugin</artifactId>
+      <version>1.7.1</version>
+    </extension>
+  </extensions>
+
+  <!-- Only treat src/main/resources as resources -->
+  <resources>
+    <resource>
+      <directory>src/main/resources</directory>
+    </resource>
+  </resources>
+</build>
 
 </project>
