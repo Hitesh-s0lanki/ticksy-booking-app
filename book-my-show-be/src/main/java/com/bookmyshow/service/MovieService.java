@@ -34,22 +34,13 @@ public class MovieService implements MovieServiceInter {
                     .collect(Collectors.toList());
 
             MovieProto.AllMoviesResponse response = MovieProto.AllMoviesResponse.newBuilder()
-                    .setMessage("Movies fetched successfully")
-                    .setStatus(200)
                     .addAllMovies(movieProtos)
                     .build();
 
             return ResponseEntity.ok(response);
         } catch (Exception e) {
             log.error("Failed to fetch all movies. Error: {}", e.getMessage());
-
-            MovieProto.AllMoviesResponse response = MovieProto.AllMoviesResponse.newBuilder()
-                    .setMessage("Failed to fetch all movies " + e.getMessage())
-                    .setStatus(500)
-                    .addAllMovies(Collections.emptyList())
-                    .build();
-
-            return ResponseEntity.status(500).body(response);
+            return ResponseEntity.status(500).body("[ERROR]: " + e.getMessage());
         }
     }
 
@@ -177,4 +168,3 @@ public class MovieService implements MovieServiceInter {
         return entity;
     }
 }
-
