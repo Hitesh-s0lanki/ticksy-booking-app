@@ -145,11 +145,9 @@
           com.google.protobuf:protoc:${protobuf.version}:exe:${os.detected.classifier}
         </protocArtifact>
         <protoSourceRoot>${project.basedir}/src/main/proto</protoSourceRoot>
-        <outputDirectory>${project.build.directory}/generated-sources/protobuf/java</outputDirectory>
-        <!-- IMPORTANT: add generated sources to the compile path -->
-        <addCompileSourceRoot>true</addCompileSourceRoot>
-        <addTestCompileSourceRoot>true</addTestCompileSourceRoot>
-      </configuration>
+		<outputDirectory>${project.build.directory}/generated-sources/protobuf/java</outputDirectory>
+		<!-- IMPORTANT: add generated sources to the compile path -->
+	  </configuration>
     </plugin>
   </plugins>
 

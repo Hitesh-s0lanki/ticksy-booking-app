@@ -28,3 +28,5 @@ docker exec -i ticksy-booking-app-postgres-1 \
 docker exec -i ticksy-booking-app-postgres-1 \
  psql -U postgres -d mydb \
  -c "DROP TABLE showtimes;"
+
+chmod +x ./src/resources/tools/\*.sh
