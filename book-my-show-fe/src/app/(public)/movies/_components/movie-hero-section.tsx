@@ -1,22 +1,25 @@
 import { Button } from "@/components/ui/button";
-import { movie } from "@/lib/data";
-import { Badge, Clock, Heart, Play, Share2, Star, Upload } from "lucide-react";
+import { Movie } from "@/types/movie.type";
+import { Clock, Heart, Play, Share2, Star, Upload } from "lucide-react";
 import Image from "next/image";
 
-type Props = {};
+type Props = {
+  movie: Movie;
+};
 
-const MovieHeroSection = ({}: Props) => {
+const MovieHeroSection = ({ movie }: Props) => {
   return (
     <div className="relative  text-white rounded-md">
       {/* BACKGROUND IMAGE */}
       <div className="absolute inset-0 -z-10">
         <Image
-          src={movie.image}
+          src={movie.imageKey}
           alt={`${movie.title} backdrop`}
           fill
           className="object-cover"
           quality={50} // drop quality a bit for perf
           style={{ filter: "brightness(0.3)" }} // darken for contrast
+          unoptimized
         />
       </div>
       <div className="container mx-auto px-4 py-8">
@@ -24,12 +27,13 @@ const MovieHeroSection = ({}: Props) => {
           {/* Movie Poster */}
           <div className="flex-shrink-0">
             <Image
-              src={movie.image}
+              src={movie.imageKey}
               alt={movie.title}
               width={256} // ← match w-64 (64 * 4 = 256px)
               height={384} // ← match h-96 (96 * 4 = 384px)
               className="object-cover rounded-lg shadow-2xl mx-auto lg:mx-0"
               quality={100} // optional: bump quality if you still see artifacts
+              unoptimized
             />
           </div>
 
@@ -43,17 +47,21 @@ const MovieHeroSection = ({}: Props) => {
               </div>
               <div className="flex items-center">
                 <Clock className="w-4 h-4 mr-1" />
-                <span className="text-sm">{movie.duration}</span>
+                <span className="text-sm">{movie.durationMins}</span>
               </div>
               <div className="flex items-center">
                 <Upload className="w-4 h-4 mr-1" />
                 <p className="text-sm">
-                  {new Date(movie.releaseDate).toLocaleDateString()}
+                  {new Date(movie.releaseDate).toLocaleDateString("en-GB", {
+                    day: "2-digit",
+                    month: "2-digit",
+                    year: "numeric",
+                  })}
                 </p>
               </div>
             </div>
 
-            <p className="text-sm mb-6 leading-relaxed">{movie.synopsis}</p>
+            <p className="text-sm mb-6 leading-relaxed">{movie.description}</p>
 
             {/* <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
 
