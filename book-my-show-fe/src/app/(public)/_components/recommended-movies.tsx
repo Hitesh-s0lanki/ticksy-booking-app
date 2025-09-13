@@ -49,7 +49,7 @@ const RecommendedMovies = () => {
                       {movie.description}
                     </p>
                     <Link
-                      href={`/movie/${movie.movieId}`}
+                      href={`/movies/${movie.movieId}`}
                       className="px-4 py-2 bg-primary/70 text-white text-sm font-medium rounded-lg shadow hover:bg-primary/10"
                     >
                       View Details
