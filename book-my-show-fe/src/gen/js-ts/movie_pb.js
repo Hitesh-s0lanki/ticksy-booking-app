@@ -6,28 +6,6 @@
 import { proto3 } from "@bufbuild/protobuf";
 
 /**
- * @generated from message MovieSuccessResponse
- */
-export const MovieSuccessResponse = /*@__PURE__*/ proto3.makeMessageType(
-  "MovieSuccessResponse",
-  () => [
-    { no: 1, name: "message", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "status", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
-    { no: 3, name: "movieId", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-  ],
-);
-
-/**
- * @generated from message AllMoviesResponse
- */
-export const AllMoviesResponse = /*@__PURE__*/ proto3.makeMessageType(
-  "AllMoviesResponse",
-  () => [
-    { no: 3, name: "movies", kind: "message", T: Movie, repeated: true },
-  ],
-);
-
-/**
  * @generated from message Movie
  */
 export const Movie = /*@__PURE__*/ proto3.makeMessageType(

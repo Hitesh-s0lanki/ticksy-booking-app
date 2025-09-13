@@ -7,64 +7,6 @@ import type { BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialM
 import { Message, proto3 } from "@bufbuild/protobuf";
 
 /**
- * @generated from message MovieSuccessResponse
- */
-export declare class MovieSuccessResponse extends Message<MovieSuccessResponse> {
-  /**
-   * @generated from field: string message = 1;
-   */
-  message: string;
-
-  /**
-   * @generated from field: int32 status = 2;
-   */
-  status: number;
-
-  /**
-   * @generated from field: string movieId = 3;
-   */
-  movieId: string;
-
-  constructor(data?: PartialMessage<MovieSuccessResponse>);
-
-  static readonly runtime: typeof proto3;
-  static readonly typeName = "MovieSuccessResponse";
-  static readonly fields: FieldList;
-
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): MovieSuccessResponse;
-
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): MovieSuccessResponse;
-
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): MovieSuccessResponse;
-
-  static equals(a: MovieSuccessResponse | PlainMessage<MovieSuccessResponse> | undefined, b: MovieSuccessResponse | PlainMessage<MovieSuccessResponse> | undefined): boolean;
-}
-
-/**
- * @generated from message AllMoviesResponse
- */
-export declare class AllMoviesResponse extends Message<AllMoviesResponse> {
-  /**
-   * @generated from field: repeated Movie movies = 3;
-   */
-  movies: Movie[];
-
-  constructor(data?: PartialMessage<AllMoviesResponse>);
-
-  static readonly runtime: typeof proto3;
-  static readonly typeName = "AllMoviesResponse";
-  static readonly fields: FieldList;
-
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): AllMoviesResponse;
-
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): AllMoviesResponse;
-
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): AllMoviesResponse;
-
-  static equals(a: AllMoviesResponse | PlainMessage<AllMoviesResponse> | undefined, b: AllMoviesResponse | PlainMessage<AllMoviesResponse> | undefined): boolean;
-}
-
-/**
  * @generated from message Movie
  */
 export declare class Movie extends Message<Movie> {

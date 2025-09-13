@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+option java_package = "com.bookmyshow.proto";
+option java_outer_classname = "UtilsProto";
+
+message SuccessResponse {
+  string message = 1;
+  int32 status = 2;
+}

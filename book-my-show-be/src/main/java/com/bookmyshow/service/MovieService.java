@@ -3,6 +3,7 @@ package com.bookmyshow.service;
 import com.bookmyshow.interfaces.MovieServiceInter;
 import com.bookmyshow.models.Movie;
 import com.bookmyshow.proto.MovieProto;
+import com.bookmyshow.proto.UtilsProto;
 import com.bookmyshow.repository.MovieRepository;
 
 import java.time.LocalDate;
@@ -25,15 +26,18 @@ public class MovieService implements MovieServiceInter {
     private MovieRepository movieRepository;
 
     @Override
-    public ResponseEntity<?> getAllMovies() {
+    public ResponseEntity<?> getAllMovies(
+            String title,
+            String genre) {
         try {
-            List<Movie> movies = movieRepository.findAll();
+            // Get the movies from the repository
+            List<Movie> movies = movieRepository.findByOptionalTitleAndGenre(title, genre);
 
             List<MovieProto.Movie> movieProtos = movies.stream()
                     .map(this::toProto)
                     .collect(Collectors.toList());
 
-            MovieProto.AllMoviesResponse response = MovieProto.AllMoviesResponse.newBuilder()
+            MovieProto.MoviesList response = MovieProto.MoviesList.newBuilder()
                     .addAllMovies(movieProtos)
                     .build();
 
@@ -116,10 +120,9 @@ public class MovieService implements MovieServiceInter {
 
             movieRepository.deleteById(uuid);
 
-            MovieProto.MovieSuccessResponse response = MovieProto.MovieSuccessResponse.newBuilder()
+            UtilsProto.SuccessResponse response = UtilsProto.SuccessResponse.newBuilder()
                     .setMessage("Movie deleted successfully")
                     .setStatus(200)
-                    .setMovieId(movieId)
                     .build();
 
             return ResponseEntity.ok(response);

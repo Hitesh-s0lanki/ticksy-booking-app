@@ -1,6 +1,5 @@
 package com.bookmyshow.controller;
 
-import com.bookmyshow.models.Showtime;
 import com.bookmyshow.proto.ShowtimeProto;
 import com.bookmyshow.service.ShowtimeService;
 import org.springframework.beans.factory.annotation.Autowired;

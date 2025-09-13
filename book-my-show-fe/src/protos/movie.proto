@@ -3,16 +3,6 @@ syntax = "proto3";
 option java_package = "com.bookmyshow.proto";
 option java_outer_classname = "MovieProto";
 
-message MovieSuccessResponse {
-  string message = 1;
-  int32 status = 2;
-  string movieId = 3;
-}
-
-message AllMoviesResponse {
-  repeated Movie movies = 3;
-}
-
 message Movie {
   string movieId = 1;
   string title = 2;

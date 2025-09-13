@@ -6,7 +6,9 @@ import com.bookmyshow.proto.MovieProto;
 
 public interface MovieServiceInter {
 
-    public ResponseEntity<?> getAllMovies();
+    public ResponseEntity<?> getAllMovies(
+            String title,
+            String genre);
 
     public ResponseEntity<?> getMovieById(String movieId);
 

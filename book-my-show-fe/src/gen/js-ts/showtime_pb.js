@@ -6,28 +6,6 @@
 import { proto3 } from "@bufbuild/protobuf";
 
 /**
- * @generated from message ShowtimeSuccessResponse
- */
-export const ShowtimeSuccessResponse = /*@__PURE__*/ proto3.makeMessageType(
-  "ShowtimeSuccessResponse",
-  () => [
-    { no: 1, name: "message", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "status", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
-    { no: 3, name: "showtimeId", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-  ],
-);
-
-/**
- * @generated from message AllShowtimesResponse
- */
-export const AllShowtimesResponse = /*@__PURE__*/ proto3.makeMessageType(
-  "AllShowtimesResponse",
-  () => [
-    { no: 3, name: "showtimes", kind: "message", T: Showtime, repeated: true },
-  ],
-);
-
-/**
  * @generated from message Showtime
  */
 export const Showtime = /*@__PURE__*/ proto3.makeMessageType(

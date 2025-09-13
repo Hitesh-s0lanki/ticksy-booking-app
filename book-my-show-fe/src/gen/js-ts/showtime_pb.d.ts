@@ -7,64 +7,6 @@ import type { BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialM
 import { Message, proto3 } from "@bufbuild/protobuf";
 
 /**
- * @generated from message ShowtimeSuccessResponse
- */
-export declare class ShowtimeSuccessResponse extends Message<ShowtimeSuccessResponse> {
-  /**
-   * @generated from field: string message = 1;
-   */
-  message: string;
-
-  /**
-   * @generated from field: int32 status = 2;
-   */
-  status: number;
-
-  /**
-   * @generated from field: string showtimeId = 3;
-   */
-  showtimeId: string;
-
-  constructor(data?: PartialMessage<ShowtimeSuccessResponse>);
-
-  static readonly runtime: typeof proto3;
-  static readonly typeName = "ShowtimeSuccessResponse";
-  static readonly fields: FieldList;
-
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ShowtimeSuccessResponse;
-
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ShowtimeSuccessResponse;
-
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ShowtimeSuccessResponse;
-
-  static equals(a: ShowtimeSuccessResponse | PlainMessage<ShowtimeSuccessResponse> | undefined, b: ShowtimeSuccessResponse | PlainMessage<ShowtimeSuccessResponse> | undefined): boolean;
-}
-
-/**
- * @generated from message AllShowtimesResponse
- */
-export declare class AllShowtimesResponse extends Message<AllShowtimesResponse> {
-  /**
-   * @generated from field: repeated Showtime showtimes = 3;
-   */
-  showtimes: Showtime[];
-
-  constructor(data?: PartialMessage<AllShowtimesResponse>);
-
-  static readonly runtime: typeof proto3;
-  static readonly typeName = "AllShowtimesResponse";
-  static readonly fields: FieldList;
-
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): AllShowtimesResponse;
-
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): AllShowtimesResponse;
-
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): AllShowtimesResponse;
-
-  static equals(a: AllShowtimesResponse | PlainMessage<AllShowtimesResponse> | undefined, b: AllShowtimesResponse | PlainMessage<AllShowtimesResponse> | undefined): boolean;
-}
-
-/**
  * @generated from message Showtime
  */
 export declare class Showtime extends Message<Showtime> {

@@ -23,6 +23,7 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 import com.bookmyshow.proto.ShowtimeProto;
+import com.bookmyshow.proto.UtilsProto;
 
 @Service
 @Slf4j
@@ -57,7 +58,7 @@ public class ShowtimeService implements ShowtimeServiceInter {
                             .build())
                     .collect(Collectors.toList());
 
-            ShowtimeProto.AllShowtimesResponse response = ShowtimeProto.AllShowtimesResponse.newBuilder()
+            ShowtimeProto.ShowtimeList response = ShowtimeProto.ShowtimeList.newBuilder()
                     .addAllShowtimes(showtimeProtos)
                     .build();
 
@@ -263,13 +264,10 @@ public class ShowtimeService implements ShowtimeServiceInter {
 
             showtimeRepository.save(uShowtime);
 
-            ShowtimeProto.ShowtimeSuccessResponse response = ShowtimeProto.ShowtimeSuccessResponse.newBuilder()
+            UtilsProto.SuccessResponse response = UtilsProto.SuccessResponse.newBuilder()
                     .setMessage("Showtime updated successfully")
                     .setStatus(200)
-                    .setShowtimeId(showtimeId)
                     .build();
-
-            log.info("Updated showtime: {}", uShowtime);
 
             return ResponseEntity.ok(response);
 
@@ -299,10 +297,9 @@ public class ShowtimeService implements ShowtimeServiceInter {
 
             log.info("Deleted showtime with ID: {}", showtimeId);
 
-            ShowtimeProto.ShowtimeSuccessResponse response = ShowtimeProto.ShowtimeSuccessResponse.newBuilder()
+            UtilsProto.SuccessResponse response = UtilsProto.SuccessResponse.newBuilder()
                     .setMessage("Showtime deleted successfully")
                     .setStatus(200)
-                    .setShowtimeId(showtimeId)
                     .build();
 
             return ResponseEntity.ok(response);
