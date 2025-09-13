@@ -1,31 +1,61 @@
-import { Card, CardContent } from "@/components/ui/card";
+"use client";
+
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
   CarouselNext,
 } from "@/components/ui/carousel";
+import { useTRPC } from "@/trpc/client";
+import { useQuery } from "@tanstack/react-query";
+import Image from "next/image";
+import Link from "next/link";
 
-type Props = {};
+const RecommendedMovies = () => {
+  const trpc = useTRPC();
 
-const RecommendedMovies = ({}: Props) => {
+  const { data } = useQuery(trpc.movies.getMany.queryOptions({}));
+
   return (
     <div className="flex w-full flex-col gap-5 px-20 py-8">
       <h2 className="text-2xl font-[500px]">Recommended Movies</h2>
 
       <Carousel className="w-full">
         <CarouselContent className="-ml-1">
-          {Array.from({ length: 8 }).map((_, index) => (
+          {data?.map((movie) => (
             <CarouselItem
-              key={index}
+              key={movie.movieId}
               className="pl-1 md:basis-1/2 lg:basis-1/4"
             >
-              <div className="p-1">
-                <Card>
-                  <CardContent className="flex aspect-square items-center justify-center p-6">
-                    <span className="text-2xl font-semibold">{index + 1}</span>
-                  </CardContent>
-                </Card>
+              <div className="flex flex-col gap-3 rounded-2xl overflow-hidden bg-primary/10">
+                <div className="relative group">
+                  {/* Image */}
+                  <div className="relative w-full h-80 overflow-hidden">
+                    <Image
+                      src={movie.imageKey}
+                      alt={movie.title}
+                      fill
+                      className="object-cover object-center transition-transform duration-300 group-hover:scale-105"
+                      unoptimized
+                    />
+                  </div>
+
+                  {/* Hover Overlay with Button */}
+                  <div className="absolute inset-0 flex flex-col gap-3 items-center justify-center bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <h3 className="text-white text-md font-semibold text-center">
+                      {movie.title}
+                    </h3>
+                    <p className=" text-xs px-4 text-center text-white line-clamp-3">
+                      {movie.description}
+                    </p>
+                    <Link
+                      href={`/movie/${movie.movieId}`}
+                      className="px-4 py-2 bg-primary/70 text-white text-sm font-medium rounded-lg shadow hover:bg-primary/10"
+                    >
+                      View Details
+                    </Link>
+                  </div>
+                </div>
               </div>
             </CarouselItem>
           ))}

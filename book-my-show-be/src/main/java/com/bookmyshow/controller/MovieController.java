@@ -1,6 +1,7 @@
 package com.bookmyshow.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bookmyshow.proto.MovieProto;
@@ -23,8 +24,10 @@ public class MovieController {
     private MovieService movieService;
 
     @GetMapping(produces = "application/x-protobuf")
-    public ResponseEntity<?> getAllMovies() {
-        return movieService.getAllMovies();
+    public ResponseEntity<?> getAllMovies(
+            @RequestParam(required = false, defaultValue = "") String title,
+            @RequestParam(required = false, defaultValue = "") String genre) {
+        return movieService.getAllMovies(title, genre);
     }
 
     @GetMapping(value = "{id}", produces = "application/x-protobuf")

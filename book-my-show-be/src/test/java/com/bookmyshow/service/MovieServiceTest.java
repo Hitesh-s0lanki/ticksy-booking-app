@@ -44,7 +44,7 @@ class MovieServiceTest {
         ResponseEntity<?> response = movieService.getAllMovies();
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
-        MovieProto.AllMoviesResponse body = (MovieProto.AllMoviesResponse) response.getBody();
+        MovieProto.MoviesList body = (MovieProto.MoviesList) response.getBody();
         assertEquals(1, body.getMoviesCount());
         assertEquals("Movie 1", body.getMovies(0).getTitle());
         verify(movieRepository).findAll();
@@ -133,4 +133,3 @@ class MovieServiceTest {
         verify(movieRepository).deleteById(id);
     }
 }
-
