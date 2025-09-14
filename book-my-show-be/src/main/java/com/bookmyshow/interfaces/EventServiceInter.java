@@ -2,18 +2,17 @@ package com.bookmyshow.interfaces;
 
 import org.springframework.http.ResponseEntity;
 
-import com.bookmyshow.dto.EventInput;
-import com.bookmyshow.models.Event;
+import com.bookmyshow.proto.EventProto;
 
 public interface EventServiceInter {
 
-    public ResponseEntity<?> getAllEvents();
+    public ResponseEntity<?> getAllEvents(String title, String eventType, String categoryType);
 
     public ResponseEntity<?> getEventById(String eventId);
 
-    public ResponseEntity<?> createEvent(EventInput event);
+    public ResponseEntity<?> createEvent(EventProto.EventInput event);
 
-    public ResponseEntity<?> updateEvent(String eventId, Event event);
+    public ResponseEntity<?> updateEvent(String eventId, EventProto.Event event);
 
     public ResponseEntity<?> deleteEvent(String eventId);
 }
