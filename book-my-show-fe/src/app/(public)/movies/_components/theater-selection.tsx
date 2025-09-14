@@ -43,7 +43,7 @@ const TheaterSelection = ({ movieId, date }: Props) => {
                 {showtime.showtimes.map((show) => (
                   <Link
                     key={show.showtimeId}
-                    href={`/booking/${movie.id}?theater=${showtime.venueId}&time=${show.startAt}&date=12`}
+                    href={`/bookings/${show.showtimeId}`}
                   >
                     <Button
                       variant="outline"

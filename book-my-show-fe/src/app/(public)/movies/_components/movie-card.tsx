@@ -2,7 +2,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Movie } from "@/types/movie.type";
-import { Clock, Star } from "lucide-react";
+import { Clock, Star, Upload, Volume2 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -33,7 +33,7 @@ const MovieCard = ({ movie }: Props) => {
               <span className="text-xs font-medium">{movie.rating}</span>
             </div>
           </div>
-          <div className="px-5 pt-4 pb-8 flex-1 flex justify-between flex-col h-full ">
+          <div className="px-5 pt-4 pb-6 flex-1 flex justify-between flex-col h-full ">
             <h3 className="font-semibold text-md mb-2 line-clamp-2">
               {movie.title}
             </h3>
@@ -46,14 +46,28 @@ const MovieCard = ({ movie }: Props) => {
                   </Badge>
                 ))}
               </div>
-              <div className="flex gap-1 px-2">
+              <div className="flex gap-4 px-2">
                 <div className="flex items-center">
                   <Clock className="w-3 h-3 mr-1" />
                   <span className="text-xs">{movie.durationMins}</span>
                 </div>
+                <div className="flex items-center">
+                  <Upload className="w-3 h-3 mr-1" />
+                  <p className="text-sm">
+                    {new Date(movie.releaseDate).toLocaleDateString("en-GB", {
+                      day: "2-digit",
+                      month: "2-digit",
+                      year: "numeric",
+                    })}
+                  </p>
+                </div>
+              </div>
+              <div className="flex gap-1 pt-1 px-2 items-center">
+                <Volume2 className="w-3 h-3 mr-1" />
+                {movie.languages.join(", ")}
               </div>
             </div>
-            <Button className="w-full ">Book Now</Button>
+            <Button className="w-full">Book Now</Button>
           </div>
         </CardContent>
       </Link>
