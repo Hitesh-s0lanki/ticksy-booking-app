@@ -1,16 +1,55 @@
 "use client";
 
-import { useState } from "react";
+import { Input } from "@/components/ui/input";
+import { Search } from "lucide-react";
+import { useEffect, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 
-type Props = {};
+const categories = ["all", "Concert", "Comedy", "Art", "Theater", "Workshop"] as const;
+type Category = (typeof categories)[number];
 
-const categories = ["all", "Concert", "Comedy", "Art", "Theater", "Workshop"];
+const EventHeader = () => {
+  const router = useRouter();
+  const searchParams = useSearchParams();
 
-const EventHeader = ({}: Props) => {
-  const [selectedCategory, setSelectedCategory] = useState("all");
+  const [searchTerm, setSearchTerm] = useState<string>(
+    searchParams.get("title") ?? ""
+  );
+  const [categoryFilter, setCategoryFilter] = useState<Category>(
+    (searchParams.get("categoryType") as Category) ?? "all"
+  );
 
-  const handleCategoryFilter = (category: string) => {
-    setSelectedCategory(category);
+  useEffect(() => {
+    setSearchTerm(searchParams.get("title") ?? "");
+    setCategoryFilter(
+      (searchParams.get("categoryType") as Category) ?? "all"
+    );
+  }, [searchParams]);
+
+  const handleCategoryFilter = (category: Category) => {
+    setCategoryFilter(category);
+
+    const params = new URLSearchParams(searchParams.toString());
+    if (category && category !== "all") {
+      params.set("categoryType", category);
+    } else {
+      params.delete("categoryType");
+    }
+
+    router.push(`?${params.toString()}`, { scroll: false });
+  };
+
+  const handleSearchChange = (value: string) => {
+    setSearchTerm(value);
+
+    const params = new URLSearchParams(searchParams.toString());
+    if (value) {
+      params.set("title", value);
+    } else {
+      params.delete("title");
+    }
+
+    router.push(`?${params.toString()}`, { scroll: false });
   };
 
   return (
@@ -26,7 +65,7 @@ const EventHeader = ({}: Props) => {
                 key={category}
                 onClick={() => handleCategoryFilter(category)}
                 className={`px-4 py-1 rounded-2xl text-sm transition-colors ${
-                  selectedCategory === category
+                  categoryFilter === category
                     ? "bg-primary text-white"
                     : "bg-gray-200 text-gray-700 hover:bg-gray-300"
                 }`}
@@ -34,6 +73,17 @@ const EventHeader = ({}: Props) => {
                 {category === "all" ? "All" : category}
               </button>
             ))}
+          </div>
+
+          <div className="relative w-[400px]">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
+            <Input
+              type="text"
+              placeholder="Search events..."
+              value={searchTerm}
+              onChange={(e) => handleSearchChange(e.target.value)}
+              className="pl-10"
+            />
           </div>
         </div>
       </div>
