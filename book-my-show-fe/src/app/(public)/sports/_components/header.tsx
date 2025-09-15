@@ -5,14 +5,7 @@ import { Search } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 
-const categories = [
-  "all",
-  "ART",
-  "TECHNOLOGY",
-  "DANCE",
-  "SEMINAR",
-  "WORKSHOP",
-] as const;
+const categories = ["all"] as const;
 type Category = (typeof categories)[number];
 
 const EventHeader = () => {
@@ -60,7 +53,7 @@ const EventHeader = () => {
   return (
     <div className="bg-white">
       <div className="container mx-auto px-4 py-6">
-        <h1 className="text-3xl font-bold text-gray-800 mb-4">Events</h1>
+        <h1 className="text-3xl font-bold text-gray-800 mb-4">Sports</h1>
 
         {/* Search and Filters */}
         <div className="flex gap-4 justify-between py-2">
@@ -84,7 +77,7 @@ const EventHeader = () => {
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
             <Input
               type="text"
-              placeholder="Search events..."
+              placeholder="Search sports..."
               value={searchTerm}
               onChange={(e) => handleSearchChange(e.target.value)}
               className="pl-10"

@@ -12,6 +12,7 @@ const HomePage = () => {
       <RecommendedMovies />
       <RecommendedEvents />
       <RecommendedSports />
+      <div className="h-20 w-full" />
     </div>
   );
 };

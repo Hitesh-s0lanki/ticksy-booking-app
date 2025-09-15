@@ -17,7 +17,7 @@ const EventsPage = async ({ searchParams }: Props) => {
 
   const queryClient = getQueryClient();
   void queryClient.prefetchQuery(
-    trpc.events.getMany.queryOptions({
+    trpc.events.getManyEvents.queryOptions({
       ...filters,
     })
   );

@@ -11,7 +11,7 @@ const EventsList = () => {
   const [filters] = useEventsFilters();
 
   const { data } = useSuspenseQuery(
-    trpc.events.getManyEvents.queryOptions({
+    trpc.events.getManySports.queryOptions({
       ...filters,
     })
   );
