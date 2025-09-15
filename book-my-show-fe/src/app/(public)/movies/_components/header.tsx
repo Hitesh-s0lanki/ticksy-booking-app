@@ -60,7 +60,7 @@ const Header = () => {
   };
 
   return (
-    <div className="bg-white">
+    <div className="">
       <div className="container mx-auto px-4 py-6">
         <h1 className="text-3xl font-bold text-gray-800 mb-4">Movies</h1>
 

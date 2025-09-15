@@ -14,3 +14,22 @@ export interface Booking {
   bookingId: string; // e.g. "BMS001234"
   image: string; // URL to poster/cover image
 }
+
+export type Section = "incliner" | "gold" | "silver";
+
+export type MovieInfo = {
+  posterUrl: string;
+  title: string;
+  description?: string;
+  rating?: string; // e.g., "U/A 13+"
+  durationMinutes?: number; // e.g., 136
+  releaseDate?: string; // ISO string or human-readable
+};
+
+export type ProceedPayload = {
+  showtimeId: string;
+  seats: string[];
+  amountWithoutGST: number;
+  gst: number;
+  totalAmount: number;
+};

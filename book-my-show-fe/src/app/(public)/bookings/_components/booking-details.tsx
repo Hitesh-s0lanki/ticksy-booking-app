@@ -1,8 +1,47 @@
 "use client";
 
-type Props = {};
+import React, { useEffect, useMemo, useState, useCallback } from "react";
+import type { MovieInfo, Section, ProceedPayload } from "@/types/booking.types";
+import { Invoice } from "./invoice";
+import { MovieDetails } from "./movie-details";
+import { SeatMap } from "./seat-map";
+import { Separator } from "@/components/ui/separator";
 
-const BookingDetails = ({}: Props) => {
+const SECTION_PRICES: Record<Section, number> = {
+  incliner: 1000,
+  gold: 600,
+  silver: 400,
+};
+
+const rowToSection = (row: string): Section => {
+  const backRows = ["G", "H", "I", "J", "K", "L"];
+  const middleRows = ["E", "F", "C", "D"];
+  const frontRows = ["A", "B"];
+  if (backRows.includes(row)) return "incliner";
+  if (middleRows.includes(row)) return "gold";
+  return "silver";
+};
+
+const defaultMovie: MovieInfo = {
+  posterUrl:
+    "https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?q=80&w=1200&auto=format&fit=crop",
+  title: "The Grand Premiere",
+  description:
+    "An edge-of-the-seat thriller set across time. Experience stunning visuals and a heart-pounding score.",
+  rating: "U/A 13+",
+  durationMinutes: 132,
+  releaseDate: "2025-09-10",
+};
+
+type BookingContainerProps = {
+  showtimeId: string; // parent or page passes this down
+  movie?: MovieInfo;
+};
+
+const BookingDetails: React.FC<BookingContainerProps> = ({
+  showtimeId,
+  movie = defaultMovie,
+}) => {
   const groupRows = [
     ["A", "B"],
     ["C", "D"],
@@ -11,64 +50,114 @@ const BookingDetails = ({}: Props) => {
     ["J", "K", "L"],
   ];
 
-  const fetchshow = async () => {};
+  const [selectedSeats, setSelectedSeats] = useState<Set<string>>(new Set());
+  const [occupiedSeats, setOccupiedSeats] = useState<Set<string>>(new Set()); // from server
+  const [bookedSeats, setBookedSeats] = useState<Set<string>>(new Set()); // after pay
+  const [loadingOccupied, setLoadingOccupied] = useState(false);
 
-  const getoccupiedSeats = async () => {};
+  // Load initially occupied seats (server)
+  useEffect(() => {
+    const load = async () => {
+      setLoadingOccupied(true);
+      // TODO: fetch from API using showtimeId
+      await new Promise((r) => setTimeout(r, 300));
+      setOccupiedSeats(new Set(["A3", "A4", "E7", "G1", "J9"]));
+      setLoadingOccupied(false);
+    };
+    load();
+  }, [showtimeId]);
 
-  const createBooking = async () => {};
-
-  const handleSeatClick = (seatId: string) => {};
-
-  const renderSeats = (row: string, count = 9) => {
-    return (
-      <div key={row} className="w-full flex justify-center mb-3">
-        <div className="grid grid-cols-9 gap-1 sm:gap-2 md:gap-3">
-          {Array.from({ length: count }, (_, i) => {
-            const seatId = `${row}${i + 1}`;
-            const isSelected = false;
-            return (
-              <button
-                key={seatId}
-                onClick={() => handleSeatClick(seatId)}
-                className={`aspect-square rounded border border-primary/60 text-xs transition ${"bg-primary text-white"} 
-              w-8  @max-xs:w-6 ${"opacity-30"}`}
-                title={seatId}
-              >
-                {seatId}
-              </button>
-            );
-          })}
-        </div>
-      </div>
-    );
+  const onToggleSeat = (seatId: string) => {
+    if (bookedSeats.has(seatId) || occupiedSeats.has(seatId)) return;
+    setSelectedSeats((prev) => {
+      const next = new Set(prev);
+      next.has(seatId) ? next.delete(seatId) : next.add(seatId);
+      return next;
+    });
   };
 
-  return (
-    <div className="flex flex-col xl:flex-row px-6 md:px-16 lg:px-24 py-12 mt-30 md:pt-10 max-sm:mt-10">
-      <div className="relative flex flex-1 flex-col items-center max-md:mt-15">
-        {/* <BlurCircle bottom='-40px' right='0' /> */}
-        <h1 className="text-3xl font-semibold mb-7">Select your seat</h1>
-        {/* <img src={assets.screenImage} alt="Scrren" /> */}
-        <p className="text-sm font-medium">SCREEN SIDE</p>
-        <div className="flex flex-col items-center mt-10 w-full text-white font-medium text-xs">
-          <div className="w-full">
-            {groupRows[0].map((row) => renderSeats(row))}
-          </div>
+  const selectedBySection = useMemo(() => {
+    const map: Record<Section, string[]> = {
+      incliner: [],
+      gold: [],
+      silver: [],
+    };
+    selectedSeats.forEach((s) => {
+      const row = s.match(/^[A-Z]+/)?.[0] ?? "";
+      map[rowToSection(row)].push(s);
+    });
+    return map;
+  }, [selectedSeats]);
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 mt-6 w-full">
-            {groupRows.slice(1).map((group, index) => (
-              <div key={index} className="flex flex-col items-center w-full">
-                {group.map((row) => renderSeats(row))}
-              </div>
-            ))}
+  const subtotal = useMemo(() => {
+    let total = 0;
+    selectedSeats.forEach((s) => {
+      const row = s.match(/^[A-Z]+/)?.[0] ?? "";
+      total += SECTION_PRICES[rowToSection(row)];
+    });
+    return total;
+  }, [selectedSeats]);
+
+  // Adjust GST% as needed
+  const gst = Math.round(subtotal * 0.18);
+  const total = subtotal + gst;
+
+  const handleProceedToPay = useCallback(async () => {
+    const payload: ProceedPayload = {
+      showtimeId,
+      seats: Array.from(selectedSeats),
+      amountWithoutGST: subtotal,
+      gst,
+      totalAmount: total,
+    };
+
+    // TODO: call your backend:
+    // await api.checkout(payload)
+
+    // Simulate success: mark them as booked locally
+    setBookedSeats((prev) => new Set([...prev, ...payload.seats]));
+    setSelectedSeats(new Set());
+
+    // For demo:
+    // eslint-disable-next-line no-console
+    console.log("Checkout payload:", payload);
+  }, [showtimeId, selectedSeats, subtotal, gst, total]);
+
+  return (
+    <div className="flex flex-col xl:flex-row px-6 md:px-16 lg:px-24 py-8 md:pt-10 gap-10 items-center">
+      {/* Seat map */}
+      <SeatMap
+        groupRows={groupRows}
+        selectedSeats={selectedSeats}
+        occupiedSeats={occupiedSeats}
+        bookedSeats={bookedSeats}
+        onToggleSeat={onToggleSeat}
+        rowToSection={rowToSection}
+        SECTION_PRICES={SECTION_PRICES}
+      />
+
+      {/* Right column */}
+      <div className="w-full xl:w-80 2xl:w-96 space-y-6">
+        <div className="relative w-full xl:w-80 2xl:w-96 bg-background border border-primary/20 rounded-xl p-5 h-max shadow-sm">
+          <Invoice
+            selectedBySection={selectedBySection}
+            SECTION_PRICES={SECTION_PRICES}
+            subtotal={subtotal}
+            gst={gst}
+            total={total}
+            disabled={selectedSeats.size === 0}
+            onProceed={handleProceedToPay}
+          />
+          <div className="py-5">
+            <Separator />
           </div>
+          <MovieDetails movie={movie} />
+          {loadingOccupied && (
+            <div className="text-xs text-muted-foreground">
+              Syncing booked seats…
+            </div>
+          )}
         </div>
-        <div className="flex justify-center mt-10 max-md:mt-0"></div>
-      </div>
-      <div className="relative w-60 bg-primary/10 border border-primary/20 rounded-lg py-10 h-max min-xl:sticky xl:top-30 max-xl:mt-0">
-        {/* <BlurCircle top='-100px' left='0px' /> */}
-        <p className="text-lg font-semibold px-6">Available Timings</p>
-        <div className="mt-4 space-y-1"></div>
       </div>
     </div>
   );

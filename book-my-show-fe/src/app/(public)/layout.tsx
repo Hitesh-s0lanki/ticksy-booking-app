@@ -8,7 +8,7 @@ type Props = {
 
 const PublicLayout = ({ children }: Props) => {
   return (
-    <div className=" w-full">
+    <div className=" w-full bg-primary/5">
       <Navbar />
       <ModelProviders />
       {children}
