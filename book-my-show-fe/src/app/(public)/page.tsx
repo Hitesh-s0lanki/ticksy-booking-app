@@ -1,14 +1,14 @@
 import HeroCarousel from "./_components/hero-carosoul";
+import PromptInput from "./_components/prompt-input";
 import RecommendedEvents from "./_components/recommended-events";
 import RecommendedMovies from "./_components/recommended-movies";
 import RecommendedSports from "./_components/recommended-sports";
-import SearchBar from "./_components/search-bar";
 
 const HomePage = () => {
   return (
     <div>
       <HeroCarousel />
-      <SearchBar />
+      <PromptInput />
       <RecommendedMovies />
       <RecommendedEvents />
       <RecommendedSports />

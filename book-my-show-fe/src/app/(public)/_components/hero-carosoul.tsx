@@ -4,8 +4,6 @@ import {
   Carousel,
   CarouselContent,
   CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
 } from "@/components/ui/carousel";
 import Image from "next/image";
 import { useRef } from "react";
@@ -16,6 +14,7 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { ChevronRight, Clock, Play, Star, Upload } from "lucide-react";
 import { useWatchTrailerModel } from "@/modules/movies/hooks/use-watch-trailer-model";
+import Link from "next/link";
 
 const HeroCarousel = () => {
   const trpc = useTRPC();
@@ -184,9 +183,18 @@ const HeroCarousel = () => {
                           variant="outline"
                           size="lg"
                           className="text-black hover:bg-transparent hover:text-white"
+                          asChild
                         >
-                          Book Now
-                          <ChevronRight className="w-5 h-5 ml-1" />
+                          <Link
+                            href={
+                              item.rating
+                                ? `/movies/${item.id}`
+                                : `/events/${item.id}`
+                            }
+                          >
+                            Book Now
+                            <ChevronRight className="w-5 h-5 ml-1" />
+                          </Link>
                         </Button>
                       </div>
                     </div>
@@ -196,8 +204,6 @@ const HeroCarousel = () => {
             </CarouselItem>
           ))}
         </CarouselContent>
-        <CarouselPrevious className="left-4" />
-        <CarouselNext className="right-4" />
       </Carousel>
     </section>
   );
