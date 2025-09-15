@@ -32,8 +32,8 @@ async function fetchEventsUpload() {
     await Promise.all(
       eventsData.map(async (event) => {
         const response = await axios.post(
-          "http://localhost:8080/api/events",
-          `Uploaded event: ${event.title}, Response: ${response.status}`
+          "http://localhost:8080/api/events/json",
+          event
         );
         console.log(
           `Uploaded event: ${event.name}, Response: ${response.status}`
@@ -94,10 +94,10 @@ async function fetchShowtimesUpload(showtimes) {
 }
 
 // Uncomment the function you want to run
-// fetchEventsUpload();
+fetchEventsUpload();
 
 // fetchMoviesUpload();
 
 // fetchVenuesUpload();
 
-fetchShowtimesUpload();
+// fetchShowtimesUpload();

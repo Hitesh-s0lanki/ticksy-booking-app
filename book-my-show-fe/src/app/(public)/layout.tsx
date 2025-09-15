@@ -1,3 +1,4 @@
+import ModelProviders from "@/providers/model-providers";
 import Footer from "./_components/footer";
 import Navbar from "./_components/navbar";
 
@@ -9,6 +10,7 @@ const PublicLayout = ({ children }: Props) => {
   return (
     <div className=" w-full">
       <Navbar />
+      <ModelProviders />
       {children}
       <Footer />
     </div>

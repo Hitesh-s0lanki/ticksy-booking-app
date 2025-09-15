@@ -18,7 +18,7 @@ public interface EventRepository extends JpaRepository<Event, UUID> {
     @Query("""
             SELECT e
             FROM Event e
-            WHERE (:title IS NULL OR e.title ILIKE CONCAT('%', :title, '%'))
+            WHERE (:title IS NULL OR e.title ILIKE CONCAT('%', CAST(:title AS text), '%'))
               AND (:eventType IS NULL OR e.eventType = :eventType)
               AND (:categoryType IS NULL OR e.categoryType = :categoryType)
             """)

@@ -15,6 +15,7 @@ import com.bookmyshow.enums.EventTypeEnum;
 import com.bookmyshow.interfaces.EventServiceInter;
 import com.bookmyshow.models.Event;
 import com.bookmyshow.proto.EventProto;
+import com.bookmyshow.proto.EventProto.EventInput;
 import com.bookmyshow.proto.UtilsProto;
 import com.bookmyshow.repository.EventRepository;
 
@@ -77,6 +78,43 @@ public class EventService implements EventServiceInter {
             Event entity = toEntity(event);
             Event saved = eventRepository.save(entity);
             return ResponseEntity.ok(toProto(saved));
+        } catch (Exception e) {
+            log.error("Failed to create event: {}. Error: {}", event, e.getMessage());
+            return ResponseEntity.status(500).body("Failed to create event: " + e.getMessage());
+        }
+    }
+
+    public ResponseEntity<?> createEventJson(com.bookmyshow.dto.EventInput event) {
+        try {
+
+            if (event == null
+                    || event.getTitle() == null || event.getTitle().isEmpty()
+                    || event.getDescription() == null || event.getDescription().isEmpty()) {
+                throw new Exception("Event Payload is invalid");
+            }
+
+            if (event.getCategoryType() == null) {
+                throw new Exception("Event category is required");
+            }
+
+            if (event.getEventType() == null) {
+                throw new Exception("Event type is required");
+            }
+
+            // parse event object
+            Event newEvent = new Event();
+            newEvent.setTitle(event.getTitle());
+            newEvent.setDescription(event.getDescription());
+            newEvent.setCategoryType(EventCategoryEnum.valueOf(event.getCategoryType().toUpperCase()));
+            newEvent.setOrganizerName(event.getOrganizerName());
+            newEvent.setStartDate(
+                    event.getStartDate() != null ? java.time.LocalDate.parse(event.getStartDate()) : null);
+            newEvent.setEndDate(
+                    event.getEndDate() != null ? java.time.LocalDate.parse(event.getEndDate()) : null);
+            newEvent.setBannerUrl(event.getBannerUrl());
+            newEvent.setEventType(EventTypeEnum.valueOf(event.getEventType().toUpperCase()));
+
+            return ResponseEntity.ok(eventRepository.save(newEvent));
         } catch (Exception e) {
             log.error("Failed to create event: {}. Error: {}", event, e.getMessage());
             return ResponseEntity.status(500).body("Failed to create event: " + e.getMessage());

@@ -18,7 +18,7 @@ const RecommendedMovies = () => {
 
   return (
     <div className="flex w-full flex-col gap-5 px-20 py-8">
-      <h2 className="text-2xl font-[500px]">Recommended Movies</h2>
+      <h2 className="text-2xl font-[500px]">Movies</h2>
 
       <Carousel className="w-full">
         <CarouselContent className="-ml-1">
@@ -41,18 +41,18 @@ const RecommendedMovies = () => {
                   </div>
 
                   {/* Hover Overlay with Button */}
-                  <div className="absolute inset-0 flex flex-col gap-3 items-center justify-center bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <div className="absolute inset-0 flex flex-col gap-3 items-start justify-end bg-black/40 opacity-100 transition-opacity duration-300 px-4 py-4">
                     <h3 className="text-white text-md font-semibold text-center">
                       {movie.title}
                     </h3>
-                    <p className=" text-xs px-4 text-center text-white line-clamp-3">
-                      {movie.description}
+                    <p className=" text-xs text-white line-clamp-3">
+                      {movie.description.slice(0, 80)}...
                     </p>
                     <Link
                       href={`/movies/${movie.movieId}`}
-                      className="px-4 py-2 bg-primary/70 text-white text-sm font-medium rounded-lg shadow hover:bg-primary/10"
+                      className="px-4 py-1 bg-primary/70 text-white text-xs font-medium rounded-sm shadow hover:bg-primary/10"
                     >
-                      View Details
+                      Book Now
                     </Link>
                   </div>
                 </div>

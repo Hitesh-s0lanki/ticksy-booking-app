@@ -1,13 +1,21 @@
+import { ShareButton } from "@/components/movies/share-button";
 import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
+import { useWatchTrailerModel } from "@/modules/movies/hooks/use-watch-trailer-model";
 import { Movie } from "@/types/movie.type";
 import { Clock, Heart, Play, Share2, Star, Upload } from "lucide-react";
 import Image from "next/image";
+import { useState } from "react";
 
 type Props = {
   movie: Movie;
 };
 
 const MovieHeroSection = ({ movie }: Props) => {
+  const { onOpen } = useWatchTrailerModel();
+
+  const [wishlisted, setWishlisted] = useState(false);
+
   return (
     <div className="relative  text-white rounded-md">
       {/* BACKGROUND IMAGE */}
@@ -63,42 +71,29 @@ const MovieHeroSection = ({ movie }: Props) => {
 
             <p className="text-sm mb-6 leading-relaxed">{movie.description}</p>
 
-            {/* <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-
-              <div>
-                <h3 className="font-semibold mb-2">Language</h3>
-                <p>{movie.language}</p>
-              </div>
-              <Badge className="text-lg px-3 py-1 text-white">
-                {movie.genre}
-              </Badge>
-              <div>
-                <h3 className="font-semibold mb-2">Cast</h3>
-                <p>{movie.cast.join(", ")}</p>
-              </div>
-            </div> */}
-
             <div className="flex gap-4">
-              <Button size="lg">
+              <Button size="lg" onClick={() => onOpen(movie.movieId)}>
                 <Play className="w-5 h-5 mr-2" />
                 Watch Trailer
               </Button>
               <Button
                 variant="outline"
                 size="lg"
-                className="text-black hover:bg-transparent hover:text-white"
+                className={cn("bg-transparent text-white")}
+                onClick={() => setWishlisted((v) => !v)}
+                aria-pressed={wishlisted}
+                aria-label="Toggle wishlist"
               >
-                <Heart className="w-5 h-5 mr-2" />
-                Wishlist
+                <Heart
+                  className={cn(
+                    "w-5 h-5 mr-1 transition-colors",
+                    wishlisted && "text-red-500"
+                  )}
+                  fill={wishlisted ? "currentColor" : "none"}
+                />
+                {wishlisted ? "Wishlisted" : "Wishlist"}
               </Button>
-              <Button
-                variant="outline"
-                size="lg"
-                className="text-black hover:bg-transparent hover:text-white"
-              >
-                <Share2 className="w-5 h-5 mr-2" />
-                Share
-              </Button>
+              <ShareButton />
             </div>
           </div>
         </div>
