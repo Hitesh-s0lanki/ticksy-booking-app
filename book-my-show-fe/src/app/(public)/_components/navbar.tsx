@@ -1,8 +1,10 @@
 "use client";
 
+import Spinner from "@/components/spinner";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
+import { SignInButton, useAuth, UserButton } from "@clerk/nextjs";
 import { Menu, User, MapPin } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -10,6 +12,8 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 
 const Navbar = () => {
+  const { isLoaded, isSignedIn } = useAuth();
+
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
 
@@ -50,12 +54,17 @@ const Navbar = () => {
               <MapPin className="w-4 h-4" />
               <span className="text-sm">Mumbai</span>
             </div>
-            <Link href="/login">
-              <Button size="sm">
-                <User className="w-4 h-4 mr-1" />
-                Sign In
-              </Button>
-            </Link>
+            {!isLoaded && <Spinner />}
+            {isLoaded && !isSignedIn && (
+              <SignInButton mode="modal">
+                <Button size="sm" className="text-xs cursor-pointer">
+                  <User className="w-4 h-4 mr-1" />
+                  Sign In
+                </Button>
+              </SignInButton>
+            )}
+
+            {isLoaded && isSignedIn && <UserButton />}
           </div>
 
           {/* Mobile Menu Trigger */}
@@ -82,12 +91,17 @@ const Navbar = () => {
                     <MapPin className="w-4 h-4" />
                     <span className="text-sm">Mumbai</span>
                   </div>
-                  <Link href="/login" onClick={() => setIsOpen(false)}>
-                    <Button className="w-full">
-                      <User className="w-4 h-4 mr-2" />
-                      Sign In
-                    </Button>
-                  </Link>
+                  {!isLoaded && <Spinner />}
+                  {isLoaded && !isSignedIn && (
+                    <SignInButton mode="modal">
+                      <Button className="w-full">
+                        <User className="w-4 h-4 mr-2" />
+                        Sign In
+                      </Button>
+                    </SignInButton>
+                  )}
+
+                  {isLoaded && isSignedIn && <UserButton />}
                 </div>
               </div>
             </SheetContent>

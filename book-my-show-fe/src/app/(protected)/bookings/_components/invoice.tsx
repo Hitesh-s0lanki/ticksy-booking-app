@@ -2,8 +2,7 @@
 
 import React from "react";
 import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
-import type { ProceedPayload, Section } from "@/types/booking.types";
+import type { Section } from "@/types/booking.types";
 
 type InvoiceProps = {
   selectedBySection: Record<Section, string[]>;
@@ -42,30 +41,12 @@ export const Invoice: React.FC<InvoiceProps> = ({
         {sections.map((sec) => {
           const seats = selectedBySection[sec];
           const count = seats.length;
-          const price = SECTION_PRICES[sec];
           return (
-            <div key={sec} className="flex items-start justify-between">
-              <div className="flex items-center gap-3">
-                <span
-                  className={cn(
-                    "w-6 h-6 rounded flex items-center justify-center text-[11px] font-semibold",
-                    sec === "incliner" &&
-                      "bg-gradient-to-br from-indigo-700 to-indigo-500 text-white",
-                    sec === "gold" && "bg-yellow-400 text-black",
-                    sec === "silver" && "bg-gray-300 text-black"
-                  )}
-                >
-                  {sec.charAt(0).toUpperCase()}
-                </span>
-                <div>
-                  <div className="text-sm font-medium capitalize">{sec}</div>
-                  <div className="text-xs text-muted-foreground">
-                    ₹{price} x {count || 0}
-                    {count ? ` (${seats.join(", ")})` : ""}
-                  </div>
-                </div>
+            <div key={sec} className="flex items-center justify-between">
+              <div className="text-sm font-medium capitalize">{sec}</div>
+              <div className="text-sm text-muted-foreground">
+                {seats.length ? seats.join(", ") : "-"} ({count})
               </div>
-              <div className="font-semibold">₹{count * price}</div>
             </div>
           );
         })}
@@ -88,7 +69,7 @@ export const Invoice: React.FC<InvoiceProps> = ({
 
       <Button
         className="mt-4 w-full"
-        size="lg"
+        size="sm"
         onClick={onProceed}
         disabled={disabled}
       >

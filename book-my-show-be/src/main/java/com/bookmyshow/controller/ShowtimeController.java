@@ -24,9 +24,9 @@ public class ShowtimeController {
         return showtimeService.getShowtimesByMovieId(movieId, date);
     }
 
-    @GetMapping(value = "{id}", produces = "application/x-protobuf")
-    public ResponseEntity<?> getShowtimeById(@PathVariable String id) {
-        return showtimeService.getShowtimeById(id);
+    @GetMapping(value = "{showtimeId}", produces = "application/x-protobuf")
+    public ResponseEntity<?> getShowtimeById(@PathVariable String showtimeId) {
+        return showtimeService.getShowtimeById(showtimeId);
     }
 
     @PostMapping(produces = "application/x-protobuf")

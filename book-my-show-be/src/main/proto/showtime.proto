@@ -35,6 +35,23 @@ message ShowtimeMovieResponse {
   repeated ShowtimeDetails showtimes = 5;
 }
 
+message ShowtimeDetailResponse {
+  Showtime showtime = 1;
+  string movieName = 2;
+  string movieDescription = 3;
+  string movieImageUrl = 4;
+  string moviePosterUrl = 5;
+  string movieDuration = 6;
+  string movieLanguage = 7;
+  string movieGenre = 8;
+  string venueName = 9;
+  string venueLocation = 10;
+  string venueMapUrl = 11;
+
+  string movieRating = 12;
+
+}
+
 message ShowtimeMovieResponseList {
   repeated ShowtimeMovieResponse responses = 1;
 }
