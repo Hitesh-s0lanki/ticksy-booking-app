@@ -34,7 +34,7 @@ export const moviesRouter = createTRPCRouter({
       id: input.movieId,
     });
 
-    if (statusCode !== 200) {
+    if (statusCode !== 200 || !data) {
       throw new TRPCError({
         code: "INTERNAL_SERVER_ERROR",
         message,

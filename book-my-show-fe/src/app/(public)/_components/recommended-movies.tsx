@@ -45,7 +45,7 @@ const RecommendedMovies = () => {
                     <h3 className="text-white text-md font-semibold text-center">
                       {movie.title}
                     </h3>
-                    <p className=" text-xs text-white line-clamp-3">
+                    <p className=" text-xs text-white line-clamp-3 ">
                       {movie.description.slice(0, 80)}...
                     </p>
                     <Link

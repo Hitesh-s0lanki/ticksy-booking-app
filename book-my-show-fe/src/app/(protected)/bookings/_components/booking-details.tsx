@@ -6,6 +6,10 @@ import { Invoice } from "./invoice";
 import { MovieDetails } from "./movie-details";
 import { SeatMap } from "./seat-map";
 import { Separator } from "@/components/ui/separator";
+import { useTRPC } from "@/trpc/client";
+import { useSuspenseQuery } from "@tanstack/react-query";
+import VenueCard from "./venue-card";
+import ShowtimeDetail from "./showtime-detail";
 
 const SECTION_PRICES: Record<Section, number> = {
   incliner: 1000,
@@ -14,23 +18,12 @@ const SECTION_PRICES: Record<Section, number> = {
 };
 
 const rowToSection = (row: string): Section => {
-  const backRows = ["G", "H", "I", "J", "K", "L"];
-  const middleRows = ["E", "F", "C", "D"];
-  const frontRows = ["A", "B"];
+  const backRows = ["I", "J", "K", "L"];
+  const middleRows = ["E", "F", "C", "D", "G", "H"];
+
   if (backRows.includes(row)) return "incliner";
   if (middleRows.includes(row)) return "gold";
   return "silver";
-};
-
-const defaultMovie: MovieInfo = {
-  posterUrl:
-    "https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?q=80&w=1200&auto=format&fit=crop",
-  title: "The Grand Premiere",
-  description:
-    "An edge-of-the-seat thriller set across time. Experience stunning visuals and a heart-pounding score.",
-  rating: "U/A 13+",
-  durationMinutes: 132,
-  releaseDate: "2025-09-10",
 };
 
 type BookingContainerProps = {
@@ -38,16 +31,19 @@ type BookingContainerProps = {
   movie?: MovieInfo;
 };
 
-const BookingDetails: React.FC<BookingContainerProps> = ({
-  showtimeId,
-  movie = defaultMovie,
-}) => {
+const BookingDetails: React.FC<BookingContainerProps> = ({ showtimeId }) => {
+  // Get the Showtime
+  const trpc = useTRPC();
+  const { data } = useSuspenseQuery(
+    trpc.bookings.getShowtime.queryOptions({ showtimeId })
+  );
+
   const groupRows = [
     ["A", "B"],
-    ["C", "D"],
-    ["E", "F"],
-    ["G", "H", "I"],
-    ["J", "K", "L"],
+    ["C", "D", "E"],
+    ["F", "G", "H"],
+    ["I", "J"],
+    ["K", "L"],
   ];
 
   const [selectedSeats, setSelectedSeats] = useState<Set<string>>(new Set());
@@ -111,9 +107,6 @@ const BookingDetails: React.FC<BookingContainerProps> = ({
       totalAmount: total,
     };
 
-    // TODO: call your backend:
-    // await api.checkout(payload)
-
     // Simulate success: mark them as booked locally
     setBookedSeats((prev) => new Set([...prev, ...payload.seats]));
     setSelectedSeats(new Set());
@@ -125,16 +118,23 @@ const BookingDetails: React.FC<BookingContainerProps> = ({
 
   return (
     <div className="flex flex-col xl:flex-row px-6 md:px-16 lg:px-24 py-8 md:pt-10 gap-10 items-center">
+      <div className="flex-1 w-full flex flex-col gap-10">
+        <SeatMap
+          groupRows={groupRows}
+          selectedSeats={selectedSeats}
+          occupiedSeats={occupiedSeats}
+          bookedSeats={bookedSeats}
+          onToggleSeat={onToggleSeat}
+          rowToSection={rowToSection}
+          SECTION_PRICES={SECTION_PRICES}
+        />
+        <ShowtimeDetail
+          date={data.showtime?.date}
+          startAt={data.showtime?.startAt}
+          endAt={data.showtime?.endAt}
+        />
+      </div>
       {/* Seat map */}
-      <SeatMap
-        groupRows={groupRows}
-        selectedSeats={selectedSeats}
-        occupiedSeats={occupiedSeats}
-        bookedSeats={bookedSeats}
-        onToggleSeat={onToggleSeat}
-        rowToSection={rowToSection}
-        SECTION_PRICES={SECTION_PRICES}
-      />
 
       {/* Right column */}
       <div className="w-full xl:w-80 2xl:w-96 space-y-6">
@@ -151,7 +151,24 @@ const BookingDetails: React.FC<BookingContainerProps> = ({
           <div className="py-5">
             <Separator />
           </div>
-          <MovieDetails movie={movie} />
+          <MovieDetails
+            movieName={data?.movieName}
+            movieDescription={data?.movieDescription}
+            movieImage={data.movieImageUrl}
+            movieDuration={data?.movieDuration}
+            movieRating={data?.movieRating}
+          />
+          <div className="py-5">
+            <Separator />
+          </div>
+          {/* Venue Card */}
+          <VenueCard
+            data={{
+              venueName: data.venueName,
+              venueLocation: data.venueLocation,
+              venueMapUrl: data.venueMapUrl,
+            }}
+          />
           {loadingOccupied && (
             <div className="text-xs text-muted-foreground">
               Syncing booked seats…

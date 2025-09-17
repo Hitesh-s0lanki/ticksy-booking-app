@@ -62,6 +62,27 @@ export const ShowtimeMovieResponse = /*@__PURE__*/ proto3.makeMessageType(
 );
 
 /**
+ * @generated from message ShowtimeDetailResponse
+ */
+export const ShowtimeDetailResponse = /*@__PURE__*/ proto3.makeMessageType(
+  "ShowtimeDetailResponse",
+  () => [
+    { no: 1, name: "showtime", kind: "message", T: Showtime },
+    { no: 2, name: "movieName", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "movieDescription", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 4, name: "movieImageUrl", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 5, name: "moviePosterUrl", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 6, name: "movieDuration", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 7, name: "movieLanguage", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 8, name: "movieGenre", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 9, name: "venueName", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 10, name: "venueLocation", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 11, name: "venueMapUrl", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 12, name: "movieRating", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ],
+);
+
+/**
  * @generated from message ShowtimeMovieResponseList
  */
 export const ShowtimeMovieResponseList = /*@__PURE__*/ proto3.makeMessageType(

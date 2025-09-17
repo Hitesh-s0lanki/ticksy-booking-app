@@ -3,6 +3,7 @@ package com.bookmyshow.service;
 import com.bookmyshow.interfaces.ShowtimeServiceInter;
 import com.bookmyshow.models.Movie;
 import com.bookmyshow.models.Showtime;
+import com.bookmyshow.models.Venue;
 import com.bookmyshow.repository.EventRepository;
 import com.bookmyshow.repository.MovieRepository;
 import com.bookmyshow.repository.ShowtimeRepository;
@@ -73,18 +74,45 @@ public class ShowtimeService implements ShowtimeServiceInter {
     public ResponseEntity<?> getShowtimeById(String showtimeId) {
         try {
             Optional<Showtime> showtimeOpt = showtimeRepository.findById(UUID.fromString(showtimeId));
+
             if (showtimeOpt.isEmpty()) {
                 throw new Exception("Showtime not found with ID: " + showtimeId);
             }
 
-            ShowtimeProto.Showtime showtimeProto = ShowtimeProto.Showtime.newBuilder()
-                    .setShowtimeId(showtimeOpt.get().getShowtimeId().toString())
-                    .setMovieId(showtimeOpt.get().getMovieId().toString())
-                    .setEventId(showtimeOpt.get().getEventId().toString())
-                    .setVenueId(showtimeOpt.get().getVenueId().toString())
-                    .setStartAt(showtimeOpt.get().getStartAt().toString())
-                    .setEndAt(showtimeOpt.get().getEndAt().toString())
-                    .setDate(showtimeOpt.get().getDate().toString())
+            // Fetch related entities
+            Venue venue = venueRepository.findById(showtimeOpt.get().getVenueId())
+                    .orElseThrow(() -> new EntityNotFoundException("Venue not found"));
+
+            Movie movie = null;
+            if (showtimeOpt.get().getMovieId() != null) {
+                movie = movieRepository.findById(showtimeOpt.get().getMovieId())
+                        .orElseThrow(() -> new EntityNotFoundException("Movie not found"));
+            }
+
+            // Construct the protobuf response
+            ShowtimeProto.ShowtimeDetailResponse showtimeProto = ShowtimeProto.ShowtimeDetailResponse.newBuilder()
+                    .setShowtime(ShowtimeProto.Showtime.newBuilder()
+                            .setShowtimeId(showtimeOpt.get().getShowtimeId().toString())
+                            .setMovieId(
+                                    showtimeOpt.get().getMovieId() != null ? showtimeOpt.get().getMovieId().toString()
+                                            : "")
+                            .setEventId(
+                                    showtimeOpt.get().getEventId() != null ? showtimeOpt.get().getEventId().toString()
+                                            : "")
+                            .setVenueId(showtimeOpt.get().getVenueId().toString())
+                            .setStartAt(showtimeOpt.get().getStartAt().toString())
+                            .setEndAt(showtimeOpt.get().getEndAt().toString())
+                            .setDate(showtimeOpt.get().getDate().toString())
+                            .build())
+                    .setVenueName(venue.getName())
+                    .setVenueLocation(venue.getAddress())
+                    .setVenueMapUrl(venue.getMapUrl())
+                    .setMovieName(movie != null ? movie.getTitle() : "")
+                    .setMovieDescription(movie != null ? movie.getDescription() : "")
+                    .setMovieDuration(movie != null ? movie.getDurationMins().toString() : "0")
+                    .setMovieImageUrl(movie != null ? movie.getImageKey() : "")
+                    .setMoviePosterUrl(movie != null ? movie.getPosterKey() : "")
+                    .setMovieRating(movie != null ? movie.getRating().toString() : "")
                     .build();
 
             return ResponseEntity.ok(showtimeProto);

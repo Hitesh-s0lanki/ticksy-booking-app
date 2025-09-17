@@ -183,6 +183,85 @@ export declare class ShowtimeMovieResponse extends Message<ShowtimeMovieResponse
 }
 
 /**
+ * @generated from message ShowtimeDetailResponse
+ */
+export declare class ShowtimeDetailResponse extends Message<ShowtimeDetailResponse> {
+  /**
+   * @generated from field: Showtime showtime = 1;
+   */
+  showtime?: Showtime;
+
+  /**
+   * @generated from field: string movieName = 2;
+   */
+  movieName: string;
+
+  /**
+   * @generated from field: string movieDescription = 3;
+   */
+  movieDescription: string;
+
+  /**
+   * @generated from field: string movieImageUrl = 4;
+   */
+  movieImageUrl: string;
+
+  /**
+   * @generated from field: string moviePosterUrl = 5;
+   */
+  moviePosterUrl: string;
+
+  /**
+   * @generated from field: string movieDuration = 6;
+   */
+  movieDuration: string;
+
+  /**
+   * @generated from field: string movieLanguage = 7;
+   */
+  movieLanguage: string;
+
+  /**
+   * @generated from field: string movieGenre = 8;
+   */
+  movieGenre: string;
+
+  /**
+   * @generated from field: string venueName = 9;
+   */
+  venueName: string;
+
+  /**
+   * @generated from field: string venueLocation = 10;
+   */
+  venueLocation: string;
+
+  /**
+   * @generated from field: string venueMapUrl = 11;
+   */
+  venueMapUrl: string;
+
+  /**
+   * @generated from field: string movieRating = 12;
+   */
+  movieRating: string;
+
+  constructor(data?: PartialMessage<ShowtimeDetailResponse>);
+
+  static readonly runtime: typeof proto3;
+  static readonly typeName = "ShowtimeDetailResponse";
+  static readonly fields: FieldList;
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ShowtimeDetailResponse;
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ShowtimeDetailResponse;
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ShowtimeDetailResponse;
+
+  static equals(a: ShowtimeDetailResponse | PlainMessage<ShowtimeDetailResponse> | undefined, b: ShowtimeDetailResponse | PlainMessage<ShowtimeDetailResponse> | undefined): boolean;
+}
+
+/**
  * @generated from message ShowtimeMovieResponseList
  */
 export declare class ShowtimeMovieResponseList extends Message<ShowtimeMovieResponseList> {
