@@ -10,6 +10,7 @@ import { useTRPC } from "@/trpc/client";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import VenueCard from "./venue-card";
 import ShowtimeDetail from "./showtime-detail";
+import { BookingPayload } from "@/modules/booking/booking";
 
 const SECTION_PRICES: Record<Section, number> = {
   incliner: 1000,
@@ -98,23 +99,28 @@ const BookingDetails: React.FC<BookingContainerProps> = ({ showtimeId }) => {
   const gst = Math.round(subtotal * 0.18);
   const total = subtotal + gst;
 
-  const handleProceedToPay = useCallback(async () => {
-    const payload: ProceedPayload = {
+  const paymentSuccess = async (response: {
+    razorpay_payment_id: string;
+    razorpay_order_id: string;
+    razorpay_signature: string;
+  }) => {
+    const payload: BookingPayload = {
       showtimeId,
       seats: Array.from(selectedSeats),
       amountWithoutGST: subtotal,
       gst,
       totalAmount: total,
+      razorpay_order_id: response.razorpay_order_id,
+      razorpay_payment_id: response.razorpay_payment_id,
+      razorpay_signature: response.razorpay_signature,
     };
 
     // Simulate success: mark them as booked locally
     setBookedSeats((prev) => new Set([...prev, ...payload.seats]));
     setSelectedSeats(new Set());
 
-    // For demo:
-    // eslint-disable-next-line no-console
-    console.log("Checkout payload:", payload);
-  }, [showtimeId, selectedSeats, subtotal, gst, total]);
+    // TODO: send `payload` to server to create booking record
+  };
 
   return (
     <div className="flex flex-col xl:flex-row px-6 md:px-16 lg:px-24 py-8 md:pt-10 gap-10 items-center">
@@ -146,7 +152,7 @@ const BookingDetails: React.FC<BookingContainerProps> = ({ showtimeId }) => {
             gst={gst}
             total={total}
             disabled={selectedSeats.size === 0}
-            onProceed={handleProceedToPay}
+            onProceed={paymentSuccess}
           />
           <div className="py-5">
             <Separator />

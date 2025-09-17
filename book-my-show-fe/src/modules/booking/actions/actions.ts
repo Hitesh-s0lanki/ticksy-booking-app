@@ -29,3 +29,5 @@ export const getShowtimeById = async ({
     );
   }
 };
+
+export const createBooking = async ({}) => {};
