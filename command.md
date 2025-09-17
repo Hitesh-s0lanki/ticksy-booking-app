@@ -27,6 +27,10 @@ docker exec -i ticksy-booking-app-postgres-1 \
 
 docker exec -i 4afcac8fef55 \
  psql -U postgres -d mydb \
- -c "DROP TABLE events_show;"
+ -c "DROP TABLE bookings;"
+
+docker exec -i 4afcac8fef55 \
+ psql -U postgres -d mydb \
+ -c 'DROP TABLE IF EXISTS bookings CASCADE;'
 
 chmod +x ./src/resources/tools/\*.sh

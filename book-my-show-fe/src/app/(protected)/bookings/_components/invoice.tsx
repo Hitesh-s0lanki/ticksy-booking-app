@@ -1,8 +1,9 @@
 "use client";
 
 import React from "react";
-import { Button } from "@/components/ui/button";
 import type { Section } from "@/types/booking.types";
+import CheckoutButton from "./checkout-button";
+import { RazorpaySuccessResponse } from "@/modules/booking/booking";
 
 type InvoiceProps = {
   selectedBySection: Record<Section, string[]>;
@@ -11,12 +12,11 @@ type InvoiceProps = {
   gst: number;
   total: number;
   disabled?: boolean;
-  onProceed: () => void;
+  onProceed: (response: RazorpaySuccessResponse) => Promise<void>;
 };
 
 export const Invoice: React.FC<InvoiceProps> = ({
   selectedBySection,
-  SECTION_PRICES,
   subtotal,
   gst,
   total,
@@ -67,14 +67,13 @@ export const Invoice: React.FC<InvoiceProps> = ({
         </div>
       </div>
 
-      <Button
-        className="mt-4 w-full"
-        size="sm"
-        onClick={onProceed}
+      <CheckoutButton
+        amountInRupees={total}
+        notes={{}}
+        totalSeats={totalSeats}
         disabled={disabled}
-      >
-        Proceed to Pay {totalSeats ? `(${totalSeats})` : ""}
-      </Button>
+        onProceed={onProceed}
+      />
     </aside>
   );
 };
