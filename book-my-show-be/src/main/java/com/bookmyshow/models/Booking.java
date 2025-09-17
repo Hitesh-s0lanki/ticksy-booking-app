@@ -48,7 +48,7 @@ public class Booking {
 
     // Keep a lightweight relation to User (optional: change to userId UUID if you
     @Column(name = "user_id", nullable = false, length = 64)
-    private String user_id;
+    private String userId;
 
     // Either movieId or eventId (IDs only, no heavy joins)
     @Column(name = "movie_id", columnDefinition = "uuid")
