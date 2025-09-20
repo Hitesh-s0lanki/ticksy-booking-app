@@ -1,9 +1,11 @@
 package com.bookmyshow.service;
 
 import com.bookmyshow.interfaces.ShowtimeServiceInter;
+import com.bookmyshow.models.Booking;
 import com.bookmyshow.models.Movie;
 import com.bookmyshow.models.Showtime;
 import com.bookmyshow.models.Venue;
+import com.bookmyshow.repository.BookingRepository;
 import com.bookmyshow.repository.EventRepository;
 import com.bookmyshow.repository.MovieRepository;
 import com.bookmyshow.repository.ShowtimeRepository;
@@ -41,6 +43,9 @@ public class ShowtimeService implements ShowtimeServiceInter {
 
     @Autowired
     private EventRepository eventRepository;
+
+    @Autowired
+    private BookingRepository bookingRepository;
 
     @Override
     public ResponseEntity<?> getAllShowtimes() {
@@ -333,6 +338,35 @@ public class ShowtimeService implements ShowtimeServiceInter {
             return ResponseEntity.ok(response);
         } catch (Exception e) {
             log.error("Failed to delete showtime with ID: {}. Error: {}", showtimeId, e.getMessage());
+            return ResponseEntity.status(500).body("[ERROR]: " + e.getMessage());
+        }
+    }
+
+    public ResponseEntity<?> getBookedSeats(String showtimeId) {
+        try {
+            UUID uuid = UUID.fromString(showtimeId);
+
+            if (!showtimeRepository.existsById(uuid)) {
+                throw new Exception("Showtime not found");
+            }
+
+            // Get All booking by the showtime id
+            List<Booking> bookings = bookingRepository.findByShowtimeId(showtimeId);
+
+            // Extract booked seats from bookings
+            List<String> bookedSeats = bookings.stream()
+                    .flatMap(booking -> booking.getSeats().stream())
+                    .collect(Collectors.toList());
+
+            log.info("Fetched booked seats for showtime ID: {}", showtimeId);
+
+            ShowtimeProto.Seats bookedSeatsProto = ShowtimeProto.Seats.newBuilder()
+                    .addAllBookedSeats(bookedSeats)
+                    .build();
+
+            return ResponseEntity.ok(bookedSeatsProto);
+        } catch (Exception e) {
+            log.error("Failed to fetch booked seats for showtime ID: {}. Error: {}", showtimeId, e.getMessage());
             return ResponseEntity.status(500).body("[ERROR]: " + e.getMessage());
         }
     }

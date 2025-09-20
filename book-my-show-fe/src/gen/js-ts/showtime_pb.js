@@ -102,3 +102,13 @@ export const ShowtimeList = /*@__PURE__*/ proto3.makeMessageType(
   ],
 );
 
+/**
+ * @generated from message Seats
+ */
+export const Seats = /*@__PURE__*/ proto3.makeMessageType(
+  "Seats",
+  () => [
+    { no: 1, name: "bookedSeats", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
+  ],
+);
+

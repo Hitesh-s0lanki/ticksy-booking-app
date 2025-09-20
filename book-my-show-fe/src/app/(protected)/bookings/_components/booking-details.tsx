@@ -1,16 +1,20 @@
 "use client";
 
-import React, { useEffect, useMemo, useState, useCallback } from "react";
-import type { MovieInfo, Section, ProceedPayload } from "@/types/booking.types";
+import React, { useEffect, useMemo, useState } from "react";
+import type { MovieInfo, Section } from "@/types/booking.types";
 import { Invoice } from "./invoice";
 import { MovieDetails } from "./movie-details";
 import { SeatMap } from "./seat-map";
 import { Separator } from "@/components/ui/separator";
 import { useTRPC } from "@/trpc/client";
-import { useSuspenseQuery } from "@tanstack/react-query";
+import { useMutation, useSuspenseQuery } from "@tanstack/react-query";
 import VenueCard from "./venue-card";
 import ShowtimeDetail from "./showtime-detail";
 import { BookingPayload } from "@/modules/booking/booking";
+import { toast } from "sonner";
+import { useSuccessModel } from "@/modules/booking/hooks/use-success-model";
+import { useRouter } from "next/navigation";
+import { getBookedSeats } from "@/modules/movies/actions/actions";
 
 const SECTION_PRICES: Record<Section, number> = {
   incliner: 1000,
@@ -33,10 +37,31 @@ type BookingContainerProps = {
 };
 
 const BookingDetails: React.FC<BookingContainerProps> = ({ showtimeId }) => {
+  const router = useRouter();
+
   // Get the Showtime
   const trpc = useTRPC();
   const { data } = useSuspenseQuery(
     trpc.bookings.getShowtime.queryOptions({ showtimeId })
+  );
+
+  const { onOpen, onClose, setPhase } = useSuccessModel();
+
+  const bookingMutation = useMutation(
+    trpc.bookings.createBooking.mutationOptions({
+      onSuccess: () => {
+        toast.success("Booking created successfully");
+        setPhase("success");
+        onClose();
+
+        router.replace("/my-booking");
+      },
+      onError: (err) => {
+        toast.error(err.message);
+        setPhase("error");
+        onClose();
+      },
+    })
   );
 
   const groupRows = [
@@ -48,8 +73,8 @@ const BookingDetails: React.FC<BookingContainerProps> = ({ showtimeId }) => {
   ];
 
   const [selectedSeats, setSelectedSeats] = useState<Set<string>>(new Set());
-  const [occupiedSeats, setOccupiedSeats] = useState<Set<string>>(new Set()); // from server
-  const [bookedSeats, setBookedSeats] = useState<Set<string>>(new Set()); // after pay
+  const [bookedSeats, setBookedSeats] = useState<Set<string>>(new Set());
+  const [occupiedSeats, setOccupiedSeats] = useState<Set<string>>(new Set());
   const [loadingOccupied, setLoadingOccupied] = useState(false);
 
   // Load initially occupied seats (server)
@@ -57,15 +82,19 @@ const BookingDetails: React.FC<BookingContainerProps> = ({ showtimeId }) => {
     const load = async () => {
       setLoadingOccupied(true);
       // TODO: fetch from API using showtimeId
-      await new Promise((r) => setTimeout(r, 300));
-      setOccupiedSeats(new Set(["A3", "A4", "E7", "G1", "J9"]));
+      const { data, statusCode } = await getBookedSeats({ showtimeId });
+
+      if (statusCode === 200)
+        setOccupiedSeats(new Set(data?.bookedSeats || []));
+
       setLoadingOccupied(false);
     };
     load();
   }, [showtimeId]);
 
   const onToggleSeat = (seatId: string) => {
-    if (bookedSeats.has(seatId) || occupiedSeats.has(seatId)) return;
+    const occupied = occupiedSeats;
+    if (bookedSeats.has(seatId) || occupied.has(seatId)) return;
     setSelectedSeats((prev) => {
       const next = new Set(prev);
       next.has(seatId) ? next.delete(seatId) : next.add(seatId);
@@ -104,6 +133,8 @@ const BookingDetails: React.FC<BookingContainerProps> = ({ showtimeId }) => {
     razorpay_order_id: string;
     razorpay_signature: string;
   }) => {
+    onOpen();
+
     const payload: BookingPayload = {
       showtimeId,
       seats: Array.from(selectedSeats),
@@ -119,7 +150,8 @@ const BookingDetails: React.FC<BookingContainerProps> = ({ showtimeId }) => {
     setBookedSeats((prev) => new Set([...prev, ...payload.seats]));
     setSelectedSeats(new Set());
 
-    // TODO: send `payload` to server to create booking record
+    // Send to server
+    await bookingMutation.mutateAsync(payload);
   };
 
   return (

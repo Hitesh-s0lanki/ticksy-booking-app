@@ -15,3 +15,7 @@ export const movieShowtimesParams = z.object({
     .string()
     .regex(/^\d{4}-\d{2}-\d{2}$/, "Date must be in YYYY-MM-DD format"),
 });
+
+export const showtimeIdParam = z.object({
+  showtimeId: z.string().min(1, "Showtime ID is required"),
+});

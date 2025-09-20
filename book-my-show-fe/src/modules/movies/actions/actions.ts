@@ -1,7 +1,7 @@
 "use server";
 
 import { Movie as MovieProto, MoviesList } from "@/gen/js-ts/movie_pb";
-import { ShowtimeMovieResponseList } from "@/gen/js-ts/showtime_pb";
+import { Seats, ShowtimeMovieResponseList } from "@/gen/js-ts/showtime_pb";
 import { axiosInstance } from "@/lib/axios-instance";
 import { apiResponse, errorHandler } from "@/lib/handler";
 import { deseralize } from "@/lib/utils";
@@ -103,6 +103,36 @@ export const getMovieShowtimes = async ({
     console.error("Error fetching movie showtimes:", error);
     return errorHandler(
       error?.message || "Failed to fetch showtimes.",
+      error?.response?.status || 500
+    );
+  }
+};
+
+export const getBookedSeats = async ({
+  showtimeId,
+}: {
+  showtimeId: string;
+}): Promise<{
+  data?: PlainMessage<Seats>;
+  message: string;
+  statusCode: number;
+}> => {
+  try {
+    // Fetch booked seats from the backend
+    const response = await axiosInstance.get(
+      `/showtimes/booked-seats/${showtimeId}`
+    );
+
+    console.log("Booked seats:", response.data);
+    const seats = deseralize(Seats.fromBinary, response);
+
+    return apiResponse("Booked seats fetched successfully", 200, seats);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (error: any) {
+    // Capture api related error and report it to sentry
+    console.error("Error fetching booked seats:", error);
+    return errorHandler(
+      error?.message || "Failed to fetch booked seats.",
       error?.response?.status || 500
     );
   }
