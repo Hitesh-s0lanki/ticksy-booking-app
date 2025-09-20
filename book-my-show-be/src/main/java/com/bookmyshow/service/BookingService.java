@@ -1,6 +1,7 @@
 package com.bookmyshow.service;
 
 import java.math.BigDecimal;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -18,15 +19,21 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.bookmyshow.dto.BookingTicketData;
+import com.bookmyshow.dto.TicketArtifacts;
 import com.bookmyshow.enums.BookingStatusEnum;
 import com.bookmyshow.interfaces.BookingServiceInter;
-import com.bookmyshow.model.booking.BookingProto;
+import com.bookmyshow.proto.BookingProto;
 import com.bookmyshow.models.Booking;
+import com.bookmyshow.models.Event;
+import com.bookmyshow.models.Movie;
 import com.bookmyshow.models.Showtime;
+import com.bookmyshow.models.Venue;
 import com.bookmyshow.repository.BookingRepository;
 import com.bookmyshow.repository.EventRepository;
 import com.bookmyshow.repository.MovieRepository;
 import com.bookmyshow.repository.ShowtimeRepository;
+import com.bookmyshow.repository.VenueRepository;
 
 import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
@@ -40,15 +47,20 @@ public class BookingService implements BookingServiceInter {
 
     @Autowired
     private BookingRepository bookingRepository;
-
     @Autowired
     private ShowtimeRepository showtimeRepository;
-
     @Autowired
     private MovieRepository movieRepository;
-
     @Autowired
     private EventRepository eventRepository;
+    @Autowired
+    private UploadService uploadService;
+    @Autowired
+    private QRService qrService;
+    @Autowired
+    private PdfService pdfService;
+    @Autowired
+    private VenueRepository venueRepository;
 
     @Override
     public ResponseEntity<?> createBooking(BookingProto.CreateBookingRequest request) {
@@ -75,15 +87,24 @@ public class BookingService implements BookingServiceInter {
                 throw new IllegalArgumentException("Either movie_id or event_id must be provided");
             }
 
+            Movie movie = null;
             if (movieUuid != null) {
-                movieRepository.findById(movieUuid)
+                movie = movieRepository.findById(movieUuid)
                         .orElseThrow(() -> new EntityNotFoundException("Movie not found"));
             }
 
+            Event event = null;
             if (eventUuid != null) {
-                eventRepository.findById(eventUuid)
+                event = eventRepository.findById(eventUuid)
                         .orElseThrow(() -> new EntityNotFoundException("Event not found"));
             }
+
+            if (showtime.getVenueId() == null) {
+                throw new IllegalArgumentException("Showtime is not associated with any venue");
+            }
+
+            Venue venue = venueRepository.findById(showtime.getVenueId())
+                    .orElseThrow(() -> new EntityNotFoundException("Venue not found"));
 
             List<String> normalizedSeats = normalizeSeats(request.getSeatsList());
             ensureSeatsAvailable(showtimeUuid.toString(), normalizedSeats);
@@ -98,8 +119,6 @@ public class BookingService implements BookingServiceInter {
             booking.setAmountWithoutGST(parseAmount(request.getAmountWithoutGst(), "amount_without_gst"));
             booking.setGst(parseAmount(request.getGst(), "gst"));
             booking.setTotalAmount(parseAmount(request.getTotalAmount(), "total_amount"));
-            booking.setPdfUrl(trimToNull(request.getPdfUrl()));
-            booking.setQrUrl(trimToNull(request.getQrUrl()));
             booking.setStatus(BookingStatusEnum.ACTIVE);
             booking.setShowDatetime(showtime.getStartAt());
 
@@ -111,6 +130,27 @@ public class BookingService implements BookingServiceInter {
             }
 
             Booking saved = bookingRepository.save(booking);
+
+            // Create BookingTicketData for PDF/QR generation
+            BookingTicketData bookingData = new BookingTicketData(
+                    saved.getBookingId(),
+                    "Hitesh Solanki",
+                    movie != null ? movie.getTitle() : (event != null ? event.getTitle() : "N/A"),
+                    movie != null ? "MOVIE" : "EVENT",
+                    venue.getName(),
+                    venue.getAddress(),
+                    showtime.getStartAt(),
+                    normalizedSeats,
+                    saved.getTotalAmount(),
+                    saved.getRazorpayOrderId(),
+                    saved.getRazorpayPaymentId());
+
+            // Generate and upload QR + PDF if URLs not provided
+            TicketArtifacts qrPdfData = createAndUpload(bookingData);
+            saved.setPdfUrl(qrPdfData.pdf().key());
+            saved.setQrUrl(qrPdfData.qr().key());
+
+            bookingRepository.save(saved);
 
             BookingProto.CreateBookingResponse response = BookingProto.CreateBookingResponse.newBuilder()
                     .setBooking(toProto(saved))
@@ -170,17 +210,102 @@ public class BookingService implements BookingServiceInter {
             Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "bookedAt"));
             Page<Booking> bookingPage = bookingRepository.findByUserId(userId, pageable);
 
-            List<BookingProto.Booking> bookingProtos = bookingPage.getContent().stream()
-                    .map(this::toProto)
-                    .toList();
+            List<BookingProto.MyBooking> items = bookingPage.getContent().stream().map(booking -> {
+                // Determine type and title
+                String type = booking.getMovieId() != null ? "movie" : "event";
+                String title = "";
+                String image = "";
+                if (booking.getMovieId() != null) {
+                    try {
+                        Movie m = movieRepository.findById(booking.getMovieId()).orElse(null);
+                        if (m != null && m.getTitle() != null) {
+                            title = m.getTitle();
+                        }
 
-            int total = bookingPage.getTotalElements() > Integer.MAX_VALUE
-                    ? Integer.MAX_VALUE
-                    : (int) bookingPage.getTotalElements();
+                        if (m != null && m.getImageKey() != null) {
+                            image = m.getImageKey();
+                        }
+                    } catch (Exception ignored) {
+                    }
+                } else if (booking.getEventId() != null) {
+                    try {
+                        Event ev = eventRepository.findById(booking.getEventId()).orElse(null);
+                        if (ev != null && ev.getTitle() != null) {
+                            title = ev.getTitle();
+                        }
+                    } catch (Exception ignored) {
+                    }
+                }
 
-            BookingProto.ListBookingsResponse response = BookingProto.ListBookingsResponse.newBuilder()
-                    .addAllBookings(bookingProtos)
-                    .setTotal(total)
+                // Extract date and time from show datetime string
+                String date = "";
+                String time = "";
+                if (booking.getShowDatetime() != null) {
+                    String sd = booking.getShowDatetime().toString();
+                    String[] parts = sd.split("T");
+                    date = parts.length > 0 ? parts[0] : sd;
+                    time = parts.length > 1 ? parts[1] : "";
+                    // remove fractional seconds and timezone if present
+                    if (time.contains("+")) {
+                        time = time.split("\\+")[0];
+                    }
+                    if (time.contains("Z")) {
+                        time = time.replace("Z", "");
+                    }
+                    if (time.contains(".")) {
+                        time = time.split("\\.")[0];
+                    }
+                }
+
+                // Venue lookup via showtime if possible
+                String venueName = "";
+                String venueUrl = "";
+                try {
+                    if (booking.getShowtimeId() != null && !booking.getShowtimeId().isBlank()) {
+                        UUID stUuid = UUID.fromString(booking.getShowtimeId());
+                        Optional<Showtime> stOpt = showtimeRepository.findById(stUuid);
+                        if (stOpt.isPresent() && stOpt.get().getVenueId() != null) {
+                            Venue v = venueRepository.findById(stOpt.get().getVenueId()).orElse(null);
+                            if (v != null) {
+                                if (v.getName() != null)
+                                    venueName = v.getName();
+                                // fallback: use address as venueUrl placeholder if a maps/url field is not
+                                // present
+                                if (v.getMapUrl() != null)
+                                    venueUrl = v.getMapUrl();
+                            }
+                        }
+                    }
+                } catch (Exception ignored) {
+                }
+
+                // Generate signed URLs for QR and PDF for 2hrs
+                Duration exDuration = Duration.ofHours(2);
+
+                double amount = booking.getTotalAmount() != null ? booking.getTotalAmount().doubleValue() : 0.0;
+                String qr = uploadService.getSignedGetUrl(booking.getQrUrl(), exDuration);
+                String pdf = uploadService.getSignedGetUrl(booking.getPdfUrl(), exDuration);
+                String bookingId = booking.getBookingId() != null ? booking.getBookingId().toString() : "";
+
+                BookingProto.MyBooking.Builder mb = BookingProto.MyBooking.newBuilder()
+                        .setType(type)
+                        .setTitle(title)
+                        .setDate(date)
+                        .setTime(time)
+                        .setVenue(venueName)
+                        .setVenueUrl(venueUrl)
+                        .addAllSeats(booking.getSeats() != null ? booking.getSeats() : List.of())
+                        .setAmount(amount)
+                        .setQr(qr)
+                        .setPdf(pdf)
+                        .setBookingId(bookingId)
+                        .setImage(image); // placeholder, populate if you have poster/image URL on Movie/Event
+
+                return mb.build();
+            }).toList();
+
+            BookingProto.MyBookings response = BookingProto.MyBookings.newBuilder()
+                    .addAllItems(items)
                     .build();
 
             return ResponseEntity.ok(response);
@@ -399,7 +524,6 @@ public class BookingService implements BookingServiceInter {
                         : "")
                 .setGst(booking.getGst() != null ? booking.getGst().toPlainString() : "")
                 .setTotalAmount(booking.getTotalAmount() != null ? booking.getTotalAmount().toPlainString() : "")
-                .setSeatsCount(booking.getSeatsCount() != null ? booking.getSeatsCount() : 0)
                 .setStatus(mapEntityStatus(booking.getStatus()))
                 .setBookedAt(booking.getBookedAt() != null ? booking.getBookedAt().toString() : "");
 
@@ -409,10 +533,6 @@ public class BookingService implements BookingServiceInter {
 
         if (booking.getEventId() != null) {
             builder.setEventId(booking.getEventId().toString());
-        }
-
-        if (booking.getSeats() != null && !booking.getSeats().isEmpty()) {
-            builder.addAllSeats(booking.getSeats());
         }
 
         if (booking.getPdfUrl() != null) {
@@ -466,5 +586,34 @@ public class BookingService implements BookingServiceInter {
             default -> throw new IllegalArgumentException("Unsupported booking status");
         };
     }
-}
 
+    public TicketArtifacts createAndUpload(BookingTicketData data) {
+        // Create a robust QR payload (include booking + payment basics)
+        String qrPayload = """
+                BMS|%s|%s|%s|%s|%s|%s|%s
+                """.formatted(
+                data.bookingId(),
+                data.category(),
+                nullSafe(data.title()),
+                nullSafe(data.venueName()),
+                nullSafe(data.showDateTime() == null ? "-" : data.showDateTime().toString()),
+                nullSafe(data.seats() == null ? "-" : String.join(",", data.seats())),
+                nullSafe(data.paymentId())).trim();
+
+        byte[] qrPng = qrService.generatePng(qrPayload, 512);
+        byte[] pdf = pdfService.buildTicketPdf(data, qrPng);
+
+        // Build S3 keys
+        var pdfKey = UploadService.buildKey("tickets/pdf", data.bookingId(), "pdf");
+        var qrKey = UploadService.buildKey("tickets/qr", data.bookingId(), "png");
+
+        var pdfResult = uploadService.uploadBytes(pdfKey, pdf, "application/pdf");
+        var qrResult = uploadService.uploadBytes(qrKey, qrPng, "image/png");
+
+        return new TicketArtifacts(pdfResult, qrResult);
+    }
+
+    private static String nullSafe(Object o) {
+        return o == null ? "-" : String.valueOf(o);
+    }
+}

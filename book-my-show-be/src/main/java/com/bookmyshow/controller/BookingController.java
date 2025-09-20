@@ -11,11 +11,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.bookmyshow.model.booking.BookingProto;
+import com.bookmyshow.proto.BookingProto;
 import com.bookmyshow.service.BookingService;
+
+import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @RequestMapping("bookings")
+@Slf4j
 public class BookingController {
 
     @Autowired
@@ -50,4 +53,3 @@ public class BookingController {
         return bookingService.updateBookingStatus(bookingId, request);
     }
 }
-

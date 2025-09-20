@@ -309,3 +309,27 @@ export declare class ShowtimeList extends Message<ShowtimeList> {
   static equals(a: ShowtimeList | PlainMessage<ShowtimeList> | undefined, b: ShowtimeList | PlainMessage<ShowtimeList> | undefined): boolean;
 }
 
+/**
+ * @generated from message Seats
+ */
+export declare class Seats extends Message<Seats> {
+  /**
+   * @generated from field: repeated string bookedSeats = 1;
+   */
+  bookedSeats: string[];
+
+  constructor(data?: PartialMessage<Seats>);
+
+  static readonly runtime: typeof proto3;
+  static readonly typeName = "Seats";
+  static readonly fields: FieldList;
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Seats;
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): Seats;
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): Seats;
+
+  static equals(a: Seats | PlainMessage<Seats> | undefined, b: Seats | PlainMessage<Seats> | undefined): boolean;
+}
+

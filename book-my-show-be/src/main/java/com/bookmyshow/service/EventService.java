@@ -15,7 +15,6 @@ import com.bookmyshow.enums.EventTypeEnum;
 import com.bookmyshow.interfaces.EventServiceInter;
 import com.bookmyshow.models.Event;
 import com.bookmyshow.proto.EventProto;
-import com.bookmyshow.proto.EventProto.EventInput;
 import com.bookmyshow.proto.UtilsProto;
 import com.bookmyshow.repository.EventRepository;
 

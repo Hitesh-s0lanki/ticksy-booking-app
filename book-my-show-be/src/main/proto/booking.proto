@@ -1,10 +1,7 @@
 syntax = "proto3";
 
-package com.bookmyshow.booking;
-
-option java_multiple_files = true;
+option java_package = "com.bookmyshow.proto";
 option java_outer_classname = "BookingProto";
-option java_package = "com.bookmyshow.model.booking";
 
 // Booking status
 enum BookingStatus {
@@ -106,4 +103,25 @@ message UpdateBookingStatusRequest {
 
 message UpdateBookingStatusResponse {
   Booking booking = 1;
+}
+
+// Single booking details
+message MyBooking {
+  string type = 1;        // movie / event
+  string title = 2;       // movie or event title
+  string date = 3;        // e.g. 2025-09-20
+  string time = 4;        // e.g. 22:30
+  string venue = 5;       // venue name
+  string venueUrl = 6;    // Google Maps URL
+  repeated string seats = 7;  // list of seat codes
+  double amount = 8;      // total amount
+  string qr = 9;          // QR code image URL/base64
+  string pdf = 10;        // PDF ticket URL
+  string bookingId = 11;  // UUID or unique booking id
+  string image = 12;      // movie/event poster image
+}
+
+// Wrapper for multiple bookings
+message MyBookings {
+  repeated MyBooking items = 1;
 }

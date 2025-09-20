@@ -57,3 +57,7 @@ message ShowtimeMovieResponseList {
 message ShowtimeList {
   repeated Showtime showtimes = 1;
 }
+
+message Seats {
+  repeated string bookedSeats = 1;
+}

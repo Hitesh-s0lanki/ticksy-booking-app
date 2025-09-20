@@ -4,9 +4,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.bookmyshow.models.Event;
 import com.bookmyshow.proto.EventProto;
-import com.bookmyshow.proto.EventProto.EventInput;
 import com.bookmyshow.service.EventService;
 
 import org.springframework.beans.factory.annotation.Autowired;
