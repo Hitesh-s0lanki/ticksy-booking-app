@@ -1,7 +1,12 @@
-import { publicProcedure, createTRPCRouter } from "@/trpc/init";
+import {
+  publicProcedure,
+  createTRPCRouter,
+  protectedProcedure,
+} from "@/trpc/init";
 import { TRPCError } from "@trpc/server";
 import {
   getAllMovies,
+  getBookedSeats,
   getMovieById,
   getMovieShowtimes,
 } from "../actions/actions";
@@ -9,6 +14,7 @@ import {
   movieIdParam,
   movieShowtimesParams,
   moviesSearchParams,
+  showtimeIdParam,
 } from "../schema";
 
 export const moviesRouter = createTRPCRouter({
@@ -59,5 +65,20 @@ export const moviesRouter = createTRPCRouter({
       }
 
       return data;
+    }),
+  getOccupiedSeats: protectedProcedure
+    .input(showtimeIdParam)
+    .query(async ({ input }) => {
+      const { data, statusCode, message } = await getBookedSeats({
+        showtimeId: input.showtimeId,
+      });
+
+      if (statusCode !== 200 || !data || !Array.isArray(data.bookedSeats)) {
+        return new Set<string>();
+      }
+
+      // Set of occupied seats
+      const bookedSeats = new Set<string>(data.bookedSeats);
+      return bookedSeats;
     }),
 });

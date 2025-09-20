@@ -5,6 +5,8 @@ import com.bookmyshow.service.ShowtimeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
 @RequestMapping("showtimes")
@@ -27,6 +29,11 @@ public class ShowtimeController {
     @GetMapping(value = "{showtimeId}", produces = "application/x-protobuf")
     public ResponseEntity<?> getShowtimeById(@PathVariable String showtimeId) {
         return showtimeService.getShowtimeById(showtimeId);
+    }
+
+    @GetMapping(value = "booked-seats/{showtimeId}", produces = "application/x-protobuf")
+    public ResponseEntity<?> getBookedSeats(@PathVariable String showtimeId) {
+        return showtimeService.getBookedSeats(showtimeId);
     }
 
     @PostMapping(produces = "application/x-protobuf")

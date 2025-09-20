@@ -2,17 +2,19 @@
 export type BookingType = "movie" | "event";
 
 // General booking interface
-export interface Booking {
-  id: number;
+export interface MyBooking {
   type: string;
   title: string;
-  date: string; // in YYYY-MM-DD format
-  time: string; // e.g. "8:15 PM"
+  date: string;
+  time: string;
   venue: string;
-  seats: string[]; // e.g. ["A12", "A13"]
-  amount: number; // total amount paid
-  bookingId: string; // e.g. "BMS001234"
-  image: string; // URL to poster/cover image
+  venueUrl: string;
+  seats: string[];
+  amount: number;
+  qr: string;
+  pdf: string;
+  bookingId: string;
+  image: string;
 }
 
 export type Section = "incliner" | "gold" | "silver";

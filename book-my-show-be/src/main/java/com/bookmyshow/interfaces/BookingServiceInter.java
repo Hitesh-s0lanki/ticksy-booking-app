@@ -2,7 +2,7 @@ package com.bookmyshow.interfaces;
 
 import org.springframework.http.ResponseEntity;
 
-import com.bookmyshow.model.booking.BookingProto;
+import com.bookmyshow.proto.BookingProto;
 
 public interface BookingServiceInter {
 
@@ -16,4 +16,3 @@ public interface BookingServiceInter {
 
     ResponseEntity<?> updateBookingStatus(String bookingId, BookingProto.UpdateBookingStatusRequest request);
 }
-

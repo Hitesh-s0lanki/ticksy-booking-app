@@ -61,6 +61,7 @@
     "nuqs": "^2.6.0",
     "protobufjs": "^7.2.6",
     "radix-ui": "^1.4.2",
+    "razorpay": "^2.9.6",
     "react": "^19.0.0",
     "react-day-picker": "^9.8.0",
     "react-dom": "^19.0.0",
