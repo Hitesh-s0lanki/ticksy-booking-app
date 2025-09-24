@@ -34,3 +34,5 @@ docker exec -i 4afcac8fef55 \
  -c 'DROP TABLE IF EXISTS bookings CASCADE;'
 
 chmod +x ./src/resources/tools/\*.sh
+
+https://normal-bonefish-80.clerk.accounts.dev/.well-known/jwks.json

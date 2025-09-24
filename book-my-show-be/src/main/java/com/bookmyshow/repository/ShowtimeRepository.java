@@ -12,4 +12,6 @@ import java.util.UUID;
 public interface ShowtimeRepository extends JpaRepository<Showtime, UUID> {
 
     List<Showtime> findByMovieIdAndDate(UUID movieId, LocalDate date);
+
+    Showtime findByEventId(UUID eventId);
 }

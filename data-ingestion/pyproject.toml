@@ -1,0 +1,16 @@
+[project]
+name = "data-ingestion"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "grpcio-tools>=1.75.0",
+    "langchain>=0.3.27",
+    "langchain-community>=0.3.29",
+    "langchain-openai>=0.3.33",
+    "langchain-pinecone>=0.2.12",
+    "pinecone>=7.3.0",
+    "python-dotenv>=1.1.1",
+    "sentence-transformers>=5.1.1",
+]

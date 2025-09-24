@@ -3,6 +3,8 @@ syntax = "proto3";
 option java_package = "com.bookmyshow.proto";
 option java_outer_classname = "ShowtimeProto";
 
+import 'event.proto';
+
 message Showtime {
   string showtimeId = 1;
   string venueId = 2;
@@ -27,6 +29,15 @@ message ShowtimeDetails {
   string endAt = 3;
 }
 
+message ShowtimeEventResponse {
+  string venueId = 1;
+  Event event = 2;
+  string venueName = 3;
+  string venueMapUrl = 4;
+  string venueLocation = 5;
+  ShowtimeDetails showtimes = 6;
+}
+
 message ShowtimeMovieResponse {
   string venueId = 1;
   string venueName = 2;
@@ -37,6 +48,8 @@ message ShowtimeMovieResponse {
 
 message ShowtimeDetailResponse {
   Showtime showtime = 1;
+
+  // movie details
   string movieName = 2;
   string movieDescription = 3;
   string movieImageUrl = 4;
@@ -44,10 +57,17 @@ message ShowtimeDetailResponse {
   string movieDuration = 6;
   string movieLanguage = 7;
   string movieGenre = 8;
+
+  // venue details
   string venueName = 9;
   string venueLocation = 10;
   string venueMapUrl = 11;
+
+  // event details
+  Event event = 13;
+
   string movieRating = 12;
+
 }
 
 message ShowtimeMovieResponseList {

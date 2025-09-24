@@ -13,6 +13,8 @@ type InvoiceProps = {
   total: number;
   disabled?: boolean;
   onProceed: (response: RazorpaySuccessResponse) => Promise<void>;
+  isEvent?: boolean;
+  eventPrice?: number;
 };
 
 export const Invoice: React.FC<InvoiceProps> = ({
@@ -22,6 +24,8 @@ export const Invoice: React.FC<InvoiceProps> = ({
   total,
   disabled,
   onProceed,
+  isEvent = false,
+  eventPrice = 0,
 }) => {
   const sections: Section[] = ["incliner", "gold", "silver"];
 
@@ -32,25 +36,38 @@ export const Invoice: React.FC<InvoiceProps> = ({
 
   return (
     <aside className="">
-      <p className="text-lg font-semibold mb-1.5">Sections & Prices</p>
+      <p className="text-lg font-semibold mb-1.5">
+        {isEvent ? "Event Booking" : "Sections & Prices"}
+      </p>
       <p className="text-xs text-muted-foreground mb-4">
-        Review your selection and proceed to payment.
+        {isEvent
+          ? "Review event details and proceed to payment."
+          : "Review your selection and proceed to payment."}
       </p>
 
-      <div className="space-y-3">
-        {sections.map((sec) => {
-          const seats = selectedBySection[sec];
-          const count = seats.length;
-          return (
-            <div key={sec} className="flex items-center justify-between">
-              <div className="text-sm font-medium capitalize">{sec}</div>
-              <div className="text-sm text-muted-foreground">
-                {seats.length ? seats.join(", ") : "-"} ({count})
+      {isEvent ? (
+        <div className="space-y-3">
+          <div className="flex items-center justify-between">
+            <div className="text-sm font-medium">Event Ticket</div>
+            <div className="text-sm text-muted-foreground">₹{eventPrice}</div>
+          </div>
+        </div>
+      ) : (
+        <div className="space-y-3">
+          {sections.map((sec) => {
+            const seats = selectedBySection[sec];
+            const count = seats.length;
+            return (
+              <div key={sec} className="flex items-center justify-between">
+                <div className="text-sm font-medium capitalize">{sec}</div>
+                <div className="text-sm text-muted-foreground">
+                  {seats.length ? seats.join(", ") : "-"} ({count})
+                </div>
               </div>
-            </div>
-          );
-        })}
-      </div>
+            );
+          })}
+        </div>
+      )}
 
       <div className="mt-4 border-t pt-4 space-y-2 text-sm">
         <div className="flex items-center justify-between">
@@ -70,7 +87,7 @@ export const Invoice: React.FC<InvoiceProps> = ({
       <CheckoutButton
         amountInRupees={total}
         notes={{}}
-        totalSeats={totalSeats}
+        totalSeats={isEvent ? 1 : totalSeats}
         disabled={disabled}
         onProceed={onProceed}
       />

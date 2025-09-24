@@ -2,6 +2,7 @@ package com.bookmyshow.service;
 
 import com.bookmyshow.interfaces.ShowtimeServiceInter;
 import com.bookmyshow.models.Booking;
+import com.bookmyshow.models.Event;
 import com.bookmyshow.models.Movie;
 import com.bookmyshow.models.Showtime;
 import com.bookmyshow.models.Venue;
@@ -25,6 +26,7 @@ import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+import com.bookmyshow.proto.EventProto;
 import com.bookmyshow.proto.ShowtimeProto;
 import com.bookmyshow.proto.UtilsProto;
 
@@ -94,6 +96,13 @@ public class ShowtimeService implements ShowtimeServiceInter {
                         .orElseThrow(() -> new EntityNotFoundException("Movie not found"));
             }
 
+            // Event is optional
+            Event event = null;
+            if (showtimeOpt.get().getEventId() != null) {
+                event = eventRepository.findById(showtimeOpt.get().getEventId())
+                        .orElseThrow(() -> new EntityNotFoundException("Event not found"));
+            }
+
             // Construct the protobuf response
             ShowtimeProto.ShowtimeDetailResponse showtimeProto = ShowtimeProto.ShowtimeDetailResponse.newBuilder()
                     .setShowtime(ShowtimeProto.Showtime.newBuilder()
@@ -118,6 +127,14 @@ public class ShowtimeService implements ShowtimeServiceInter {
                     .setMovieImageUrl(movie != null ? movie.getImageKey() : "")
                     .setMoviePosterUrl(movie != null ? movie.getPosterKey() : "")
                     .setMovieRating(movie != null ? movie.getRating().toString() : "")
+                    .setEvent(event != null ? EventProto.Event.newBuilder()
+                            .setEventId(event.getEventId().toString())
+                            .setTitle(event.getTitle())
+                            .setDescription(event.getDescription())
+                            .setBannerUrl(event.getBannerUrl())
+                            .setStartDate(event.getStartDate().toString())
+                            .setEndDate(event.getEndDate().toString())
+                            .build() : EventProto.Event.newBuilder().build())
                     .build();
 
             return ResponseEntity.ok(showtimeProto);
@@ -205,14 +222,16 @@ public class ShowtimeService implements ShowtimeServiceInter {
 
             // Parse IDs
             UUID venueUuid = UUID.fromString(showtime.getVenueId());
-            UUID movieUuid = (showtime.getMovieId() != null &&
-                    !showtime.getMovieId().isBlank())
-                            ? UUID.fromString(showtime.getMovieId())
-                            : null;
-            UUID eventUuid = (showtime.getEventId() != null &&
-                    !showtime.getEventId().isBlank())
-                            ? UUID.fromString(showtime.getEventId())
-                            : null;
+
+            UUID movieUuid = null;
+            if (showtime.getMovieId() != null && !showtime.getMovieId().isEmpty()) {
+                movieUuid = UUID.fromString(showtime.getMovieId());
+            }
+
+            UUID eventUuid = null;
+            if (showtime.getEventId() != null && !showtime.getEventId().isEmpty()) {
+                eventUuid = UUID.fromString(showtime.getEventId());
+            }
 
             // Business rule: allow either movie OR event (not both, not neither)
             if (movieUuid != null && eventUuid != null) {
@@ -249,8 +268,8 @@ public class ShowtimeService implements ShowtimeServiceInter {
             // Return the created showtime as protobuf
             ShowtimeProto.Showtime showtimeProto = ShowtimeProto.Showtime.newBuilder()
                     .setShowtimeId(saved.getShowtimeId().toString())
-                    .setMovieId(saved.getMovieId().toString())
-                    .setEventId(saved.getEventId().toString())
+                    .setMovieId(saved.getMovieId() != null ? saved.getMovieId().toString() : "")
+                    .setEventId(saved.getEventId() != null ? saved.getEventId().toString() : "")
                     .setVenueId(saved.getVenueId().toString())
                     .setStartAt(saved.getStartAt().toString())
                     .setEndAt(saved.getEndAt().toString())
@@ -367,6 +386,62 @@ public class ShowtimeService implements ShowtimeServiceInter {
             return ResponseEntity.ok(bookedSeatsProto);
         } catch (Exception e) {
             log.error("Failed to fetch booked seats for showtime ID: {}. Error: {}", showtimeId, e.getMessage());
+            return ResponseEntity.status(500).body("[ERROR]: " + e.getMessage());
+        }
+    }
+
+    public ResponseEntity<?> getShowtimeByEventId(String eventId) {
+        try {
+
+            if (eventId == null || eventId.isBlank()) {
+                throw new Exception("Event ID parameter is required");
+            }
+
+            // get the event reference
+            if (eventId == null || eventId.isBlank()) {
+                throw new Exception("Event ID parameter is required");
+            }
+
+            Event event = eventRepository.findById(UUID.fromString(eventId))
+                    .orElseThrow(() -> new Exception("Event not found with ID: " + eventId));
+
+            // convert event data to proto Event
+            EventProto.Event eventProto = EventProto.Event.newBuilder()
+                    .setEventId(event.getEventId().toString())
+                    .setTitle(event.getTitle())
+                    .setDescription(event.getDescription())
+                    .setBannerUrl(event.getBannerUrl())
+                    .setStartDate(event.getStartDate().toString())
+                    .setEndDate(event.getEndDate().toString())
+                    .build();
+
+            // Fetch showtimes for the event
+            Showtime showtime = showtimeRepository.findByEventId(event.getEventId());
+
+            if (showtime == null) {
+                throw new Exception("No showtimes found for event ID: " + eventId);
+            }
+
+            // get the venue info
+            Venue venue = venueRepository.findById(showtime.getVenueId())
+                    .orElseThrow(() -> new Exception("Venue not found with ID: " + showtime.getVenueId()));
+
+            ShowtimeProto.ShowtimeEventResponse.Builder serBuilder = ShowtimeProto.ShowtimeEventResponse
+                    .newBuilder()
+                    .setVenueId(venue.getVenueId().toString())
+                    .setVenueName(venue.getName())
+                    .setVenueLocation(venue.getAddress())
+                    .setVenueMapUrl(venue.getMapUrl())
+                    .setEvent(eventProto)
+                    .setShowtimes(ShowtimeProto.ShowtimeDetails.newBuilder()
+                            .setShowtimeId(showtime.getShowtimeId().toString())
+                            .setStartAt(showtime.getStartAt().toString())
+                            .setEndAt(showtime.getEndAt().toString())
+                            .build());
+
+            return ResponseEntity.ok(serBuilder.build());
+        } catch (Exception e) {
+            log.error("Failed to fetch showtimes by event ID: {}. Error: {}", eventId, e.getMessage());
             return ResponseEntity.status(500).body("[ERROR]: " + e.getMessage());
         }
     }

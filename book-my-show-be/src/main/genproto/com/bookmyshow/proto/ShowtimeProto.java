@@ -3332,6 +3332,1368 @@ public final class ShowtimeProto {
 
   }
 
+  public interface ShowtimeEventResponseOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:ShowtimeEventResponse)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>string venueId = 1;</code>
+     * @return The venueId.
+     */
+    java.lang.String getVenueId();
+    /**
+     * <code>string venueId = 1;</code>
+     * @return The bytes for venueId.
+     */
+    com.google.protobuf.ByteString
+        getVenueIdBytes();
+
+    /**
+     * <code>.Event event = 2;</code>
+     * @return Whether the event field is set.
+     */
+    boolean hasEvent();
+    /**
+     * <code>.Event event = 2;</code>
+     * @return The event.
+     */
+    com.bookmyshow.proto.EventProto.Event getEvent();
+    /**
+     * <code>.Event event = 2;</code>
+     */
+    com.bookmyshow.proto.EventProto.EventOrBuilder getEventOrBuilder();
+
+    /**
+     * <code>string venueName = 3;</code>
+     * @return The venueName.
+     */
+    java.lang.String getVenueName();
+    /**
+     * <code>string venueName = 3;</code>
+     * @return The bytes for venueName.
+     */
+    com.google.protobuf.ByteString
+        getVenueNameBytes();
+
+    /**
+     * <code>string venueMapUrl = 4;</code>
+     * @return The venueMapUrl.
+     */
+    java.lang.String getVenueMapUrl();
+    /**
+     * <code>string venueMapUrl = 4;</code>
+     * @return The bytes for venueMapUrl.
+     */
+    com.google.protobuf.ByteString
+        getVenueMapUrlBytes();
+
+    /**
+     * <code>string venueLocation = 5;</code>
+     * @return The venueLocation.
+     */
+    java.lang.String getVenueLocation();
+    /**
+     * <code>string venueLocation = 5;</code>
+     * @return The bytes for venueLocation.
+     */
+    com.google.protobuf.ByteString
+        getVenueLocationBytes();
+
+    /**
+     * <code>.ShowtimeDetails showtimes = 6;</code>
+     * @return Whether the showtimes field is set.
+     */
+    boolean hasShowtimes();
+    /**
+     * <code>.ShowtimeDetails showtimes = 6;</code>
+     * @return The showtimes.
+     */
+    com.bookmyshow.proto.ShowtimeProto.ShowtimeDetails getShowtimes();
+    /**
+     * <code>.ShowtimeDetails showtimes = 6;</code>
+     */
+    com.bookmyshow.proto.ShowtimeProto.ShowtimeDetailsOrBuilder getShowtimesOrBuilder();
+  }
+  /**
+   * Protobuf type {@code ShowtimeEventResponse}
+   */
+  public static final class ShowtimeEventResponse extends
+      com.google.protobuf.GeneratedMessage implements
+      // @@protoc_insertion_point(message_implements:ShowtimeEventResponse)
+      ShowtimeEventResponseOrBuilder {
+  private static final long serialVersionUID = 0L;
+    static {
+      com.google.protobuf.RuntimeVersion.validateProtobufGencodeVersion(
+        com.google.protobuf.RuntimeVersion.RuntimeDomain.PUBLIC,
+        /* major= */ 4,
+        /* minor= */ 31,
+        /* patch= */ 1,
+        /* suffix= */ "",
+        ShowtimeEventResponse.class.getName());
+    }
+    // Use ShowtimeEventResponse.newBuilder() to construct.
+    private ShowtimeEventResponse(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      super(builder);
+    }
+    private ShowtimeEventResponse() {
+      venueId_ = "";
+      venueName_ = "";
+      venueMapUrl_ = "";
+      venueLocation_ = "";
+    }
+
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.bookmyshow.proto.ShowtimeProto.internal_static_ShowtimeEventResponse_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.bookmyshow.proto.ShowtimeProto.internal_static_ShowtimeEventResponse_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.bookmyshow.proto.ShowtimeProto.ShowtimeEventResponse.class, com.bookmyshow.proto.ShowtimeProto.ShowtimeEventResponse.Builder.class);
+    }
+
+    private int bitField0_;
+    public static final int VENUEID_FIELD_NUMBER = 1;
+    @SuppressWarnings("serial")
+    private volatile java.lang.Object venueId_ = "";
+    /**
+     * <code>string venueId = 1;</code>
+     * @return The venueId.
+     */
+    @java.lang.Override
+    public java.lang.String getVenueId() {
+      java.lang.Object ref = venueId_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        venueId_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string venueId = 1;</code>
+     * @return The bytes for venueId.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getVenueIdBytes() {
+      java.lang.Object ref = venueId_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        venueId_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int EVENT_FIELD_NUMBER = 2;
+    private com.bookmyshow.proto.EventProto.Event event_;
+    /**
+     * <code>.Event event = 2;</code>
+     * @return Whether the event field is set.
+     */
+    @java.lang.Override
+    public boolean hasEvent() {
+      return ((bitField0_ & 0x00000001) != 0);
+    }
+    /**
+     * <code>.Event event = 2;</code>
+     * @return The event.
+     */
+    @java.lang.Override
+    public com.bookmyshow.proto.EventProto.Event getEvent() {
+      return event_ == null ? com.bookmyshow.proto.EventProto.Event.getDefaultInstance() : event_;
+    }
+    /**
+     * <code>.Event event = 2;</code>
+     */
+    @java.lang.Override
+    public com.bookmyshow.proto.EventProto.EventOrBuilder getEventOrBuilder() {
+      return event_ == null ? com.bookmyshow.proto.EventProto.Event.getDefaultInstance() : event_;
+    }
+
+    public static final int VENUENAME_FIELD_NUMBER = 3;
+    @SuppressWarnings("serial")
+    private volatile java.lang.Object venueName_ = "";
+    /**
+     * <code>string venueName = 3;</code>
+     * @return The venueName.
+     */
+    @java.lang.Override
+    public java.lang.String getVenueName() {
+      java.lang.Object ref = venueName_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        venueName_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string venueName = 3;</code>
+     * @return The bytes for venueName.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getVenueNameBytes() {
+      java.lang.Object ref = venueName_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        venueName_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int VENUEMAPURL_FIELD_NUMBER = 4;
+    @SuppressWarnings("serial")
+    private volatile java.lang.Object venueMapUrl_ = "";
+    /**
+     * <code>string venueMapUrl = 4;</code>
+     * @return The venueMapUrl.
+     */
+    @java.lang.Override
+    public java.lang.String getVenueMapUrl() {
+      java.lang.Object ref = venueMapUrl_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        venueMapUrl_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string venueMapUrl = 4;</code>
+     * @return The bytes for venueMapUrl.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getVenueMapUrlBytes() {
+      java.lang.Object ref = venueMapUrl_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        venueMapUrl_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int VENUELOCATION_FIELD_NUMBER = 5;
+    @SuppressWarnings("serial")
+    private volatile java.lang.Object venueLocation_ = "";
+    /**
+     * <code>string venueLocation = 5;</code>
+     * @return The venueLocation.
+     */
+    @java.lang.Override
+    public java.lang.String getVenueLocation() {
+      java.lang.Object ref = venueLocation_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        venueLocation_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string venueLocation = 5;</code>
+     * @return The bytes for venueLocation.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getVenueLocationBytes() {
+      java.lang.Object ref = venueLocation_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        venueLocation_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int SHOWTIMES_FIELD_NUMBER = 6;
+    private com.bookmyshow.proto.ShowtimeProto.ShowtimeDetails showtimes_;
+    /**
+     * <code>.ShowtimeDetails showtimes = 6;</code>
+     * @return Whether the showtimes field is set.
+     */
+    @java.lang.Override
+    public boolean hasShowtimes() {
+      return ((bitField0_ & 0x00000002) != 0);
+    }
+    /**
+     * <code>.ShowtimeDetails showtimes = 6;</code>
+     * @return The showtimes.
+     */
+    @java.lang.Override
+    public com.bookmyshow.proto.ShowtimeProto.ShowtimeDetails getShowtimes() {
+      return showtimes_ == null ? com.bookmyshow.proto.ShowtimeProto.ShowtimeDetails.getDefaultInstance() : showtimes_;
+    }
+    /**
+     * <code>.ShowtimeDetails showtimes = 6;</code>
+     */
+    @java.lang.Override
+    public com.bookmyshow.proto.ShowtimeProto.ShowtimeDetailsOrBuilder getShowtimesOrBuilder() {
+      return showtimes_ == null ? com.bookmyshow.proto.ShowtimeProto.ShowtimeDetails.getDefaultInstance() : showtimes_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(venueId_)) {
+        com.google.protobuf.GeneratedMessage.writeString(output, 1, venueId_);
+      }
+      if (((bitField0_ & 0x00000001) != 0)) {
+        output.writeMessage(2, getEvent());
+      }
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(venueName_)) {
+        com.google.protobuf.GeneratedMessage.writeString(output, 3, venueName_);
+      }
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(venueMapUrl_)) {
+        com.google.protobuf.GeneratedMessage.writeString(output, 4, venueMapUrl_);
+      }
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(venueLocation_)) {
+        com.google.protobuf.GeneratedMessage.writeString(output, 5, venueLocation_);
+      }
+      if (((bitField0_ & 0x00000002) != 0)) {
+        output.writeMessage(6, getShowtimes());
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(venueId_)) {
+        size += com.google.protobuf.GeneratedMessage.computeStringSize(1, venueId_);
+      }
+      if (((bitField0_ & 0x00000001) != 0)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(2, getEvent());
+      }
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(venueName_)) {
+        size += com.google.protobuf.GeneratedMessage.computeStringSize(3, venueName_);
+      }
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(venueMapUrl_)) {
+        size += com.google.protobuf.GeneratedMessage.computeStringSize(4, venueMapUrl_);
+      }
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(venueLocation_)) {
+        size += com.google.protobuf.GeneratedMessage.computeStringSize(5, venueLocation_);
+      }
+      if (((bitField0_ & 0x00000002) != 0)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(6, getShowtimes());
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.bookmyshow.proto.ShowtimeProto.ShowtimeEventResponse)) {
+        return super.equals(obj);
+      }
+      com.bookmyshow.proto.ShowtimeProto.ShowtimeEventResponse other = (com.bookmyshow.proto.ShowtimeProto.ShowtimeEventResponse) obj;
+
+      if (!getVenueId()
+          .equals(other.getVenueId())) return false;
+      if (hasEvent() != other.hasEvent()) return false;
+      if (hasEvent()) {
+        if (!getEvent()
+            .equals(other.getEvent())) return false;
+      }
+      if (!getVenueName()
+          .equals(other.getVenueName())) return false;
+      if (!getVenueMapUrl()
+          .equals(other.getVenueMapUrl())) return false;
+      if (!getVenueLocation()
+          .equals(other.getVenueLocation())) return false;
+      if (hasShowtimes() != other.hasShowtimes()) return false;
+      if (hasShowtimes()) {
+        if (!getShowtimes()
+            .equals(other.getShowtimes())) return false;
+      }
+      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + VENUEID_FIELD_NUMBER;
+      hash = (53 * hash) + getVenueId().hashCode();
+      if (hasEvent()) {
+        hash = (37 * hash) + EVENT_FIELD_NUMBER;
+        hash = (53 * hash) + getEvent().hashCode();
+      }
+      hash = (37 * hash) + VENUENAME_FIELD_NUMBER;
+      hash = (53 * hash) + getVenueName().hashCode();
+      hash = (37 * hash) + VENUEMAPURL_FIELD_NUMBER;
+      hash = (53 * hash) + getVenueMapUrl().hashCode();
+      hash = (37 * hash) + VENUELOCATION_FIELD_NUMBER;
+      hash = (53 * hash) + getVenueLocation().hashCode();
+      if (hasShowtimes()) {
+        hash = (37 * hash) + SHOWTIMES_FIELD_NUMBER;
+        hash = (53 * hash) + getShowtimes().hashCode();
+      }
+      hash = (29 * hash) + getUnknownFields().hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static com.bookmyshow.proto.ShowtimeProto.ShowtimeEventResponse parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.bookmyshow.proto.ShowtimeProto.ShowtimeEventResponse parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.bookmyshow.proto.ShowtimeProto.ShowtimeEventResponse parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.bookmyshow.proto.ShowtimeProto.ShowtimeEventResponse parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.bookmyshow.proto.ShowtimeProto.ShowtimeEventResponse parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.bookmyshow.proto.ShowtimeProto.ShowtimeEventResponse parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.bookmyshow.proto.ShowtimeProto.ShowtimeEventResponse parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.bookmyshow.proto.ShowtimeProto.ShowtimeEventResponse parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public static com.bookmyshow.proto.ShowtimeProto.ShowtimeEventResponse parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+
+    public static com.bookmyshow.proto.ShowtimeProto.ShowtimeEventResponse parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.bookmyshow.proto.ShowtimeProto.ShowtimeEventResponse parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.bookmyshow.proto.ShowtimeProto.ShowtimeEventResponse parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(com.bookmyshow.proto.ShowtimeProto.ShowtimeEventResponse prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code ShowtimeEventResponse}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:ShowtimeEventResponse)
+        com.bookmyshow.proto.ShowtimeProto.ShowtimeEventResponseOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.bookmyshow.proto.ShowtimeProto.internal_static_ShowtimeEventResponse_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.bookmyshow.proto.ShowtimeProto.internal_static_ShowtimeEventResponse_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.bookmyshow.proto.ShowtimeProto.ShowtimeEventResponse.class, com.bookmyshow.proto.ShowtimeProto.ShowtimeEventResponse.Builder.class);
+      }
+
+      // Construct using com.bookmyshow.proto.ShowtimeProto.ShowtimeEventResponse.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage
+                .alwaysUseFieldBuilders) {
+          internalGetEventFieldBuilder();
+          internalGetShowtimesFieldBuilder();
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        bitField0_ = 0;
+        venueId_ = "";
+        event_ = null;
+        if (eventBuilder_ != null) {
+          eventBuilder_.dispose();
+          eventBuilder_ = null;
+        }
+        venueName_ = "";
+        venueMapUrl_ = "";
+        venueLocation_ = "";
+        showtimes_ = null;
+        if (showtimesBuilder_ != null) {
+          showtimesBuilder_.dispose();
+          showtimesBuilder_ = null;
+        }
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.bookmyshow.proto.ShowtimeProto.internal_static_ShowtimeEventResponse_descriptor;
+      }
+
+      @java.lang.Override
+      public com.bookmyshow.proto.ShowtimeProto.ShowtimeEventResponse getDefaultInstanceForType() {
+        return com.bookmyshow.proto.ShowtimeProto.ShowtimeEventResponse.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public com.bookmyshow.proto.ShowtimeProto.ShowtimeEventResponse build() {
+        com.bookmyshow.proto.ShowtimeProto.ShowtimeEventResponse result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public com.bookmyshow.proto.ShowtimeProto.ShowtimeEventResponse buildPartial() {
+        com.bookmyshow.proto.ShowtimeProto.ShowtimeEventResponse result = new com.bookmyshow.proto.ShowtimeProto.ShowtimeEventResponse(this);
+        if (bitField0_ != 0) { buildPartial0(result); }
+        onBuilt();
+        return result;
+      }
+
+      private void buildPartial0(com.bookmyshow.proto.ShowtimeProto.ShowtimeEventResponse result) {
+        int from_bitField0_ = bitField0_;
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.venueId_ = venueId_;
+        }
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000002) != 0)) {
+          result.event_ = eventBuilder_ == null
+              ? event_
+              : eventBuilder_.build();
+          to_bitField0_ |= 0x00000001;
+        }
+        if (((from_bitField0_ & 0x00000004) != 0)) {
+          result.venueName_ = venueName_;
+        }
+        if (((from_bitField0_ & 0x00000008) != 0)) {
+          result.venueMapUrl_ = venueMapUrl_;
+        }
+        if (((from_bitField0_ & 0x00000010) != 0)) {
+          result.venueLocation_ = venueLocation_;
+        }
+        if (((from_bitField0_ & 0x00000020) != 0)) {
+          result.showtimes_ = showtimesBuilder_ == null
+              ? showtimes_
+              : showtimesBuilder_.build();
+          to_bitField0_ |= 0x00000002;
+        }
+        result.bitField0_ |= to_bitField0_;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.bookmyshow.proto.ShowtimeProto.ShowtimeEventResponse) {
+          return mergeFrom((com.bookmyshow.proto.ShowtimeProto.ShowtimeEventResponse)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.bookmyshow.proto.ShowtimeProto.ShowtimeEventResponse other) {
+        if (other == com.bookmyshow.proto.ShowtimeProto.ShowtimeEventResponse.getDefaultInstance()) return this;
+        if (!other.getVenueId().isEmpty()) {
+          venueId_ = other.venueId_;
+          bitField0_ |= 0x00000001;
+          onChanged();
+        }
+        if (other.hasEvent()) {
+          mergeEvent(other.getEvent());
+        }
+        if (!other.getVenueName().isEmpty()) {
+          venueName_ = other.venueName_;
+          bitField0_ |= 0x00000004;
+          onChanged();
+        }
+        if (!other.getVenueMapUrl().isEmpty()) {
+          venueMapUrl_ = other.venueMapUrl_;
+          bitField0_ |= 0x00000008;
+          onChanged();
+        }
+        if (!other.getVenueLocation().isEmpty()) {
+          venueLocation_ = other.venueLocation_;
+          bitField0_ |= 0x00000010;
+          onChanged();
+        }
+        if (other.hasShowtimes()) {
+          mergeShowtimes(other.getShowtimes());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        if (extensionRegistry == null) {
+          throw new java.lang.NullPointerException();
+        }
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              case 10: {
+                venueId_ = input.readStringRequireUtf8();
+                bitField0_ |= 0x00000001;
+                break;
+              } // case 10
+              case 18: {
+                input.readMessage(
+                    internalGetEventFieldBuilder().getBuilder(),
+                    extensionRegistry);
+                bitField0_ |= 0x00000002;
+                break;
+              } // case 18
+              case 26: {
+                venueName_ = input.readStringRequireUtf8();
+                bitField0_ |= 0x00000004;
+                break;
+              } // case 26
+              case 34: {
+                venueMapUrl_ = input.readStringRequireUtf8();
+                bitField0_ |= 0x00000008;
+                break;
+              } // case 34
+              case 42: {
+                venueLocation_ = input.readStringRequireUtf8();
+                bitField0_ |= 0x00000010;
+                break;
+              } // case 42
+              case 50: {
+                input.readMessage(
+                    internalGetShowtimesFieldBuilder().getBuilder(),
+                    extensionRegistry);
+                bitField0_ |= 0x00000020;
+                break;
+              } // case 50
+              default: {
+                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
+                  done = true; // was an endgroup tag
+                }
+                break;
+              } // default:
+            } // switch (tag)
+          } // while (!done)
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.unwrapIOException();
+        } finally {
+          onChanged();
+        } // finally
+        return this;
+      }
+      private int bitField0_;
+
+      private java.lang.Object venueId_ = "";
+      /**
+       * <code>string venueId = 1;</code>
+       * @return The venueId.
+       */
+      public java.lang.String getVenueId() {
+        java.lang.Object ref = venueId_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          venueId_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string venueId = 1;</code>
+       * @return The bytes for venueId.
+       */
+      public com.google.protobuf.ByteString
+          getVenueIdBytes() {
+        java.lang.Object ref = venueId_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          venueId_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string venueId = 1;</code>
+       * @param value The venueId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setVenueId(
+          java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        venueId_ = value;
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string venueId = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearVenueId() {
+        venueId_ = getDefaultInstance().getVenueId();
+        bitField0_ = (bitField0_ & ~0x00000001);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string venueId = 1;</code>
+       * @param value The bytes for venueId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setVenueIdBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        venueId_ = value;
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+
+      private com.bookmyshow.proto.EventProto.Event event_;
+      private com.google.protobuf.SingleFieldBuilder<
+          com.bookmyshow.proto.EventProto.Event, com.bookmyshow.proto.EventProto.Event.Builder, com.bookmyshow.proto.EventProto.EventOrBuilder> eventBuilder_;
+      /**
+       * <code>.Event event = 2;</code>
+       * @return Whether the event field is set.
+       */
+      public boolean hasEvent() {
+        return ((bitField0_ & 0x00000002) != 0);
+      }
+      /**
+       * <code>.Event event = 2;</code>
+       * @return The event.
+       */
+      public com.bookmyshow.proto.EventProto.Event getEvent() {
+        if (eventBuilder_ == null) {
+          return event_ == null ? com.bookmyshow.proto.EventProto.Event.getDefaultInstance() : event_;
+        } else {
+          return eventBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>.Event event = 2;</code>
+       */
+      public Builder setEvent(com.bookmyshow.proto.EventProto.Event value) {
+        if (eventBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          event_ = value;
+        } else {
+          eventBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.Event event = 2;</code>
+       */
+      public Builder setEvent(
+          com.bookmyshow.proto.EventProto.Event.Builder builderForValue) {
+        if (eventBuilder_ == null) {
+          event_ = builderForValue.build();
+        } else {
+          eventBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.Event event = 2;</code>
+       */
+      public Builder mergeEvent(com.bookmyshow.proto.EventProto.Event value) {
+        if (eventBuilder_ == null) {
+          if (((bitField0_ & 0x00000002) != 0) &&
+            event_ != null &&
+            event_ != com.bookmyshow.proto.EventProto.Event.getDefaultInstance()) {
+            getEventBuilder().mergeFrom(value);
+          } else {
+            event_ = value;
+          }
+        } else {
+          eventBuilder_.mergeFrom(value);
+        }
+        if (event_ != null) {
+          bitField0_ |= 0x00000002;
+          onChanged();
+        }
+        return this;
+      }
+      /**
+       * <code>.Event event = 2;</code>
+       */
+      public Builder clearEvent() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        event_ = null;
+        if (eventBuilder_ != null) {
+          eventBuilder_.dispose();
+          eventBuilder_ = null;
+        }
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.Event event = 2;</code>
+       */
+      public com.bookmyshow.proto.EventProto.Event.Builder getEventBuilder() {
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return internalGetEventFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>.Event event = 2;</code>
+       */
+      public com.bookmyshow.proto.EventProto.EventOrBuilder getEventOrBuilder() {
+        if (eventBuilder_ != null) {
+          return eventBuilder_.getMessageOrBuilder();
+        } else {
+          return event_ == null ?
+              com.bookmyshow.proto.EventProto.Event.getDefaultInstance() : event_;
+        }
+      }
+      /**
+       * <code>.Event event = 2;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilder<
+          com.bookmyshow.proto.EventProto.Event, com.bookmyshow.proto.EventProto.Event.Builder, com.bookmyshow.proto.EventProto.EventOrBuilder> 
+          internalGetEventFieldBuilder() {
+        if (eventBuilder_ == null) {
+          eventBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+              com.bookmyshow.proto.EventProto.Event, com.bookmyshow.proto.EventProto.Event.Builder, com.bookmyshow.proto.EventProto.EventOrBuilder>(
+                  getEvent(),
+                  getParentForChildren(),
+                  isClean());
+          event_ = null;
+        }
+        return eventBuilder_;
+      }
+
+      private java.lang.Object venueName_ = "";
+      /**
+       * <code>string venueName = 3;</code>
+       * @return The venueName.
+       */
+      public java.lang.String getVenueName() {
+        java.lang.Object ref = venueName_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          venueName_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string venueName = 3;</code>
+       * @return The bytes for venueName.
+       */
+      public com.google.protobuf.ByteString
+          getVenueNameBytes() {
+        java.lang.Object ref = venueName_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          venueName_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string venueName = 3;</code>
+       * @param value The venueName to set.
+       * @return This builder for chaining.
+       */
+      public Builder setVenueName(
+          java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        venueName_ = value;
+        bitField0_ |= 0x00000004;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string venueName = 3;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearVenueName() {
+        venueName_ = getDefaultInstance().getVenueName();
+        bitField0_ = (bitField0_ & ~0x00000004);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string venueName = 3;</code>
+       * @param value The bytes for venueName to set.
+       * @return This builder for chaining.
+       */
+      public Builder setVenueNameBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        venueName_ = value;
+        bitField0_ |= 0x00000004;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object venueMapUrl_ = "";
+      /**
+       * <code>string venueMapUrl = 4;</code>
+       * @return The venueMapUrl.
+       */
+      public java.lang.String getVenueMapUrl() {
+        java.lang.Object ref = venueMapUrl_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          venueMapUrl_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string venueMapUrl = 4;</code>
+       * @return The bytes for venueMapUrl.
+       */
+      public com.google.protobuf.ByteString
+          getVenueMapUrlBytes() {
+        java.lang.Object ref = venueMapUrl_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          venueMapUrl_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string venueMapUrl = 4;</code>
+       * @param value The venueMapUrl to set.
+       * @return This builder for chaining.
+       */
+      public Builder setVenueMapUrl(
+          java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        venueMapUrl_ = value;
+        bitField0_ |= 0x00000008;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string venueMapUrl = 4;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearVenueMapUrl() {
+        venueMapUrl_ = getDefaultInstance().getVenueMapUrl();
+        bitField0_ = (bitField0_ & ~0x00000008);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string venueMapUrl = 4;</code>
+       * @param value The bytes for venueMapUrl to set.
+       * @return This builder for chaining.
+       */
+      public Builder setVenueMapUrlBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        venueMapUrl_ = value;
+        bitField0_ |= 0x00000008;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object venueLocation_ = "";
+      /**
+       * <code>string venueLocation = 5;</code>
+       * @return The venueLocation.
+       */
+      public java.lang.String getVenueLocation() {
+        java.lang.Object ref = venueLocation_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          venueLocation_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string venueLocation = 5;</code>
+       * @return The bytes for venueLocation.
+       */
+      public com.google.protobuf.ByteString
+          getVenueLocationBytes() {
+        java.lang.Object ref = venueLocation_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          venueLocation_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string venueLocation = 5;</code>
+       * @param value The venueLocation to set.
+       * @return This builder for chaining.
+       */
+      public Builder setVenueLocation(
+          java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        venueLocation_ = value;
+        bitField0_ |= 0x00000010;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string venueLocation = 5;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearVenueLocation() {
+        venueLocation_ = getDefaultInstance().getVenueLocation();
+        bitField0_ = (bitField0_ & ~0x00000010);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string venueLocation = 5;</code>
+       * @param value The bytes for venueLocation to set.
+       * @return This builder for chaining.
+       */
+      public Builder setVenueLocationBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        venueLocation_ = value;
+        bitField0_ |= 0x00000010;
+        onChanged();
+        return this;
+      }
+
+      private com.bookmyshow.proto.ShowtimeProto.ShowtimeDetails showtimes_;
+      private com.google.protobuf.SingleFieldBuilder<
+          com.bookmyshow.proto.ShowtimeProto.ShowtimeDetails, com.bookmyshow.proto.ShowtimeProto.ShowtimeDetails.Builder, com.bookmyshow.proto.ShowtimeProto.ShowtimeDetailsOrBuilder> showtimesBuilder_;
+      /**
+       * <code>.ShowtimeDetails showtimes = 6;</code>
+       * @return Whether the showtimes field is set.
+       */
+      public boolean hasShowtimes() {
+        return ((bitField0_ & 0x00000020) != 0);
+      }
+      /**
+       * <code>.ShowtimeDetails showtimes = 6;</code>
+       * @return The showtimes.
+       */
+      public com.bookmyshow.proto.ShowtimeProto.ShowtimeDetails getShowtimes() {
+        if (showtimesBuilder_ == null) {
+          return showtimes_ == null ? com.bookmyshow.proto.ShowtimeProto.ShowtimeDetails.getDefaultInstance() : showtimes_;
+        } else {
+          return showtimesBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>.ShowtimeDetails showtimes = 6;</code>
+       */
+      public Builder setShowtimes(com.bookmyshow.proto.ShowtimeProto.ShowtimeDetails value) {
+        if (showtimesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          showtimes_ = value;
+        } else {
+          showtimesBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000020;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.ShowtimeDetails showtimes = 6;</code>
+       */
+      public Builder setShowtimes(
+          com.bookmyshow.proto.ShowtimeProto.ShowtimeDetails.Builder builderForValue) {
+        if (showtimesBuilder_ == null) {
+          showtimes_ = builderForValue.build();
+        } else {
+          showtimesBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000020;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.ShowtimeDetails showtimes = 6;</code>
+       */
+      public Builder mergeShowtimes(com.bookmyshow.proto.ShowtimeProto.ShowtimeDetails value) {
+        if (showtimesBuilder_ == null) {
+          if (((bitField0_ & 0x00000020) != 0) &&
+            showtimes_ != null &&
+            showtimes_ != com.bookmyshow.proto.ShowtimeProto.ShowtimeDetails.getDefaultInstance()) {
+            getShowtimesBuilder().mergeFrom(value);
+          } else {
+            showtimes_ = value;
+          }
+        } else {
+          showtimesBuilder_.mergeFrom(value);
+        }
+        if (showtimes_ != null) {
+          bitField0_ |= 0x00000020;
+          onChanged();
+        }
+        return this;
+      }
+      /**
+       * <code>.ShowtimeDetails showtimes = 6;</code>
+       */
+      public Builder clearShowtimes() {
+        bitField0_ = (bitField0_ & ~0x00000020);
+        showtimes_ = null;
+        if (showtimesBuilder_ != null) {
+          showtimesBuilder_.dispose();
+          showtimesBuilder_ = null;
+        }
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.ShowtimeDetails showtimes = 6;</code>
+       */
+      public com.bookmyshow.proto.ShowtimeProto.ShowtimeDetails.Builder getShowtimesBuilder() {
+        bitField0_ |= 0x00000020;
+        onChanged();
+        return internalGetShowtimesFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>.ShowtimeDetails showtimes = 6;</code>
+       */
+      public com.bookmyshow.proto.ShowtimeProto.ShowtimeDetailsOrBuilder getShowtimesOrBuilder() {
+        if (showtimesBuilder_ != null) {
+          return showtimesBuilder_.getMessageOrBuilder();
+        } else {
+          return showtimes_ == null ?
+              com.bookmyshow.proto.ShowtimeProto.ShowtimeDetails.getDefaultInstance() : showtimes_;
+        }
+      }
+      /**
+       * <code>.ShowtimeDetails showtimes = 6;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilder<
+          com.bookmyshow.proto.ShowtimeProto.ShowtimeDetails, com.bookmyshow.proto.ShowtimeProto.ShowtimeDetails.Builder, com.bookmyshow.proto.ShowtimeProto.ShowtimeDetailsOrBuilder> 
+          internalGetShowtimesFieldBuilder() {
+        if (showtimesBuilder_ == null) {
+          showtimesBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+              com.bookmyshow.proto.ShowtimeProto.ShowtimeDetails, com.bookmyshow.proto.ShowtimeProto.ShowtimeDetails.Builder, com.bookmyshow.proto.ShowtimeProto.ShowtimeDetailsOrBuilder>(
+                  getShowtimes(),
+                  getParentForChildren(),
+                  isClean());
+          showtimes_ = null;
+        }
+        return showtimesBuilder_;
+      }
+
+      // @@protoc_insertion_point(builder_scope:ShowtimeEventResponse)
+    }
+
+    // @@protoc_insertion_point(class_scope:ShowtimeEventResponse)
+    private static final com.bookmyshow.proto.ShowtimeProto.ShowtimeEventResponse DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new com.bookmyshow.proto.ShowtimeProto.ShowtimeEventResponse();
+    }
+
+    public static com.bookmyshow.proto.ShowtimeProto.ShowtimeEventResponse getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<ShowtimeEventResponse>
+        PARSER = new com.google.protobuf.AbstractParser<ShowtimeEventResponse>() {
+      @java.lang.Override
+      public ShowtimeEventResponse parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        Builder builder = newBuilder();
+        try {
+          builder.mergeFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(builder.buildPartial());
+        } catch (com.google.protobuf.UninitializedMessageException e) {
+          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(e)
+              .setUnfinishedMessage(builder.buildPartial());
+        }
+        return builder.buildPartial();
+      }
+    };
+
+    public static com.google.protobuf.Parser<ShowtimeEventResponse> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<ShowtimeEventResponse> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.bookmyshow.proto.ShowtimeProto.ShowtimeEventResponse getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   public interface ShowtimeMovieResponseOrBuilder extends
       // @@protoc_insertion_point(interface_extends:ShowtimeMovieResponse)
       com.google.protobuf.MessageOrBuilder {
@@ -4684,11 +6046,19 @@ public final class ShowtimeProto {
     com.bookmyshow.proto.ShowtimeProto.ShowtimeOrBuilder getShowtimeOrBuilder();
 
     /**
+     * <pre>
+     * movie details
+     * </pre>
+     *
      * <code>string movieName = 2;</code>
      * @return The movieName.
      */
     java.lang.String getMovieName();
     /**
+     * <pre>
+     * movie details
+     * </pre>
+     *
      * <code>string movieName = 2;</code>
      * @return The bytes for movieName.
      */
@@ -4768,11 +6138,19 @@ public final class ShowtimeProto {
         getMovieGenreBytes();
 
     /**
+     * <pre>
+     * venue details
+     * </pre>
+     *
      * <code>string venueName = 9;</code>
      * @return The venueName.
      */
     java.lang.String getVenueName();
     /**
+     * <pre>
+     * venue details
+     * </pre>
+     *
      * <code>string venueName = 9;</code>
      * @return The bytes for venueName.
      */
@@ -4802,6 +6180,33 @@ public final class ShowtimeProto {
      */
     com.google.protobuf.ByteString
         getVenueMapUrlBytes();
+
+    /**
+     * <pre>
+     * event details
+     * </pre>
+     *
+     * <code>.Event event = 13;</code>
+     * @return Whether the event field is set.
+     */
+    boolean hasEvent();
+    /**
+     * <pre>
+     * event details
+     * </pre>
+     *
+     * <code>.Event event = 13;</code>
+     * @return The event.
+     */
+    com.bookmyshow.proto.EventProto.Event getEvent();
+    /**
+     * <pre>
+     * event details
+     * </pre>
+     *
+     * <code>.Event event = 13;</code>
+     */
+    com.bookmyshow.proto.EventProto.EventOrBuilder getEventOrBuilder();
 
     /**
      * <code>string movieRating = 12;</code>
@@ -4894,6 +6299,10 @@ public final class ShowtimeProto {
     @SuppressWarnings("serial")
     private volatile java.lang.Object movieName_ = "";
     /**
+     * <pre>
+     * movie details
+     * </pre>
+     *
      * <code>string movieName = 2;</code>
      * @return The movieName.
      */
@@ -4911,6 +6320,10 @@ public final class ShowtimeProto {
       }
     }
     /**
+     * <pre>
+     * movie details
+     * </pre>
+     *
      * <code>string movieName = 2;</code>
      * @return The bytes for movieName.
      */
@@ -5167,6 +6580,10 @@ public final class ShowtimeProto {
     @SuppressWarnings("serial")
     private volatile java.lang.Object venueName_ = "";
     /**
+     * <pre>
+     * venue details
+     * </pre>
+     *
      * <code>string venueName = 9;</code>
      * @return The venueName.
      */
@@ -5184,6 +6601,10 @@ public final class ShowtimeProto {
       }
     }
     /**
+     * <pre>
+     * venue details
+     * </pre>
+     *
      * <code>string venueName = 9;</code>
      * @return The bytes for venueName.
      */
@@ -5280,6 +6701,44 @@ public final class ShowtimeProto {
       }
     }
 
+    public static final int EVENT_FIELD_NUMBER = 13;
+    private com.bookmyshow.proto.EventProto.Event event_;
+    /**
+     * <pre>
+     * event details
+     * </pre>
+     *
+     * <code>.Event event = 13;</code>
+     * @return Whether the event field is set.
+     */
+    @java.lang.Override
+    public boolean hasEvent() {
+      return ((bitField0_ & 0x00000002) != 0);
+    }
+    /**
+     * <pre>
+     * event details
+     * </pre>
+     *
+     * <code>.Event event = 13;</code>
+     * @return The event.
+     */
+    @java.lang.Override
+    public com.bookmyshow.proto.EventProto.Event getEvent() {
+      return event_ == null ? com.bookmyshow.proto.EventProto.Event.getDefaultInstance() : event_;
+    }
+    /**
+     * <pre>
+     * event details
+     * </pre>
+     *
+     * <code>.Event event = 13;</code>
+     */
+    @java.lang.Override
+    public com.bookmyshow.proto.EventProto.EventOrBuilder getEventOrBuilder() {
+      return event_ == null ? com.bookmyshow.proto.EventProto.Event.getDefaultInstance() : event_;
+    }
+
     public static final int MOVIERATING_FIELD_NUMBER = 12;
     @SuppressWarnings("serial")
     private volatile java.lang.Object movieRating_ = "";
@@ -5369,6 +6828,9 @@ public final class ShowtimeProto {
       if (!com.google.protobuf.GeneratedMessage.isStringEmpty(movieRating_)) {
         com.google.protobuf.GeneratedMessage.writeString(output, 12, movieRating_);
       }
+      if (((bitField0_ & 0x00000002) != 0)) {
+        output.writeMessage(13, getEvent());
+      }
       getUnknownFields().writeTo(output);
     }
 
@@ -5415,6 +6877,10 @@ public final class ShowtimeProto {
       if (!com.google.protobuf.GeneratedMessage.isStringEmpty(movieRating_)) {
         size += com.google.protobuf.GeneratedMessage.computeStringSize(12, movieRating_);
       }
+      if (((bitField0_ & 0x00000002) != 0)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(13, getEvent());
+      }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
       return size;
@@ -5455,6 +6921,11 @@ public final class ShowtimeProto {
           .equals(other.getVenueLocation())) return false;
       if (!getVenueMapUrl()
           .equals(other.getVenueMapUrl())) return false;
+      if (hasEvent() != other.hasEvent()) return false;
+      if (hasEvent()) {
+        if (!getEvent()
+            .equals(other.getEvent())) return false;
+      }
       if (!getMovieRating()
           .equals(other.getMovieRating())) return false;
       if (!getUnknownFields().equals(other.getUnknownFields())) return false;
@@ -5492,6 +6963,10 @@ public final class ShowtimeProto {
       hash = (53 * hash) + getVenueLocation().hashCode();
       hash = (37 * hash) + VENUEMAPURL_FIELD_NUMBER;
       hash = (53 * hash) + getVenueMapUrl().hashCode();
+      if (hasEvent()) {
+        hash = (37 * hash) + EVENT_FIELD_NUMBER;
+        hash = (53 * hash) + getEvent().hashCode();
+      }
       hash = (37 * hash) + MOVIERATING_FIELD_NUMBER;
       hash = (53 * hash) + getMovieRating().hashCode();
       hash = (29 * hash) + getUnknownFields().hashCode();
@@ -5625,6 +7100,7 @@ public final class ShowtimeProto {
         if (com.google.protobuf.GeneratedMessage
                 .alwaysUseFieldBuilders) {
           internalGetShowtimeFieldBuilder();
+          internalGetEventFieldBuilder();
         }
       }
       @java.lang.Override
@@ -5646,6 +7122,11 @@ public final class ShowtimeProto {
         venueName_ = "";
         venueLocation_ = "";
         venueMapUrl_ = "";
+        event_ = null;
+        if (eventBuilder_ != null) {
+          eventBuilder_.dispose();
+          eventBuilder_ = null;
+        }
         movieRating_ = "";
         return this;
       }
@@ -5718,6 +7199,12 @@ public final class ShowtimeProto {
           result.venueMapUrl_ = venueMapUrl_;
         }
         if (((from_bitField0_ & 0x00000800) != 0)) {
+          result.event_ = eventBuilder_ == null
+              ? event_
+              : eventBuilder_.build();
+          to_bitField0_ |= 0x00000002;
+        }
+        if (((from_bitField0_ & 0x00001000) != 0)) {
           result.movieRating_ = movieRating_;
         }
         result.bitField0_ |= to_bitField0_;
@@ -5788,9 +7275,12 @@ public final class ShowtimeProto {
           bitField0_ |= 0x00000400;
           onChanged();
         }
+        if (other.hasEvent()) {
+          mergeEvent(other.getEvent());
+        }
         if (!other.getMovieRating().isEmpty()) {
           movieRating_ = other.movieRating_;
-          bitField0_ |= 0x00000800;
+          bitField0_ |= 0x00001000;
           onChanged();
         }
         this.mergeUnknownFields(other.getUnknownFields());
@@ -5878,9 +7368,16 @@ public final class ShowtimeProto {
               } // case 90
               case 98: {
                 movieRating_ = input.readStringRequireUtf8();
-                bitField0_ |= 0x00000800;
+                bitField0_ |= 0x00001000;
                 break;
               } // case 98
+              case 106: {
+                input.readMessage(
+                    internalGetEventFieldBuilder().getBuilder(),
+                    extensionRegistry);
+                bitField0_ |= 0x00000800;
+                break;
+              } // case 106
               default: {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                   done = true; // was an endgroup tag
@@ -6021,6 +7518,10 @@ public final class ShowtimeProto {
 
       private java.lang.Object movieName_ = "";
       /**
+       * <pre>
+       * movie details
+       * </pre>
+       *
        * <code>string movieName = 2;</code>
        * @return The movieName.
        */
@@ -6037,6 +7538,10 @@ public final class ShowtimeProto {
         }
       }
       /**
+       * <pre>
+       * movie details
+       * </pre>
+       *
        * <code>string movieName = 2;</code>
        * @return The bytes for movieName.
        */
@@ -6054,6 +7559,10 @@ public final class ShowtimeProto {
         }
       }
       /**
+       * <pre>
+       * movie details
+       * </pre>
+       *
        * <code>string movieName = 2;</code>
        * @param value The movieName to set.
        * @return This builder for chaining.
@@ -6067,6 +7576,10 @@ public final class ShowtimeProto {
         return this;
       }
       /**
+       * <pre>
+       * movie details
+       * </pre>
+       *
        * <code>string movieName = 2;</code>
        * @return This builder for chaining.
        */
@@ -6077,6 +7590,10 @@ public final class ShowtimeProto {
         return this;
       }
       /**
+       * <pre>
+       * movie details
+       * </pre>
+       *
        * <code>string movieName = 2;</code>
        * @param value The bytes for movieName to set.
        * @return This builder for chaining.
@@ -6525,6 +8042,10 @@ public final class ShowtimeProto {
 
       private java.lang.Object venueName_ = "";
       /**
+       * <pre>
+       * venue details
+       * </pre>
+       *
        * <code>string venueName = 9;</code>
        * @return The venueName.
        */
@@ -6541,6 +8062,10 @@ public final class ShowtimeProto {
         }
       }
       /**
+       * <pre>
+       * venue details
+       * </pre>
+       *
        * <code>string venueName = 9;</code>
        * @return The bytes for venueName.
        */
@@ -6558,6 +8083,10 @@ public final class ShowtimeProto {
         }
       }
       /**
+       * <pre>
+       * venue details
+       * </pre>
+       *
        * <code>string venueName = 9;</code>
        * @param value The venueName to set.
        * @return This builder for chaining.
@@ -6571,6 +8100,10 @@ public final class ShowtimeProto {
         return this;
       }
       /**
+       * <pre>
+       * venue details
+       * </pre>
+       *
        * <code>string venueName = 9;</code>
        * @return This builder for chaining.
        */
@@ -6581,6 +8114,10 @@ public final class ShowtimeProto {
         return this;
       }
       /**
+       * <pre>
+       * venue details
+       * </pre>
+       *
        * <code>string venueName = 9;</code>
        * @param value The bytes for venueName to set.
        * @return This builder for chaining.
@@ -6739,6 +8276,163 @@ public final class ShowtimeProto {
         return this;
       }
 
+      private com.bookmyshow.proto.EventProto.Event event_;
+      private com.google.protobuf.SingleFieldBuilder<
+          com.bookmyshow.proto.EventProto.Event, com.bookmyshow.proto.EventProto.Event.Builder, com.bookmyshow.proto.EventProto.EventOrBuilder> eventBuilder_;
+      /**
+       * <pre>
+       * event details
+       * </pre>
+       *
+       * <code>.Event event = 13;</code>
+       * @return Whether the event field is set.
+       */
+      public boolean hasEvent() {
+        return ((bitField0_ & 0x00000800) != 0);
+      }
+      /**
+       * <pre>
+       * event details
+       * </pre>
+       *
+       * <code>.Event event = 13;</code>
+       * @return The event.
+       */
+      public com.bookmyshow.proto.EventProto.Event getEvent() {
+        if (eventBuilder_ == null) {
+          return event_ == null ? com.bookmyshow.proto.EventProto.Event.getDefaultInstance() : event_;
+        } else {
+          return eventBuilder_.getMessage();
+        }
+      }
+      /**
+       * <pre>
+       * event details
+       * </pre>
+       *
+       * <code>.Event event = 13;</code>
+       */
+      public Builder setEvent(com.bookmyshow.proto.EventProto.Event value) {
+        if (eventBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          event_ = value;
+        } else {
+          eventBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000800;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * event details
+       * </pre>
+       *
+       * <code>.Event event = 13;</code>
+       */
+      public Builder setEvent(
+          com.bookmyshow.proto.EventProto.Event.Builder builderForValue) {
+        if (eventBuilder_ == null) {
+          event_ = builderForValue.build();
+        } else {
+          eventBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000800;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * event details
+       * </pre>
+       *
+       * <code>.Event event = 13;</code>
+       */
+      public Builder mergeEvent(com.bookmyshow.proto.EventProto.Event value) {
+        if (eventBuilder_ == null) {
+          if (((bitField0_ & 0x00000800) != 0) &&
+            event_ != null &&
+            event_ != com.bookmyshow.proto.EventProto.Event.getDefaultInstance()) {
+            getEventBuilder().mergeFrom(value);
+          } else {
+            event_ = value;
+          }
+        } else {
+          eventBuilder_.mergeFrom(value);
+        }
+        if (event_ != null) {
+          bitField0_ |= 0x00000800;
+          onChanged();
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * event details
+       * </pre>
+       *
+       * <code>.Event event = 13;</code>
+       */
+      public Builder clearEvent() {
+        bitField0_ = (bitField0_ & ~0x00000800);
+        event_ = null;
+        if (eventBuilder_ != null) {
+          eventBuilder_.dispose();
+          eventBuilder_ = null;
+        }
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * event details
+       * </pre>
+       *
+       * <code>.Event event = 13;</code>
+       */
+      public com.bookmyshow.proto.EventProto.Event.Builder getEventBuilder() {
+        bitField0_ |= 0x00000800;
+        onChanged();
+        return internalGetEventFieldBuilder().getBuilder();
+      }
+      /**
+       * <pre>
+       * event details
+       * </pre>
+       *
+       * <code>.Event event = 13;</code>
+       */
+      public com.bookmyshow.proto.EventProto.EventOrBuilder getEventOrBuilder() {
+        if (eventBuilder_ != null) {
+          return eventBuilder_.getMessageOrBuilder();
+        } else {
+          return event_ == null ?
+              com.bookmyshow.proto.EventProto.Event.getDefaultInstance() : event_;
+        }
+      }
+      /**
+       * <pre>
+       * event details
+       * </pre>
+       *
+       * <code>.Event event = 13;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilder<
+          com.bookmyshow.proto.EventProto.Event, com.bookmyshow.proto.EventProto.Event.Builder, com.bookmyshow.proto.EventProto.EventOrBuilder> 
+          internalGetEventFieldBuilder() {
+        if (eventBuilder_ == null) {
+          eventBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+              com.bookmyshow.proto.EventProto.Event, com.bookmyshow.proto.EventProto.Event.Builder, com.bookmyshow.proto.EventProto.EventOrBuilder>(
+                  getEvent(),
+                  getParentForChildren(),
+                  isClean());
+          event_ = null;
+        }
+        return eventBuilder_;
+      }
+
       private java.lang.Object movieRating_ = "";
       /**
        * <code>string movieRating = 12;</code>
@@ -6782,7 +8476,7 @@ public final class ShowtimeProto {
           java.lang.String value) {
         if (value == null) { throw new NullPointerException(); }
         movieRating_ = value;
-        bitField0_ |= 0x00000800;
+        bitField0_ |= 0x00001000;
         onChanged();
         return this;
       }
@@ -6792,7 +8486,7 @@ public final class ShowtimeProto {
        */
       public Builder clearMovieRating() {
         movieRating_ = getDefaultInstance().getMovieRating();
-        bitField0_ = (bitField0_ & ~0x00000800);
+        bitField0_ = (bitField0_ & ~0x00001000);
         onChanged();
         return this;
       }
@@ -6806,7 +8500,7 @@ public final class ShowtimeProto {
         if (value == null) { throw new NullPointerException(); }
         checkByteStringIsUtf8(value);
         movieRating_ = value;
-        bitField0_ |= 0x00000800;
+        bitField0_ |= 0x00001000;
         onChanged();
         return this;
       }
@@ -8934,6 +10628,11 @@ public final class ShowtimeProto {
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_ShowtimeDetails_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_ShowtimeEventResponse_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_ShowtimeEventResponse_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_ShowtimeMovieResponse_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
@@ -8967,34 +10666,40 @@ public final class ShowtimeProto {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\016showtime.proto\"\177\n\010Showtime\022\022\n\nshowtime" +
-      "Id\030\001 \001(\t\022\017\n\007venueId\030\002 \001(\t\022\017\n\007movieId\030\003 \001" +
-      "(\t\022\017\n\007eventId\030\004 \001(\t\022\014\n\004date\030\005 \001(\t\022\017\n\007sta" +
-      "rtAt\030\006 \001(\t\022\r\n\005endAt\030\007 \001(\t\"a\n\rShowtimeInp" +
-      "ut\022\017\n\007venueId\030\001 \001(\t\022\017\n\007movieId\030\002 \001(\t\022\017\n\007" +
-      "eventId\030\003 \001(\t\022\014\n\004date\030\004 \001(\t\022\017\n\007startAt\030\005" +
-      " \001(\t\"E\n\017ShowtimeDetails\022\022\n\nshowtimeId\030\001 " +
-      "\001(\t\022\017\n\007startAt\030\002 \001(\t\022\r\n\005endAt\030\003 \001(\t\"\214\001\n\025" +
-      "ShowtimeMovieResponse\022\017\n\007venueId\030\001 \001(\t\022\021" +
-      "\n\tvenueName\030\002 \001(\t\022\023\n\013venueMapUrl\030\003 \001(\t\022\025" +
-      "\n\rvenueLocation\030\004 \001(\t\022#\n\tshowtimes\030\005 \003(\013" +
-      "2\020.ShowtimeDetails\"\247\002\n\026ShowtimeDetailRes" +
-      "ponse\022\033\n\010showtime\030\001 \001(\0132\t.Showtime\022\021\n\tmo" +
-      "vieName\030\002 \001(\t\022\030\n\020movieDescription\030\003 \001(\t\022" +
-      "\025\n\rmovieImageUrl\030\004 \001(\t\022\026\n\016moviePosterUrl" +
-      "\030\005 \001(\t\022\025\n\rmovieDuration\030\006 \001(\t\022\025\n\rmovieLa" +
-      "nguage\030\007 \001(\t\022\022\n\nmovieGenre\030\010 \001(\t\022\021\n\tvenu" +
-      "eName\030\t \001(\t\022\025\n\rvenueLocation\030\n \001(\t\022\023\n\013ve" +
-      "nueMapUrl\030\013 \001(\t\022\023\n\013movieRating\030\014 \001(\t\"F\n\031" +
-      "ShowtimeMovieResponseList\022)\n\tresponses\030\001" +
-      " \003(\0132\026.ShowtimeMovieResponse\",\n\014Showtime" +
-      "List\022\034\n\tshowtimes\030\001 \003(\0132\t.Showtime\"\034\n\005Se" +
-      "ats\022\023\n\013bookedSeats\030\001 \003(\tB%\n\024com.bookmysh" +
-      "ow.protoB\rShowtimeProtob\006proto3"
+      "\n\016showtime.proto\032\013event.proto\"\177\n\010Showtim" +
+      "e\022\022\n\nshowtimeId\030\001 \001(\t\022\017\n\007venueId\030\002 \001(\t\022\017" +
+      "\n\007movieId\030\003 \001(\t\022\017\n\007eventId\030\004 \001(\t\022\014\n\004date" +
+      "\030\005 \001(\t\022\017\n\007startAt\030\006 \001(\t\022\r\n\005endAt\030\007 \001(\t\"a" +
+      "\n\rShowtimeInput\022\017\n\007venueId\030\001 \001(\t\022\017\n\007movi" +
+      "eId\030\002 \001(\t\022\017\n\007eventId\030\003 \001(\t\022\014\n\004date\030\004 \001(\t" +
+      "\022\017\n\007startAt\030\005 \001(\t\"E\n\017ShowtimeDetails\022\022\n\n" +
+      "showtimeId\030\001 \001(\t\022\017\n\007startAt\030\002 \001(\t\022\r\n\005end" +
+      "At\030\003 \001(\t\"\243\001\n\025ShowtimeEventResponse\022\017\n\007ve" +
+      "nueId\030\001 \001(\t\022\025\n\005event\030\002 \001(\0132\006.Event\022\021\n\tve" +
+      "nueName\030\003 \001(\t\022\023\n\013venueMapUrl\030\004 \001(\t\022\025\n\rve" +
+      "nueLocation\030\005 \001(\t\022#\n\tshowtimes\030\006 \001(\0132\020.S" +
+      "howtimeDetails\"\214\001\n\025ShowtimeMovieResponse" +
+      "\022\017\n\007venueId\030\001 \001(\t\022\021\n\tvenueName\030\002 \001(\t\022\023\n\013" +
+      "venueMapUrl\030\003 \001(\t\022\025\n\rvenueLocation\030\004 \001(\t" +
+      "\022#\n\tshowtimes\030\005 \003(\0132\020.ShowtimeDetails\"\276\002" +
+      "\n\026ShowtimeDetailResponse\022\033\n\010showtime\030\001 \001" +
+      "(\0132\t.Showtime\022\021\n\tmovieName\030\002 \001(\t\022\030\n\020movi" +
+      "eDescription\030\003 \001(\t\022\025\n\rmovieImageUrl\030\004 \001(" +
+      "\t\022\026\n\016moviePosterUrl\030\005 \001(\t\022\025\n\rmovieDurati" +
+      "on\030\006 \001(\t\022\025\n\rmovieLanguage\030\007 \001(\t\022\022\n\nmovie" +
+      "Genre\030\010 \001(\t\022\021\n\tvenueName\030\t \001(\t\022\025\n\rvenueL" +
+      "ocation\030\n \001(\t\022\023\n\013venueMapUrl\030\013 \001(\t\022\025\n\005ev" +
+      "ent\030\r \001(\0132\006.Event\022\023\n\013movieRating\030\014 \001(\t\"F" +
+      "\n\031ShowtimeMovieResponseList\022)\n\tresponses" +
+      "\030\001 \003(\0132\026.ShowtimeMovieResponse\",\n\014Showti" +
+      "meList\022\034\n\tshowtimes\030\001 \003(\0132\t.Showtime\"\034\n\005" +
+      "Seats\022\023\n\013bookedSeats\030\001 \003(\tB%\n\024com.bookmy" +
+      "show.protoB\rShowtimeProtob\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
+          com.bookmyshow.proto.EventProto.getDescriptor(),
         });
     internal_static_Showtime_descriptor =
       getDescriptor().getMessageTypes().get(0);
@@ -9014,37 +10719,44 @@ public final class ShowtimeProto {
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_ShowtimeDetails_descriptor,
         new java.lang.String[] { "ShowtimeId", "StartAt", "EndAt", });
-    internal_static_ShowtimeMovieResponse_descriptor =
+    internal_static_ShowtimeEventResponse_descriptor =
       getDescriptor().getMessageTypes().get(3);
+    internal_static_ShowtimeEventResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_ShowtimeEventResponse_descriptor,
+        new java.lang.String[] { "VenueId", "Event", "VenueName", "VenueMapUrl", "VenueLocation", "Showtimes", });
+    internal_static_ShowtimeMovieResponse_descriptor =
+      getDescriptor().getMessageTypes().get(4);
     internal_static_ShowtimeMovieResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_ShowtimeMovieResponse_descriptor,
         new java.lang.String[] { "VenueId", "VenueName", "VenueMapUrl", "VenueLocation", "Showtimes", });
     internal_static_ShowtimeDetailResponse_descriptor =
-      getDescriptor().getMessageTypes().get(4);
+      getDescriptor().getMessageTypes().get(5);
     internal_static_ShowtimeDetailResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_ShowtimeDetailResponse_descriptor,
-        new java.lang.String[] { "Showtime", "MovieName", "MovieDescription", "MovieImageUrl", "MoviePosterUrl", "MovieDuration", "MovieLanguage", "MovieGenre", "VenueName", "VenueLocation", "VenueMapUrl", "MovieRating", });
+        new java.lang.String[] { "Showtime", "MovieName", "MovieDescription", "MovieImageUrl", "MoviePosterUrl", "MovieDuration", "MovieLanguage", "MovieGenre", "VenueName", "VenueLocation", "VenueMapUrl", "Event", "MovieRating", });
     internal_static_ShowtimeMovieResponseList_descriptor =
-      getDescriptor().getMessageTypes().get(5);
+      getDescriptor().getMessageTypes().get(6);
     internal_static_ShowtimeMovieResponseList_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_ShowtimeMovieResponseList_descriptor,
         new java.lang.String[] { "Responses", });
     internal_static_ShowtimeList_descriptor =
-      getDescriptor().getMessageTypes().get(6);
+      getDescriptor().getMessageTypes().get(7);
     internal_static_ShowtimeList_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_ShowtimeList_descriptor,
         new java.lang.String[] { "Showtimes", });
     internal_static_Seats_descriptor =
-      getDescriptor().getMessageTypes().get(7);
+      getDescriptor().getMessageTypes().get(8);
     internal_static_Seats_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_Seats_descriptor,
         new java.lang.String[] { "BookedSeats", });
     descriptor.resolveAllFeaturesImmutable();
+    com.bookmyshow.proto.EventProto.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

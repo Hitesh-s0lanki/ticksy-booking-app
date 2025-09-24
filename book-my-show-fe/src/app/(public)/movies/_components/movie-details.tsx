@@ -6,7 +6,6 @@ import DataSelection from "./date-selection";
 import MovieHeroSection from "./movie-hero-section";
 import TheaterSelection from "./theater-selection";
 import { ErrorState } from "@/components/error-state";
-import { generateDates } from "@/lib/utils";
 import { useState } from "react";
 
 type Props = {
