@@ -15,14 +15,35 @@ type Props = {};
 
 const RecommendedSports = ({}: Props) => {
   const trpc = useTRPC();
-  const { data } = useQuery(trpc.events.getManySports.queryOptions({}));
+  const { data, isLoading } = useQuery(
+    trpc.events.getManySports.queryOptions({})
+  );
+
+  if (isLoading) {
+    return (
+      <div className="flex w-full flex-col gap-5 px-20 py-8">
+        <h2 className="text-2xl font-[500px]">Sports</h2>
+
+        <Carousel className="w-full">
+          <CarouselContent className="-ml-1 gap-4">
+            {Array.from({ length: 5 }).map((_, i) => (
+              <CarouselItem
+                key={i}
+                className="h-80 bg-gray-300/30 rounded-lg animate-pulse md:basis-1/2 lg:basis-1/4"
+              />
+            ))}
+          </CarouselContent>
+        </Carousel>
+      </div>
+    );
+  }
 
   return (
     <div className="flex w-full flex-col gap-5 px-20 py-8">
       <h2 className="text-2xl font-[500px]">Sports</h2>
 
       <Carousel className="w-full">
-        <CarouselContent className="-ml-1">
+        <CarouselContent className="-ml-1 gap-4">
           {data?.map((event) => (
             <CarouselItem
               key={event.eventId}
@@ -43,8 +64,8 @@ const RecommendedSports = ({}: Props) => {
 
                   {/* Hover Overlay with Button */}
                   <div className="absolute inset-0 flex flex-col gap-3 items-start justify-end bg-black/40 opacity-100 transition-opacity duration-300 px-4 py-4">
-                    <h3 className="text-white text-md font-semibold text-center">
-                      {event.title}
+                    <h3 className="text-white text-md font-semibold text-start">
+                      {event.title.slice(0, 30)}...
                     </h3>
                     <p className=" text-xs text-white line-clamp-3">
                       {event.description.slice(0, 80)}...

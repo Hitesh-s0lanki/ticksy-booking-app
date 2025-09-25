@@ -1,10 +1,14 @@
 "use server";
 
-import { Movie as MovieProto, MoviesList } from "@/gen/js-ts/movie_pb";
+import {
+  MovieInput,
+  Movie as MovieProto,
+  MoviesList,
+} from "@/gen/js-ts/movie_pb";
 import { Seats, ShowtimeMovieResponseList } from "@/gen/js-ts/showtime_pb";
 import { axiosInstance } from "@/lib/axios-instance";
 import { apiResponse, errorHandler } from "@/lib/handler";
-import { deseralize } from "@/lib/utils";
+import { deseralize, parseProtoPlainMessage } from "@/lib/utils";
 import { PlainMessage } from "@bufbuild/protobuf";
 
 export const getAllMovies = async ({
@@ -133,6 +137,36 @@ export const getBookedSeats = async ({
     console.error("Error fetching booked seats:", error);
     return errorHandler(
       error?.message || "Failed to fetch booked seats.",
+      error?.response?.status || 500
+    );
+  }
+};
+
+export const createMovie = async ({
+  movieData,
+}: {
+  movieData: PlainMessage<MovieInput>;
+}): Promise<{
+  data?: PlainMessage<MovieProto>;
+  message: string;
+  statusCode: number;
+}> => {
+  try {
+    const movie = parseProtoPlainMessage(movieData, MovieInput);
+
+    // Create a new movie in the backend
+    const response = await axiosInstance.post(`/movies`, movie.toBinary());
+
+    // Deserialize the response data
+    const movieResponse = deseralize(MovieProto.fromBinary, response);
+
+    return apiResponse("Movie created successfully", 201, movieResponse);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (error: any) {
+    // Capture api related error and report it to sentry
+    console.error("Error creating movie:", error);
+    return errorHandler(
+      error?.message || "Failed to create movie.",
       error?.response?.status || 500
     );
   }

@@ -187,28 +187,28 @@
 
 	  <!-- Ensure IDE treats generated folder as a source root -->
 	  <plugin>
-  <groupId>org.codehaus.mojo</groupId>
-  <artifactId>build-helper-maven-plugin</artifactId>
-  <version>3.5.0</version>
-  <executions>
-    <execution>
-      <id>add-generated-sources</id>
-      <phase>generate-sources</phase>
-      <goals>
-        <goal>add-source</goal>
-        <goal>add-test-source</goal>
-      </goals>
-      <configuration>
-        <sources>
-          <source>${project.build.directory}/generated-sources/protobuf/java</source>
-        </sources>
-        <testSources>
-          <testSource>${project.build.directory}/generated-test-sources/protobuf/java</testSource>
-        </testSources>
-      </configuration>
-    </execution>
-  </executions>
-</plugin>
+		<groupId>org.codehaus.mojo</groupId>
+		<artifactId>build-helper-maven-plugin</artifactId>
+		<version>3.5.0</version>
+		<executions>
+			<execution>
+			<id>add-generated-sources</id>
+			<phase>generate-sources</phase>
+			<goals>
+				<goal>add-source</goal>
+				<goal>add-test-source</goal>
+			</goals>
+			<configuration>
+				<sources>
+				<source>${project.build.directory}/generated-sources/protobuf/java</source>
+				</sources>
+				<testSources>
+				<testSource>${project.build.directory}/generated-test-sources/protobuf/java</testSource>
+				</testSources>
+			</configuration>
+			</execution>
+		</executions>
+		</plugin>
 	</plugins>
 
 	<extensions>

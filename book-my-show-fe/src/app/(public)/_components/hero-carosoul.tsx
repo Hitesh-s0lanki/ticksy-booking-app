@@ -30,13 +30,17 @@ const HeroCarousel = () => {
   if (isLoading) {
     return (
       <section className="w-full py-5">
-        <div className="container mx-auto px-4">
-          <div className="flex flex-col gap-6">
+        <Carousel
+          plugins={[plugin.current]}
+          className="w-full"
+          onMouseEnter={plugin.current.stop}
+          onMouseLeave={plugin.current.reset}
+        >
+          <CarouselContent defaultValue={2}>
             {Array.from({ length: 3 }).map((_, i) => (
-              <div
+              <CarouselItem
                 key={i}
-                className="max-w-[1280px] max-h-[400px] px-5 rounded-lg w-full"
-                aria-hidden
+                className="max-w-[1280px] max-h-[400px] px-5  rounded-lg w-full "
               >
                 <div className="relative text-white rounded-md w-full h-[400px] overflow-hidden bg-transparent">
                   <div className="absolute inset-0 -z-10 bg-gray-300/30 animate-pulse" />
@@ -68,10 +72,10 @@ const HeroCarousel = () => {
                     </div>
                   </div>
                 </div>
-              </div>
+              </CarouselItem>
             ))}
-          </div>
-        </div>
+          </CarouselContent>
+        </Carousel>
       </section>
     );
   }

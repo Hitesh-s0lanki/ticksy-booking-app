@@ -6,6 +6,7 @@ import { useSuspenseQuery } from "@tanstack/react-query";
 import { ErrorState } from "@/components/error-state";
 import { Button } from "@/components/ui/button";
 import { CalendarArrowDownIcon } from "lucide-react";
+import Link from "next/link";
 
 interface Props {
   eventId: string;
@@ -15,7 +16,7 @@ const EventDetails = ({ eventId }: Props) => {
   const trpc = useTRPC();
 
   const { data } = useSuspenseQuery(
-    trpc.events.getById.queryOptions({ eventId })
+    trpc.events.getShowtimes.queryOptions({ eventId })
   );
 
   if (!data) {
@@ -27,8 +28,17 @@ const EventDetails = ({ eventId }: Props) => {
     );
   }
 
-  const start = new Date(data.startDate);
-  const end = new Date(data.endDate);
+  if (!data.event) {
+    return (
+      <ErrorState
+        title="Event not found"
+        description="The event details are missing."
+      />
+    );
+  }
+
+  const start = new Date(data.event.startDate);
+  const end = new Date(data.event.endDate);
   const durationMinutes = Math.round((end.getTime() - start.getTime()) / 60000);
   const durationHours = durationMinutes / 60 || 2;
 
@@ -37,16 +47,16 @@ const EventDetails = ({ eventId }: Props) => {
       <div className="p-8 w-full h-full grid grid-cols-3 gap-6 bg-primary/10 border-2 border-primary/30 rounded-md shadow-lg">
         <div className="relative w-full h-64">
           <Image
-            src={data.bannerUrl}
-            alt={data.title}
+            src={data.event.bannerUrl}
+            alt={data.event.title}
             fill
             className="object-cover rounded-md shadow-2xl"
             unoptimized
           />
         </div>
         <div className="col-span-2 flex flex-col gap-4 justify-center">
-          <h1 className="text-2xl font-bold">{data.title}</h1>
-          <p className="text-gray-700">{data.description}</p>
+          <h1 className="text-2xl font-bold">{data.event.title}</h1>
+          <p className="text-gray-700">{data.event.description}</p>
           <div className="text-sm text-gray-600 flex flex-col gap-1">
             <p>
               <strong>Event Timing:</strong>{" "}
@@ -59,19 +69,20 @@ const EventDetails = ({ eventId }: Props) => {
               })}
             </p>
             <p>
-              <strong>Venue:</strong> {data.organizerName}
+              <strong>Venue:</strong> {data.venueName}
             </p>
             <p>
               <strong>Duration:</strong> {durationHours} hours
             </p>
-            <p>
-              <strong>Category:</strong> {data.categoryType.toLocaleUpperCase()}
-            </p>
           </div>
           <div>
-            <Button>
-              <CalendarArrowDownIcon className="w-5 h-5 mr-1" />
-              Grab Your Spot
+            <Button asChild>
+              <Link
+                href={`/bookings/${data.showtimes?.showtimeId}?source=event`}
+              >
+                <CalendarArrowDownIcon className="w-5 h-5 mr-1" />
+                Grab Your Spot
+              </Link>
             </Button>
           </div>
         </div>

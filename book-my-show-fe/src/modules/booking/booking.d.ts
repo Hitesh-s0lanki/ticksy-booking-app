@@ -1,6 +1,6 @@
 export type BookingPayload = {
   showtimeId: string;
-  seats: string[];
+  seats?: any;
   amountWithoutGST: number;
   gst: number;
   totalAmount: number;

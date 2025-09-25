@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Message } from "@bufbuild/protobuf";
 import { AxiosError } from "axios";
+import { NextResponse } from "next/server";
 
 export const apiResponse = <T>(
   message: string,
@@ -83,4 +84,56 @@ export const errorHandler = (
   }
 
   return apiResponse(response.message, response.statusCode);
+};
+
+type RouteHandlerSuccessResponse<T> = {
+  success: boolean;
+  message: string;
+  data: T | null;
+};
+
+type RouteHandlerErrorResponse = {
+  success: boolean;
+  message: string;
+};
+
+export const routeHandlerSuccess = <T>(
+  message: string,
+  status: number,
+  data?: T
+): NextResponse<RouteHandlerSuccessResponse<T>> => {
+  let processedData: unknown;
+
+  if (data instanceof Message) {
+    processedData = JSON.parse(
+      data.toJsonString({
+        enumAsInteger: true,
+        emitDefaultValues: true,
+      })
+    );
+  } else if (data !== undefined) {
+    processedData = data;
+  }
+
+  return NextResponse.json(
+    {
+      success: true,
+      message,
+      data: (processedData as T) ?? null,
+    },
+    { status }
+  );
+};
+
+export const routeHandlerError = (
+  message: string,
+  status: number
+): NextResponse<RouteHandlerErrorResponse> => {
+  return NextResponse.json(
+    {
+      success: false,
+      message,
+    },
+    { status }
+  );
 };

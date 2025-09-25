@@ -4,6 +4,7 @@
 // @ts-nocheck
 
 import { proto3 } from "@bufbuild/protobuf";
+import { Event } from "./event_pb.js";
 
 /**
  * @generated from message Showtime
@@ -48,6 +49,21 @@ export const ShowtimeDetails = /*@__PURE__*/ proto3.makeMessageType(
 );
 
 /**
+ * @generated from message ShowtimeEventResponse
+ */
+export const ShowtimeEventResponse = /*@__PURE__*/ proto3.makeMessageType(
+  "ShowtimeEventResponse",
+  () => [
+    { no: 1, name: "venueId", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "event", kind: "message", T: Event },
+    { no: 3, name: "venueName", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 4, name: "venueMapUrl", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 5, name: "venueLocation", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 6, name: "showtimes", kind: "message", T: ShowtimeDetails },
+  ],
+);
+
+/**
  * @generated from message ShowtimeMovieResponse
  */
 export const ShowtimeMovieResponse = /*@__PURE__*/ proto3.makeMessageType(
@@ -78,6 +94,7 @@ export const ShowtimeDetailResponse = /*@__PURE__*/ proto3.makeMessageType(
     { no: 9, name: "venueName", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 10, name: "venueLocation", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 11, name: "venueMapUrl", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 13, name: "event", kind: "message", T: Event },
     { no: 12, name: "movieRating", kind: "scalar", T: 9 /* ScalarType.STRING */ },
   ],
 );

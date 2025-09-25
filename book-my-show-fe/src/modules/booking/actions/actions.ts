@@ -50,7 +50,7 @@ export const createBooking = async (
 
     const bookingRequest = new CreateBookingRequest({
       showtimeId: payload.showtimeId,
-      seats: payload.seats,
+      seats: payload.seats || [],
       amountWithoutGst: `${payload.amountWithoutGST}`,
       gst: `${payload.gst}`,
       totalAmount: `${payload.totalAmount}`,

@@ -5,6 +5,7 @@
 
 import type { BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialMessage, PlainMessage } from "@bufbuild/protobuf";
 import { Message, proto3 } from "@bufbuild/protobuf";
+import type { Event } from "./event_pb.js";
 
 /**
  * @generated from message Showtime
@@ -139,6 +140,55 @@ export declare class ShowtimeDetails extends Message<ShowtimeDetails> {
 }
 
 /**
+ * @generated from message ShowtimeEventResponse
+ */
+export declare class ShowtimeEventResponse extends Message<ShowtimeEventResponse> {
+  /**
+   * @generated from field: string venueId = 1;
+   */
+  venueId: string;
+
+  /**
+   * @generated from field: Event event = 2;
+   */
+  event?: Event;
+
+  /**
+   * @generated from field: string venueName = 3;
+   */
+  venueName: string;
+
+  /**
+   * @generated from field: string venueMapUrl = 4;
+   */
+  venueMapUrl: string;
+
+  /**
+   * @generated from field: string venueLocation = 5;
+   */
+  venueLocation: string;
+
+  /**
+   * @generated from field: ShowtimeDetails showtimes = 6;
+   */
+  showtimes?: ShowtimeDetails;
+
+  constructor(data?: PartialMessage<ShowtimeEventResponse>);
+
+  static readonly runtime: typeof proto3;
+  static readonly typeName = "ShowtimeEventResponse";
+  static readonly fields: FieldList;
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ShowtimeEventResponse;
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ShowtimeEventResponse;
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ShowtimeEventResponse;
+
+  static equals(a: ShowtimeEventResponse | PlainMessage<ShowtimeEventResponse> | undefined, b: ShowtimeEventResponse | PlainMessage<ShowtimeEventResponse> | undefined): boolean;
+}
+
+/**
  * @generated from message ShowtimeMovieResponse
  */
 export declare class ShowtimeMovieResponse extends Message<ShowtimeMovieResponse> {
@@ -192,6 +242,8 @@ export declare class ShowtimeDetailResponse extends Message<ShowtimeDetailRespon
   showtime?: Showtime;
 
   /**
+   * movie details
+   *
    * @generated from field: string movieName = 2;
    */
   movieName: string;
@@ -227,6 +279,8 @@ export declare class ShowtimeDetailResponse extends Message<ShowtimeDetailRespon
   movieGenre: string;
 
   /**
+   * venue details
+   *
    * @generated from field: string venueName = 9;
    */
   venueName: string;
@@ -240,6 +294,13 @@ export declare class ShowtimeDetailResponse extends Message<ShowtimeDetailRespon
    * @generated from field: string venueMapUrl = 11;
    */
   venueMapUrl: string;
+
+  /**
+   * event details
+   *
+   * @generated from field: Event event = 13;
+   */
+  event?: Event;
 
   /**
    * @generated from field: string movieRating = 12;

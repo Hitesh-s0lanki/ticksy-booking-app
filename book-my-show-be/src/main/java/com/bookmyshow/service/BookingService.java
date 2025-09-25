@@ -233,6 +233,9 @@ public class BookingService implements BookingServiceInter {
                         if (ev != null && ev.getTitle() != null) {
                             title = ev.getTitle();
                         }
+                        if (ev != null && ev.getBannerUrl() != null) {
+                            image = ev.getBannerUrl();
+                        }
                     } catch (Exception ignored) {
                     }
                 }
@@ -283,8 +286,14 @@ public class BookingService implements BookingServiceInter {
                 Duration exDuration = Duration.ofHours(2);
 
                 double amount = booking.getTotalAmount() != null ? booking.getTotalAmount().doubleValue() : 0.0;
-                String qr = uploadService.getSignedGetUrl(booking.getQrUrl(), exDuration);
-                String pdf = uploadService.getSignedGetUrl(booking.getPdfUrl(), exDuration);
+                String qr = "";
+                if (booking.getQrUrl() != null) {
+                    qr = uploadService.getSignedGetUrl(booking.getQrUrl(), exDuration);
+                }
+                String pdf = "";
+                if (booking.getPdfUrl() != null) {
+                    pdf = uploadService.getSignedGetUrl(booking.getPdfUrl(), exDuration);
+                }
                 String bookingId = booking.getBookingId() != null ? booking.getBookingId().toString() : "";
 
                 BookingProto.MyBooking.Builder mb = BookingProto.MyBooking.newBuilder()
@@ -320,8 +329,6 @@ public class BookingService implements BookingServiceInter {
     @Override
     public ResponseEntity<?> getBookingsForShowtime(String showtimeId) {
         try {
-            parseUuid(showtimeId, "showtime_id");
-
             List<Booking> bookings = bookingRepository.findByShowtimeId(showtimeId);
 
             List<BookingProto.Booking> bookingProtos = bookings.stream()
@@ -406,10 +413,6 @@ public class BookingService implements BookingServiceInter {
             throw new IllegalArgumentException("showtime_id is required");
         }
 
-        if (request.getSeatsList().isEmpty()) {
-            throw new IllegalArgumentException("At least one seat must be selected");
-        }
-
         if (request.getAmountWithoutGst() == null || request.getAmountWithoutGst().isBlank()) {
             throw new IllegalArgumentException("amount_without_gst is required");
         }
@@ -448,10 +451,6 @@ public class BookingService implements BookingServiceInter {
     }
 
     private List<String> normalizeSeats(List<String> seats) {
-        if (seats == null || seats.isEmpty()) {
-            throw new IllegalArgumentException("At least one valid seat must be provided");
-        }
-
         List<String> normalized = new ArrayList<>();
         for (String seat : seats) {
             if (seat == null) {
@@ -461,10 +460,6 @@ public class BookingService implements BookingServiceInter {
             if (!transformed.isBlank()) {
                 normalized.add(transformed);
             }
-        }
-
-        if (normalized.isEmpty()) {
-            throw new IllegalArgumentException("At least one valid seat must be provided");
         }
 
         Set<String> unique = new LinkedHashSet<>(normalized);
