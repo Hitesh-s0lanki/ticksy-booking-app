@@ -2,171 +2,228 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
 		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	<parent>
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+	<groupId>org.springframework.boot</groupId>
+	<artifactId>spring-boot-starter-parent</artifactId>
+	<version>3.5.5</version>
+	<relativePath />
+  </parent>
+
+  <groupId>com.bookmyshow</groupId>
+  <artifactId>bookmyshow</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <name>bookmyshow</name>
+  <description>Demo project for Spring Boot</description>
+  <url />
+  <licenses>
+	<license />
+  </licenses>
+  <developers>
+	<developer />
+  </developers>
+  <scm>
+	<connection />
+	<developerConnection />
+	<tag />
+	<url />
+  </scm>
+
+  <properties>
+	<java.version>21</java.version>
+	<maven.compiler.source>21</maven.compiler.source>
+	<maven.compiler.target>21</maven.compiler.target>
+	<protobuf.version>4.31.1</protobuf.version>
+	<protobuf.maven.plugin.version>0.6.1</protobuf.maven.plugin.version>
+  </properties>
+
+  <dependencies>
+	<!-- Spring Web Dependencies -->
+	<dependency>
+	  <groupId>org.springframework.boot</groupId>
+	  <artifactId>spring-boot-starter-web</artifactId>
+	</dependency>
+
+	<!-- Data JPA lib -->
+	<dependency>
+	  <groupId>org.springframework.boot</groupId>
+	  <artifactId>spring-boot-starter-data-jpa</artifactId>
+	</dependency>
+
+	<!-- Postgres -->
+	<dependency>
+	  <groupId>org.postgresql</groupId>
+	  <artifactId>postgresql</artifactId>
+	  <scope>runtime</scope>
+	</dependency>
+
+	<!-- Lombok for code generate -->
+	<dependency>
+	  <groupId>org.projectlombok</groupId>
+	  <artifactId>lombok</artifactId>
+	  <optional>true</optional>
+	</dependency>
+
+	<!-- DevTools for dev -->
+	<dependency>
+	  <groupId>org.springframework.boot</groupId>
+	  <artifactId>spring-boot-devtools</artifactId>
+	  <scope>runtime</scope>
+	  <optional>true</optional>
+	</dependency>
+
+	<!-- Use Log4j2 instead of Logback -->
+	<dependency>
+	  <groupId>org.springframework.boot</groupId>
+	  <artifactId>spring-boot-starter-log4j2</artifactId>
+	</dependency>
+
+	<!-- Protobuf dependencies -->
+	<dependency>
+	  <groupId>com.google.protobuf</groupId>
+	  <artifactId>protobuf-java</artifactId>
+	  <version>${protobuf.version}</version>
+	</dependency>
+
+	<!-- PDF -->
+	<dependency>
+	  <groupId>org.apache.pdfbox</groupId>
+	  <artifactId>pdfbox</artifactId>
+	  <version>2.0.30</version>
+	</dependency>
+
+	<!-- QR -->
+	<dependency>
+	  <groupId>com.google.zxing</groupId>
+	  <artifactId>core</artifactId>
+	  <version>3.5.3</version>
+	</dependency>
+	<dependency>
+	  <groupId>com.google.zxing</groupId>
+	  <artifactId>javase</artifactId>
+	  <version>3.5.3</version>
+	</dependency>
+
+	<!-- AWS S3 SDK v2 -->
+	<dependency>
+	  <groupId>software.amazon.awssdk</groupId>
+	  <artifactId>s3</artifactId>
+	  <version>2.25.45</version>
+	</dependency>
+
+	<!-- Test -->
+	<dependency>
+	  <groupId>org.springframework.boot</groupId>
+	  <artifactId>spring-boot-starter-test</artifactId>
+	  <scope>test</scope>
+	</dependency>
+  </dependencies>
+
+  <build>
+	<plugins>
+	  <!-- Spring Boot -->
+	  <plugin>
 		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.5.5</version>
-		<relativePath/>
-	</parent>
-	<groupId>com.bookmyshow</groupId>
-	<artifactId>bookmyshow</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<name>bookmyshow</name>
-	<description>Demo project for Spring Boot</description>
-	<url/>
-	<licenses>
-		<license/>
-	</licenses>
-	<developers>
-		<developer/>
-	</developers>
-	<scm>
-		<connection/>
-		<developerConnection/>
-		<tag/>
-		<url/>
-	</scm>
+		<artifactId>spring-boot-maven-plugin</artifactId>
+		<configuration>
+		  <excludes>
+			<exclude>
+			  <groupId>org.projectlombok</groupId>
+			  <artifactId>lombok</artifactId>
+			</exclude>
+		  </excludes>
+		</configuration>
+	  </plugin>
 
-	<properties>
-		<java.version>21</java.version>
-		<maven.compiler.source>21</maven.compiler.source>
-		<maven.compiler.target>21</maven.compiler.target>
-		<protobuf.version>4.31.1</protobuf.version>
-		<protobuf.maven.plugin.version>0.6.1</protobuf.maven.plugin.version>
-	</properties>
+	  <!-- Single compiler plugin -->
+	  <plugin>
+		<groupId>org.apache.maven.plugins</groupId>
+		<artifactId>maven-compiler-plugin</artifactId>
+		<version>3.12.1</version>
+		<configuration>
+		  <source>${maven.compiler.source}</source>
+		  <target>${maven.compiler.target}</target>
+		  <annotationProcessorPaths>
+			<path>
+			  <groupId>org.projectlombok</groupId>
+			  <artifactId>lombok</artifactId>
+			</path>
+		  </annotationProcessorPaths>
+		</configuration>
+	  </plugin>
 
-	<dependencies>
-		<!-- Spring Web Dependencies -->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
-		</dependency>
+	  <!-- Protobuf -->
+	  <plugin>
+		<groupId>org.xolstice.maven.plugins</groupId>
+		<artifactId>protobuf-maven-plugin</artifactId>
+		<version>${protobuf.maven.plugin.version}</version>
+		<extensions>true</extensions>
+		<configuration>
+			<protocArtifact>com.google.protobuf:protoc:${protobuf.version}:exe:${os.detected.classifier}</protocArtifact>
+			<pluginId>javaprotobuf</pluginId>
+			<protoSourceRoot>${project.basedir}/src/main/proto</protoSourceRoot>
+			<outputDirectory>${project.basedir}/src/main/genproto</outputDirectory>
+			<clearOutputDirectory>false</clearOutputDirectory>
+			<addCompileSourceRoot>true</addCompileSourceRoot>
+		</configuration>
+		<executions>
+			<execution>
+			<id>compile-proto</id>
+			<goals>
+				<goal>compile</goal>
+			</goals>
+			<phase>generate-sources</phase>
+			</execution>
+			<execution>
+			<id>test-compile-proto</id>
+			<goals>
+				<goal>test-compile</goal>
+			</goals>
+			<phase>generate-test-sources</phase>
+			</execution>
+		</executions>
+		</plugin>
 
-		<!-- Data JPA lib -->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-jpa</artifactId>
-		</dependency>
+	  <!-- Ensure IDE treats generated folder as a source root -->
+	  <plugin>
+		<groupId>org.codehaus.mojo</groupId>
+		<artifactId>build-helper-maven-plugin</artifactId>
+		<version>3.5.0</version>
+		<executions>
+			<execution>
+			<id>add-generated-sources</id>
+			<phase>generate-sources</phase>
+			<goals>
+				<goal>add-source</goal>
+				<goal>add-test-source</goal>
+			</goals>
+			<configuration>
+				<sources>
+				<source>${project.build.directory}/generated-sources/protobuf/java</source>
+				</sources>
+				<testSources>
+				<testSource>${project.build.directory}/generated-test-sources/protobuf/java</testSource>
+				</testSources>
+			</configuration>
+			</execution>
+		</executions>
+		</plugin>
+	</plugins>
 
-		<!-- Postgres -->
-		<dependency>
-			<groupId>org.postgresql</groupId>
-			<artifactId>postgresql</artifactId>
-			<scope>runtime</scope>
-		</dependency>
+	<extensions>
+	  <extension>
+		<groupId>kr.motd.maven</groupId>
+		<artifactId>os-maven-plugin</artifactId>
+		<version>1.7.1</version>
+	  </extension>
+	</extensions>
 
-		<!-- Lombok for code generate -->
-		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-			<optional>true</optional>
-		</dependency>
-
-		<!-- DevTools for dev -->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-devtools</artifactId>
-			<scope>runtime</scope>
-			<optional>true</optional>
-		</dependency>
-
-		<!-- Use Log4j2 instead of Logback -->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-log4j2</artifactId>
-		</dependency>
-
-		<!-- Protobuf dependencies  -->
-		<dependency>
-			<groupId>com.google.protobuf</groupId>
-			<artifactId>protobuf-java</artifactId>
-			<version>${protobuf.version}</version>
-		</dependency>
-
-		<!-- Test -->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
-		</dependency>
-	</dependencies>
-
-	<build>
-  <plugins>
-    <!-- Spring Boot -->
-    <plugin>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-maven-plugin</artifactId>
-      <configuration>
-        <excludes>
-          <exclude>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-          </exclude>
-        </excludes>
-      </configuration>
-    </plugin>
-
-    <!-- Single compiler plugin -->
-    <plugin>
-      <groupId>org.apache.maven.plugins</groupId>
-      <artifactId>maven-compiler-plugin</artifactId>
-      <version>3.12.1</version>
-      <configuration>
-        <source>${maven.compiler.source}</source>
-        <target>${maven.compiler.target}</target>
-        <annotationProcessorPaths>
-          <path>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-          </path>
-        </annotationProcessorPaths>
-      </configuration>
-    </plugin>
-
-    <!-- Protobuf -->
-    <plugin>
-      <groupId>org.xolstice.maven.plugins</groupId>
-      <artifactId>protobuf-maven-plugin</artifactId>
-      <version>${protobuf.maven.plugin.version}</version>
-      <extensions>true</extensions>
-      <executions>
-        <execution>
-          <id>generate-sources</id>
-          <goals>
-            <goal>compile</goal>
-            <goal>test-compile</goal>
-          </goals>
-        </execution>
-      </executions>
-      <configuration>
-        <protocArtifact>
-          com.google.protobuf:protoc:${protobuf.version}:exe:${os.detected.classifier}
-        </protocArtifact>
-        <protoSourceRoot>${project.basedir}/src/main/proto</protoSourceRoot>
-        <outputDirectory>${project.build.directory}/generated-sources/protobuf/java</outputDirectory>
-        <!-- IMPORTANT: add generated sources to the compile path -->
-        <addCompileSourceRoot>true</addCompileSourceRoot>
-        <addTestCompileSourceRoot>true</addTestCompileSourceRoot>
-      </configuration>
-    </plugin>
-  </plugins>
-
-  <extensions>
-    <extension>
-      <groupId>kr.motd.maven</groupId>
-      <artifactId>os-maven-plugin</artifactId>
-      <version>1.7.1</version>
-    </extension>
-  </extensions>
-
-  <!-- Only treat src/main/resources as resources -->
-  <resources>
-    <resource>
-      <directory>src/main/resources</directory>
-    </resource>
-  </resources>
-</build>
-
+	<!-- Only treat src/main/resources as resources -->
+	<resources>
+	  <resource>
+		<directory>src/main/resources</directory>
+	  </resource>
+	</resources>
+  </build>
 </project>

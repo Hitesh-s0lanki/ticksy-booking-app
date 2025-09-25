@@ -25,6 +25,14 @@ docker exec -i ticksy-booking-app-postgres-1 \
  psql -U postgres -d mydb \
  -c "ALTER TABLE events DROP COLUMN IF EXISTS movie_id;"
 
-docker exec -i ticksy-booking-app-postgres-1 \
+docker exec -i 4afcac8fef55 \
  psql -U postgres -d mydb \
- -c "DROP TABLE showtimes;"
+ -c "DROP TABLE bookings;"
+
+docker exec -i 4afcac8fef55 \
+ psql -U postgres -d mydb \
+ -c 'DROP TABLE IF EXISTS bookings CASCADE;'
+
+chmod +x ./src/resources/tools/\*.sh
+
+https://normal-bonefish-80.clerk.accounts.dev/.well-known/jwks.json

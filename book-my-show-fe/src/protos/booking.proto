@@ -1,0 +1,127 @@
+syntax = "proto3";
+
+option java_package = "com.bookmyshow.proto";
+option java_outer_classname = "BookingProto";
+
+// Booking status
+enum BookingStatus {
+  BOOKING_STATUS_UNSPECIFIED = 0;
+  ACTIVE = 1;
+  CANCEL = 2;
+  NONACTIVE = 3;
+}
+
+// Razorpay success payload echoed back to server
+message RazorpaySuccessResponse {
+  string razorpay_payment_id = 1;
+  string razorpay_order_id = 2;
+  string razorpay_signature = 3;
+}
+
+// Canonical Booking entity (snapshot at time of booking)
+message Booking {
+  // Primary identifiers
+  string booking_id = 1;        // UUID
+  string user_id = 2;           // UUID
+
+  // Either movie_id or event_id may be empty; enforce in service layer
+  string movie_id = 3;          // UUID (optional)
+  string event_id = 4;          // UUID (optional)
+
+  // Showtime & seats
+  string showtime_id = 5;
+  repeated string seats = 6;    // e.g., ["A1","A2"]
+  int32 seats_count = 7;        // derived from seats
+
+  // Prices as strings to avoid float rounding issues, e.g. "499.00"
+  string amount_without_gst = 8;
+  string gst = 9;
+  string total_amount = 10;
+
+  // Render artifacts
+  string pdf_url = 11;
+  string qr_url = 12;
+
+  // Lifecycle
+  BookingStatus status = 13;
+  string booked_at = 14;        // ISO-8601 string, e.g. "2025-09-17T22:41"
+  string show_datetime = 15;    // ISO-8601 string (optional snapshot)
+
+  // Payment proof (optional after create)
+  RazorpaySuccessResponse razorpay = 16;
+}
+
+// ---------- Requests / Responses ----------
+
+// Create booking (from frontend payload)
+message CreateBookingRequest {
+  string user_id = 1;
+  string movie_id = 2;              // optional
+  string event_id = 3;              // optional
+  string showtime_id = 4;
+  repeated string seats = 5;
+
+  string amount_without_gst = 6;
+  string gst = 7;
+  string total_amount = 8;
+
+  string pdf_url = 9;               // optional (can be generated post-create)
+  string qr_url = 10;               // optional (can be generated post-create)
+
+  RazorpaySuccessResponse razorpay = 11; // pass success payload after verify
+}
+
+message CreateBookingResponse {
+  Booking booking = 1;
+}
+
+message GetBookingRequest {
+  string booking_id = 1;
+}
+
+message GetBookingResponse {
+  Booking booking = 1;
+}
+
+message ListBookingsRequest {
+  string user_id = 1;         // filter by user
+  int32 page_number = 2;      // optional
+  int32 page_size = 3;        // optional
+}
+
+message ListBookingsResponse {
+  repeated Booking bookings = 1;
+  int32 total = 2;            // total count for pagination
+}
+
+// Update only the status (e.g., CANCEL)
+message UpdateBookingStatusRequest {
+  string booking_id = 1;
+  BookingStatus status = 2;   // ACTIVE | CANCEL | NONACTIVE
+  string reason = 3;          // optional
+}
+
+message UpdateBookingStatusResponse {
+  Booking booking = 1;
+}
+
+// Single booking details
+message MyBooking {
+  string type = 1;        // movie / event
+  string title = 2;       // movie or event title
+  string date = 3;        // e.g. 2025-09-20
+  string time = 4;        // e.g. 22:30
+  string venue = 5;       // venue name
+  string venueUrl = 6;    // Google Maps URL
+  repeated string seats = 7;  // list of seat codes
+  double amount = 8;      // total amount
+  string qr = 9;          // QR code image URL/base64
+  string pdf = 10;        // PDF ticket URL
+  string bookingId = 11;  // UUID or unique booking id
+  string image = 12;      // movie/event poster image
+}
+
+// Wrapper for multiple bookings
+message MyBookings {
+  repeated MyBooking items = 1;
+}

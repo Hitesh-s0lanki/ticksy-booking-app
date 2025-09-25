@@ -1,11 +1,12 @@
 package com.bookmyshow.controller;
 
-import com.bookmyshow.models.Showtime;
 import com.bookmyshow.proto.ShowtimeProto;
 import com.bookmyshow.service.ShowtimeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
 @RequestMapping("showtimes")
@@ -25,9 +26,19 @@ public class ShowtimeController {
         return showtimeService.getShowtimesByMovieId(movieId, date);
     }
 
-    @GetMapping(value = "{id}", produces = "application/x-protobuf")
-    public ResponseEntity<?> getShowtimeById(@PathVariable String id) {
-        return showtimeService.getShowtimeById(id);
+    @GetMapping(value = "by-event/{eventId}", produces = "application/x-protobuf")
+    public ResponseEntity<?> getShowtimeByEventId(@PathVariable String eventId) {
+        return showtimeService.getShowtimeByEventId(eventId);
+    }
+
+    @GetMapping(value = "{showtimeId}", produces = "application/x-protobuf")
+    public ResponseEntity<?> getShowtimeById(@PathVariable String showtimeId) {
+        return showtimeService.getShowtimeById(showtimeId);
+    }
+
+    @GetMapping(value = "booked-seats/{showtimeId}", produces = "application/x-protobuf")
+    public ResponseEntity<?> getBookedSeats(@PathVariable String showtimeId) {
+        return showtimeService.getBookedSeats(showtimeId);
     }
 
     @PostMapping(produces = "application/x-protobuf")

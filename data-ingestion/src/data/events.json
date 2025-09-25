@@ -1,0 +1,202 @@
+[
+  {
+    "title": "AI for SMEs: Practical Automation",
+    "description": "A no-jargon seminar for small and medium businesses on using AI tools for marketing, support, and operations. Live demos + takeaway playbooks.",
+    "eventType": "GENERAL",
+    "categoryType": "TECHNOLOGY",
+    "organizerName": "TechCircle Mumbai",
+    "startDate": "2025-09-20",
+    "endDate": "2025-09-20",
+    "bannerUrl": "https://images.unsplash.com/photo-1518779578993-ec3579fee39f?auto=format&fit=crop&w=1200&q=60"
+  },
+  {
+    "title": "Personal Finance 101 for Gen Z",
+    "description": "Budgeting, taxes, insurance, and investing basics—built for first-jobbers. Includes simple templates and Q&A.",
+    "eventType": "GENERAL",
+    "categoryType": "WORKSHOP",
+    "organizerName": "MoneyMatters Collective",
+    "startDate": "2025-09-28",
+    "endDate": "2025-09-28",
+    "bannerUrl": "https://images.unsplash.com/photo-1567427017947-545c5f8d16ad?auto=format&fit=crop&w=1200&q=60"
+  },
+  {
+    "title": "Cloud Architecture Patterns",
+    "description": "Learn microservices, event-driven design, caching, and cost control on AWS/GCP with real case studies from Indian startups.",
+    "eventType": "GENERAL",
+    "categoryType": "TECHNOLOGY",
+    "organizerName": "DevsIndia Bengaluru",
+    "startDate": "2025-10-05",
+    "endDate": "2025-10-05",
+    "bannerUrl": "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1200&q=60"
+  },
+  {
+    "title": "Product Management Fundamentals",
+    "description": "From user research to MVP to GTM—frameworks, metrics, and stakeholder communication with examples.",
+    "eventType": "GENERAL",
+    "categoryType": "SEMINAR",
+    "organizerName": "PM Pune Guild",
+    "startDate": "2025-10-12",
+    "endDate": "2025-10-12",
+    "bannerUrl": "https://images.unsplash.com/photo-1557800636-894a64c1696f?auto=format&fit=crop&w=1200&q=60"
+  },
+  {
+    "title": "Digital Marketing Deep Dive",
+    "description": "SEO in 2025, performance ads, and content that converts. Includes live audit of attendee pages.",
+    "eventType": "GENERAL",
+    "categoryType": "WORKSHOP",
+    "organizerName": "Hyderabad Growth Club",
+    "startDate": "2025-10-19",
+    "endDate": "2025-10-19",
+    "bannerUrl": "https://images.unsplash.com/photo-1557838923-2985c318be48?q=80&w=2831&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+  },
+  {
+    "title": "UX Writing & Microcopy",
+    "description": "Make apps clearer and friendlier. Learn error messages, empty states, and checkout copy with hands-on exercises.",
+    "eventType": "GENERAL",
+    "categoryType": "ART",
+    "organizerName": "Chennai Design Forum",
+    "startDate": "2025-10-26",
+    "endDate": "2025-10-26",
+    "bannerUrl": "https://images.unsplash.com/photo-1515879218367-8466d910aaa4?auto=format&fit=crop&w=1200&q=60"
+  },
+  {
+    "title": "Creative Writing for Content Creators",
+    "description": "Story structure, hooks, and editing tactics to level-up your blogs, scripts, and newsletters.",
+    "eventType": "GENERAL",
+    "categoryType": "ART",
+    "organizerName": "Kolkata Writer's Hub",
+    "startDate": "2025-11-02",
+    "endDate": "2025-11-02",
+    "bannerUrl": "https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=1200&q=60"
+  },
+  {
+    "title": "Food Safety & FSSAI Compliance for Home Bakers",
+    "description": "Licensing, labeling, hygiene, and packaging—everything you need to go legit as a home bakery.",
+    "eventType": "GENERAL",
+    "categoryType": "SEMINAR",
+    "organizerName": "Ahmedabad Culinary Network",
+    "startDate": "2025-11-09",
+    "endDate": "2025-11-09",
+    "bannerUrl": "https://images.unsplash.com/photo-1499636136210-6f4ee915583e?auto=format&fit=crop&w=1200&q=60"
+  },
+  {
+    "title": "Public Speaking Bootcamp (Crash Seminar)",
+    "description": "Beat stage fear, structure talks, and deliver with confidence. On-stage practice with feedback.",
+    "eventType": "GENERAL",
+    "categoryType": "WORKSHOP",
+    "organizerName": "Jaipur Speakers Club",
+    "startDate": "2025-11-16",
+    "endDate": "2025-11-16",
+    "bannerUrl": "https://images.unsplash.com/photo-1515168833906-d2a3b82b302a?auto=format&fit=crop&w=1200&q=60"
+  },
+  {
+    "title": "Startup Legal Basics",
+    "description": "Entity types, founders' agreements, ESOPs, and IP—what to know before fundraising.",
+    "eventType": "GENERAL",
+    "categoryType": "SEMINAR",
+    "organizerName": "Gurugram Startup Bar",
+    "startDate": "2025-11-23",
+    "endDate": "2025-11-23",
+    "bannerUrl": "https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=1200&q=60"
+  },
+  {
+    "title": "Cricket Fast Bowling Workshop",
+    "description": "Action analysis, run-up rhythm, and injury-free pace development. Limited nets with video feedback.",
+    "eventType": "SPORTS",
+    "categoryType": "WORKSHOP",
+    "organizerName": "Stride Sports Academy, Mumbai",
+    "startDate": "2025-09-21",
+    "endDate": "2025-09-21",
+    "bannerUrl": "https://images.unsplash.com/photo-1631194758628-71ec7c35137e?q=80&w=2832&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+  },
+  {
+    "title": "Marathon Training Seminar: 10K to Half",
+    "description": "Periodization, pacing, nutrition, and tapering plans for your next city run.",
+    "eventType": "SPORTS",
+    "categoryType": "SEMINAR",
+    "organizerName": "Delhi Runners Collective",
+    "startDate": "2025-09-27",
+    "endDate": "2025-09-28",
+    "bannerUrl": "https://images.unsplash.com/photo-1570004119777-2b1786b0e5bd?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+  },
+  {
+    "title": "Badminton Footwork & Stamina Workshop",
+    "description": "On-court drills for explosiveness, recovery steps, and endurance routines.",
+    "eventType": "SPORTS",
+    "categoryType": "WORKSHOP",
+    "organizerName": "Bengaluru Shuttle Club",
+    "startDate": "2025-10-04",
+    "endDate": "2025-10-04",
+    "bannerUrl": "https://images.unsplash.com/photo-1721760886982-3c643f05813d?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+  },
+  {
+    "title": "Football Goalkeeping Clinic",
+    "description": "Positioning, handling, and one-on-ones with licensed coaches. Includes reflex drills.",
+    "eventType": "SPORTS",
+    "categoryType": "WORKSHOP",
+    "organizerName": "Kolkata Football School",
+    "startDate": "2025-10-11",
+    "endDate": "2025-10-11",
+    "bannerUrl": "https://images.unsplash.com/photo-1517927033932-b3d18e61fb3a?auto=format&fit=crop&w=1200&q=60"
+  },
+  {
+    "title": "Sports Nutrition for Amateur Athletes",
+    "description": "Macros, hydration, race-day fueling, and supplement safety with a certified dietitian.",
+    "eventType": "SPORTS",
+    "categoryType": "SEMINAR",
+    "organizerName": "Hyd Fit Lab",
+    "startDate": "2025-10-18",
+    "endDate": "2025-10-18",
+    "bannerUrl": "https://images.unsplash.com/photo-1666405090770-af74762411c2?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+  },
+  {
+    "title": "Table Tennis Spin & Serve Workshop",
+    "description": "Grip tweaks, multi-ball drills, and serve deception to level up club play.",
+    "eventType": "SPORTS",
+    "categoryType": "WORKSHOP",
+    "organizerName": "Pune TT League",
+    "startDate": "2025-10-25",
+    "endDate": "2025-10-25",
+    "bannerUrl": "https://images.unsplash.com/photo-1708268418738-4863baa9cf72?q=80&w=2114&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+  },
+  {
+    "title": "Yoga for Runners: Mobility & Breath",
+    "description": "Hips, hamstrings, and ankle mobility routines; breathwork for longer steady runs.",
+    "eventType": "SPORTS",
+    "categoryType": "WORKSHOP",
+    "organizerName": "Chennai Flow Studio",
+    "startDate": "2025-11-01",
+    "endDate": "2025-11-01",
+    "bannerUrl": "https://images.unsplash.com/photo-1518611012118-696072aa579a?auto=format&fit=crop&w=1200&q=60"
+  },
+  {
+    "title": "Basketball Shooting Mechanics Seminar",
+    "description": "Form, release timing, and shot selection—video breakdowns of elite shooters.",
+    "eventType": "SPORTS",
+    "categoryType": "SEMINAR",
+    "organizerName": "Ahmedabad Hoops",
+    "startDate": "2025-11-08",
+    "endDate": "2025-11-08",
+    "bannerUrl": "https://images.unsplash.com/photo-1546519638-68e109498ffc?q=80&w=2090&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+  },
+  {
+    "title": "Injury Prevention for Amateur Athletes",
+    "description": "Warm-ups that work, strength basics, and recovery habits to stay consistent all season.",
+    "eventType": "SPORTS",
+    "categoryType": "SEMINAR",
+    "organizerName": "Jaipur Sports Physio",
+    "startDate": "2025-11-15",
+    "endDate": "2025-11-15",
+    "bannerUrl": "https://images.unsplash.com/photo-1558611848-73f7eb4001a1?auto=format&fit=crop&w=1200&q=60"
+  },
+  {
+    "title": "Ultimate Frisbee Skills Workshop",
+    "description": "Throws, cuts, and zone defense essentials with scrimmage at the end.",
+    "eventType": "SPORTS",
+    "categoryType": "WORKSHOP",
+    "organizerName": "Gurugram Ultimate Club",
+    "startDate": "2025-11-22",
+    "endDate": "2025-11-22",
+    "bannerUrl": "https://images.unsplash.com/photo-1517649763962-0c623066013b?auto=format&fit=crop&w=1200&q=60"
+  }
+]
