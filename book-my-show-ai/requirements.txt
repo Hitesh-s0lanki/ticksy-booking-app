@@ -1,3 +1,4 @@
+pytest
 langchain
 langgraph
 langchain_community
@@ -9,3 +10,7 @@ python-dotenv
 gradio
 fastapi
 uvicorn
+sentence-transformers
+langchain-pinecone
+pinecone
+langchain-tavily
