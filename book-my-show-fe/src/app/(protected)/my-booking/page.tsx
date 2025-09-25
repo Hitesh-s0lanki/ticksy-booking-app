@@ -5,8 +5,13 @@ import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
 import Loading from "@/components/loading";
 import { ErrorBoundary } from "react-error-boundary";
 import { ErrorState } from "@/components/error-state";
+import { auth } from "@clerk/nextjs/server";
 
-const MyBooking = () => {
+const MyBooking = async () => {
+  const { userId, redirectToSignIn } = await auth();
+
+  if (!userId) return redirectToSignIn();
+
   const queryClient = getQueryClient();
   void queryClient.prefetchQuery(trpc.bookings.getUserBookings.queryOptions());
 
