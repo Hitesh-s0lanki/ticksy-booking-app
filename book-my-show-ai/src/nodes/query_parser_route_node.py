@@ -23,7 +23,9 @@ class QueryParserRouteNode:
 
         state['query_parser_route_state'] = QueryParserRouteState(
             source=decision.source,
-            step=decision.step
+            step=decision.step,
+            date=decision.date,
+            location=decision.location
         )
 
         return state

@@ -1,9 +1,33 @@
+from datetime import datetime
+try:
+    # Python 3.9+
+    from zoneinfo import ZoneInfo
+    _IST = ZoneInfo("Asia/Kolkata")
+except Exception:
+    _IST = None  # graceful fallback
+
 def query_parser_route_agent():
-    return """
+    # Compute today's date in IST, format DD-MM-YYYY
+    now_ist = datetime.now(_IST) if _IST else datetime.utcnow()
+    today_ddmmyyyy = now_ist.strftime("%d-%m-%Y")
+
+    return f"""
     ROLE: Query Parser Router — for messages already classified as 'query' in Ticksy (movies, events, sports).
 
+    TODAY: {today_ddmmyyyy} (DD-MM-YYYY, computed in Asia/Kolkata)
+
     OUTPUT: Return ONLY a minified JSON object with exactly:
-    {"source":"movie|event|sport|random","step":"information|suggestion"}
+    {{"source":"movie|event|sport|random","step":"information|suggestion","date":"DD-MM-YYYY|null","location":"string|null"}}
+
+    FIELD RULES:
+    - source: One of ["movie","event","sport","random"].
+    - step: One of ["information","suggestion"].
+    - date:
+        * If the user specifies a date (e.g., "today", "tomorrow", "on 15 Oct", "this weekend"), resolve it to DD-MM-YYYY.
+        * If no date is mentioned, set to today's real-time date: "{today_ddmmyyyy}".
+    - location:
+        * Extract if a city/region/venue is present (e.g., "Mumbai", "Delhi NCR", "Wankhede Stadium").
+        * If not present, set to null.
 
     SOURCE DECISION (case-insensitive; handle Hinglish; ignore punctuation):
     - movie → film/cinema cues: movie, film, title names, cast, language (Hindi/Telugu…), format (2D/3D/IMAX/4DX), showtimes for a movie, certification/genre.
@@ -20,5 +44,7 @@ def query_parser_route_agent():
     - If multiple source signals appear, pick the most specific; if still ambiguous, set source="random".
 
     CONSTRAINTS:
-    - Output only the two keys "source" and "step" (minified JSON). No explanations, no extra fields.
-    """
+    - Output only the four keys "source","step","date","location" (minified JSON).
+    - "date" must always be present: either a resolved DD-MM-YYYY or "{today_ddmmyyyy}" if not specified.
+    - "location" is null if not specified.
+    """.strip()

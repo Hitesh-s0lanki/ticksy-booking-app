@@ -33,24 +33,26 @@ class PineconeVectorDB:
             )
 
         self.index = self.pinecone.Index(self.index_name)
+        self.vector_store = PineconeVectorStore(
+            index=self.index,
+            embedding=self.embeddings
+        )
+        
+    def get_retriever(self, search_type: str = "similarity", k: int = 5):
+        if search_type == "similarity":
+            retriever = self.vector_store.as_retriever(search_type="similarity", k=k)
+        elif search_type == "mmr":
+            retriever = self.vector_store.as_retriever(search_type="mmr", k=k)
+        else:
+            raise ValueError("Invalid search type. Choose 'similarity' or 'mmr'.")
+        return retriever
     
     def add_documents(self, documents: list[Document]):
-        
-        vector_store = PineconeVectorStore(
-            index=self.index,
-            embedding=self.embeddings
-        )
-
-        vector_store.add_documents(documents)
+        self.vector_store.add_documents(documents)
         print(f"✅ Added {len(documents)} documents to Pinecone index '{self.index_name}'")
     
-    def query(self, query: str, top_k: int = 5):
+    def query(self, query: str, top_k: int = 5, filter: dict = None) -> list[Document]:
         
-        vector_store = PineconeVectorStore(
-            index=self.index,
-            embedding=self.embeddings
-        )
-        
-        results = vector_store.similarity_search(query, k=top_k)
+        results = self.vector_store.similarity_search(query, k=top_k, filter=filter)
         return results
         
