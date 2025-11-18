@@ -84,7 +84,7 @@
     "@types/react-dom": "^19",
     "mkdirp": "^3.0.1",
     "protoc-gen-ts": "^0.8.7",
-    "rimraf": "^5.0.5",
+    "rimraf": "^6.1.0",
     "tailwindcss": "^4",
     "tw-animate-css": "^1.3.5",
     "typescript": "^5"
