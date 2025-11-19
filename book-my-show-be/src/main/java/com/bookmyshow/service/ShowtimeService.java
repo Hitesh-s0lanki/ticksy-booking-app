@@ -290,6 +290,45 @@ public class ShowtimeService implements ShowtimeServiceInter {
         }
     }
 
+    public ResponseEntity<?> createBulkShowtime(ShowtimeProto.ShowtimeList showtimeList) {
+        try {
+            if (showtimeList == null || showtimeList.getShowtimesList().isEmpty()) {
+                throw new Exception("Showtime list payload is invalid or empty");
+            }
+
+            int count = 0;
+
+            for (ShowtimeProto.Showtime showtime : showtimeList.getShowtimesList()) {
+
+                ShowtimeProto.ShowtimeInput showtimeInput = ShowtimeProto.ShowtimeInput.newBuilder()
+                        .setMovieId(showtime.getMovieId())
+                        .setEventId(showtime.getEventId())
+                        .setVenueId(showtime.getVenueId())
+                        .setStartAt(showtime.getStartAt())
+                        .setDate(showtime.getDate())
+                        .build();
+
+                // Reuse the createShowtime method for each showtime
+                ResponseEntity<?> response = createShowtime(showtimeInput);
+                if (!response.getStatusCode().is2xxSuccessful()) {
+                    throw new Exception("Failed to create one of the showtimes: " + response.getBody());
+                }
+
+                log.info("Done " + (++count) + " out of " + showtimeList.getShowtimesList().size());
+            }
+
+            UtilsProto.SuccessResponse response = UtilsProto.SuccessResponse.newBuilder()
+                    .setMessage("All showtimes created successfully : " + showtimeList.getShowtimesList().size())
+                    .setStatus(200)
+                    .build();
+
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            log.error("Failed to create bulk showtimes. Error: {}", e.getMessage());
+            return ResponseEntity.status(500).body("[ERROR]: " + e.getMessage());
+        }
+    }
+
     @Override
     public ResponseEntity<?> updateShowtime(String showtimeId, ShowtimeProto.Showtime showtime) {
         try {

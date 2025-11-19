@@ -11,6 +11,11 @@ type Props = {
 };
 
 const EventCard = ({ event }: Props) => {
+  // Use logo as fallback if image is not available
+  const imageSrc = event.bannerUrl && event.bannerUrl.trim() !== "" 
+    ? event.bannerUrl 
+    : "/logo.png";
+
   return (
     <Card
       key={event.eventId}
@@ -21,12 +26,18 @@ const EventCard = ({ event }: Props) => {
           <div className="">
             <div className="relative">
               <Image
-                src={event.bannerUrl}
+                src={imageSrc}
                 alt={event.title}
                 width={400}
                 height={200}
                 className="w-full h-48 object-cover"
                 unoptimized
+                onError={(e) => {
+                  const target = e.target as HTMLImageElement;
+                  if (target.src !== "/logo.png") {
+                    target.src = "/logo.png";
+                  }
+                }}
               />
             </div>
             <div className="p-4">

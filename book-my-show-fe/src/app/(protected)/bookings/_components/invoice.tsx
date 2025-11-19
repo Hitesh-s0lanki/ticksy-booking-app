@@ -36,32 +36,32 @@ export const Invoice: React.FC<InvoiceProps> = ({
 
   return (
     <aside className="">
-      <p className="text-lg font-semibold mb-1.5">
+      <p className="text-base sm:text-lg font-semibold mb-1.5">
         {isEvent ? "Event Booking" : "Sections & Prices"}
       </p>
-      <p className="text-xs text-muted-foreground mb-4">
+      <p className="text-xs text-muted-foreground mb-3 sm:mb-4">
         {isEvent
           ? "Review event details and proceed to payment."
           : "Review your selection and proceed to payment."}
       </p>
 
       {isEvent ? (
-        <div className="space-y-3">
+        <div className="space-y-2 sm:space-y-3">
           <div className="flex items-center justify-between">
-            <div className="text-sm font-medium">Event Ticket</div>
-            <div className="text-sm text-muted-foreground">₹{eventPrice}</div>
+            <div className="text-xs sm:text-sm font-medium">Event Ticket</div>
+            <div className="text-xs sm:text-sm text-muted-foreground">₹{eventPrice}</div>
           </div>
         </div>
       ) : (
-        <div className="space-y-3">
+        <div className="space-y-2 sm:space-y-3">
           {sections.map((sec) => {
             const seats = selectedBySection[sec];
             const count = seats.length;
             return (
-              <div key={sec} className="flex items-center justify-between">
-                <div className="text-sm font-medium capitalize">{sec}</div>
-                <div className="text-sm text-muted-foreground">
-                  {seats.length ? seats.join(", ") : "-"} ({count})
+              <div key={sec} className="flex items-center justify-between gap-2">
+                <div className="text-xs sm:text-sm font-medium capitalize">{sec}</div>
+                <div className="text-xs sm:text-sm text-muted-foreground text-right break-words">
+                  {seats.length ? (seats.length > 3 ? `${seats.slice(0, 3).join(", ")}...` : seats.join(", ")) : "-"} ({count})
                 </div>
               </div>
             );
@@ -69,7 +69,7 @@ export const Invoice: React.FC<InvoiceProps> = ({
         </div>
       )}
 
-      <div className="mt-4 border-t pt-4 space-y-2 text-sm">
+      <div className="mt-3 sm:mt-4 border-t pt-3 sm:pt-4 space-y-1.5 sm:space-y-2 text-xs sm:text-sm">
         <div className="flex items-center justify-between">
           <span>Subtotal</span>
           <span className="font-medium">₹{subtotal}</span>
@@ -78,7 +78,7 @@ export const Invoice: React.FC<InvoiceProps> = ({
           <span>GST (18%)</span>
           <span className="font-medium">₹{gst}</span>
         </div>
-        <div className="flex items-center justify-between text-base font-semibold">
+        <div className="flex items-center justify-between text-sm sm:text-base font-semibold">
           <span>Total</span>
           <span>₹{total}</span>
         </div>

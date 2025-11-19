@@ -46,6 +46,12 @@ public class ShowtimeController {
         return showtimeService.createShowtime(showtime);
     }
 
+    /** Bulk create showtimes. */
+    @PostMapping(value = "bulk-create", produces = "application/x-protobuf")
+    public ResponseEntity<?> bulkCreateShowtimes(@RequestBody ShowtimeProto.ShowtimeList bulkShowtime) {
+        return showtimeService.createBulkShowtime(bulkShowtime);
+    }
+
     @PatchMapping(value = "update/{id}", produces = "application/x-protobuf")
     public ResponseEntity<?> updateShowtime(@PathVariable String id, @RequestBody ShowtimeProto.Showtime showtime) {
         return showtimeService.updateShowtime(id, showtime);

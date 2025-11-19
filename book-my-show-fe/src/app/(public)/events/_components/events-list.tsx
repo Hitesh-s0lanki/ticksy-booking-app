@@ -18,11 +18,11 @@ const EventsList = () => {
   );
 
   return (
-    <div className="py-5 px-5 md:px-10 lg:px-20">
+    <div className="py-4 sm:py-5 px-4 sm:px-5 md:px-8 lg:px-12 xl:px-20">
       <EventHeader />
-      <div className="container mx-auto px-4 pb-10">
+      <div className="container mx-auto px-2 sm:px-4 pb-6 sm:pb-8 md:pb-10">
         {data.length === 0 && <NoDataFound />}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 md:gap-8">
           {data.map((event) => (
             <EventCard key={event.eventId} event={event} />
           ))}

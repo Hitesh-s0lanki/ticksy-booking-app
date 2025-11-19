@@ -8,7 +8,7 @@ import requests
 import random
 from datetime import datetime, timedelta, date
 
-from src.ticksy_proto_schema.showtime_pb2 import ShowtimeInput
+from src.ticksy_proto_schema.showtime_pb2 import ShowtimeInput, Showtime, ShowtimeList
 from src.venue import VenueIngestion
 
 load_dotenv()
@@ -46,6 +46,24 @@ class ShowtimeIngestion:
         showtimeInput.startAt = showtime.get("startAt", "")
 
         return showtimeInput
+    
+    def showtimes_data_proto_bulk(self, showtimes: list[dict]) -> ShowtimeInput:
+        
+        showtimes_list = []
+        
+        for showtime in showtimes:
+            showtimeInput = Showtime()
+            showtimeInput.venueId = showtime.get("venueId", "")
+            showtimeInput.movieId = showtime.get("movieId", "")
+            showtimeInput.eventId = showtime.get("eventId", "")
+            showtimeInput.date = showtime.get("date", "")
+            showtimeInput.startAt = showtime.get("startAt", "")
+            showtimes_list.append(showtimeInput)
+
+        showtimeList = ShowtimeList()
+        showtimeList.showtimes.extend(showtimes_list)
+
+        return showtimeList
 
     def upload_event_showtimes(self):
         venues_ids = VenueIngestion().fetch_database_venues()
@@ -110,7 +128,30 @@ class ShowtimeIngestion:
 
             except Exception as e:
                 print(f"❌ Exception occurred while uploading showtime: {showtime['movieId']}. Error: {e}")
+                
+    def upload_bulk_movie_showtimes(self):
+        if not self.java_server_url:
+            raise ValueError("JAVA_SERVER_URL is not set")
         
+        showtimes_data = self.fetch_movie_showtimes()
+        
+        showtime_list = self.showtimes_data_proto_bulk(showtimes_data)
+        
+        try:
+            resp = requests.post(
+                f"{self.java_server_url}/api/showtimes/bulk-create",
+                data=showtime_list.SerializeToString(),
+                headers={"Content-Type": "application/x-protobuf"},
+            )
+        
+            if resp.status_code == 200:
+                print(f"✅ Uploaded showtimes: {len(showtimes_data)}")
+            else:
+                print(f"❌ Failed to upload showtimes: {len(showtimes_data)}. Status code: {resp.status_code}")
+
+        except Exception as e:
+            print(f"❌ Exception occurred while uploading showtimes: {len(showtimes_data)}. Error: {e}")
+            
     def generate_movies_showtimes(movies_ids, venues_ids, days=50):
         # --- helpers ---
         def midn(d: date) -> datetime:

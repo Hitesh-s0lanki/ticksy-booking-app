@@ -42,22 +42,32 @@ const EventDetails = ({ eventId }: Props) => {
   const durationMinutes = Math.round((end.getTime() - start.getTime()) / 60000);
   const durationHours = durationMinutes / 60 || 2;
 
+  const imageSrc = data.event.bannerUrl && data.event.bannerUrl.trim() !== ""
+    ? data.event.bannerUrl
+    : "/logo.png";
+
   return (
-    <div className="w-full flex items-center justify-center p-10">
-      <div className="p-8 w-full h-full grid grid-cols-3 gap-6 bg-primary/10 border-2 border-primary/30 rounded-md shadow-lg">
-        <div className="relative w-full h-64">
+    <div className="w-full flex items-center justify-center p-4 sm:p-6 md:p-8 lg:p-10">
+      <div className="p-4 sm:p-6 md:p-8 w-full h-full grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 bg-primary/10 border-2 border-primary/30 rounded-md shadow-lg">
+        <div className="relative w-full h-48 sm:h-64 md:h-80 mx-auto md:mx-0">
           <Image
-            src={data.event.bannerUrl}
+            src={imageSrc}
             alt={data.event.title}
             fill
             className="object-cover rounded-md shadow-2xl"
             unoptimized
+            onError={(e) => {
+              const target = e.target as HTMLImageElement;
+              if (target.src !== "/logo.png") {
+                target.src = "/logo.png";
+              }
+            }}
           />
         </div>
-        <div className="col-span-2 flex flex-col gap-4 justify-center">
-          <h1 className="text-2xl font-bold">{data.event.title}</h1>
-          <p className="text-gray-700">{data.event.description}</p>
-          <div className="text-sm text-gray-600 flex flex-col gap-1">
+        <div className="col-span-1 md:col-span-2 flex flex-col gap-3 sm:gap-4 justify-center">
+          <h1 className="text-xl sm:text-2xl font-bold">{data.event.title}</h1>
+          <p className="text-sm sm:text-base text-gray-700">{data.event.description}</p>
+          <div className="text-xs sm:text-sm text-gray-600 flex flex-col gap-1">
             <p>
               <strong>Event Timing:</strong>{" "}
               {start.toLocaleString("en-GB", {
@@ -76,11 +86,11 @@ const EventDetails = ({ eventId }: Props) => {
             </p>
           </div>
           <div>
-            <Button asChild>
+            <Button asChild className="w-full sm:w-auto">
               <Link
                 href={`/bookings/${data.showtimes?.showtimeId}?source=event`}
               >
-                <CalendarArrowDownIcon className="w-5 h-5 mr-1" />
+                <CalendarArrowDownIcon className="w-4 h-4 sm:w-5 sm:h-5 mr-1" />
                 Grab Your Spot
               </Link>
             </Button>

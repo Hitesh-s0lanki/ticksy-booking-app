@@ -158,8 +158,8 @@ const MovieBookingDetails: React.FC<MovieBookingDetailsProps> = ({
   };
 
   return (
-    <div className="flex flex-col xl:flex-row px-6 md:px-16 lg:px-24 py-8 md:pt-10 gap-10 items-center">
-      <div className="flex-1 w-full flex flex-col gap-10">
+    <div className="flex flex-col xl:flex-row px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 2xl:px-24 py-6 sm:py-8 md:pt-10 gap-6 sm:gap-8 md:gap-10 items-center">
+      <div className="flex-1 w-full flex flex-col gap-6 sm:gap-8 md:gap-10">
         <SeatMap
           groupRows={groupRows}
           selectedSeats={selectedSeats}
@@ -178,8 +178,8 @@ const MovieBookingDetails: React.FC<MovieBookingDetailsProps> = ({
       {/* Seat map */}
 
       {/* Right column */}
-      <div className="w-full xl:w-80 2xl:w-96 space-y-6">
-        <div className="relative w-full xl:w-80 2xl:w-96 bg-background border border-primary/20 rounded-xl p-5 h-max shadow-sm">
+      <div className="w-full xl:w-80 2xl:w-96 space-y-4 sm:space-y-6">
+        <div className="relative w-full xl:w-80 2xl:w-96 bg-background border border-primary/20 rounded-xl p-4 sm:p-5 h-max shadow-sm">
           <Invoice
             selectedBySection={selectedBySection}
             SECTION_PRICES={SECTION_PRICES}

@@ -18,11 +18,11 @@ const MoviesList = () => {
   );
 
   return (
-    <div className="py-5 px-5 md:px-10 lg:px-20 pb-20">
+    <div className="py-4 sm:py-5 px-4 sm:px-5 md:px-8 lg:px-12 xl:px-20 pb-12 sm:pb-16 md:pb-20">
       <Header />
-      <div className="px-4 w-full">
+      <div className="px-2 sm:px-4 w-full">
         {data.length === 0 && <NoDataFound />}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 md:gap-8">
           {data.map((movie) => (
             <MovieCard key={movie.movieId} movie={movie} />
           ))}

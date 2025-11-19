@@ -47,7 +47,7 @@ const SuccessModel: React.FC = () => {
   })();
 
   return (
-    <Dialog open={isOpen} onOpenChange={(o) => !o && onClose()}>
+    <Dialog open={isOpen} onOpenChange={() => {}}>
       <DialogContent className="sm:max-w-[420px]">
         <DialogHeader className="items-center text-center">
           <div className="mb-3 flex justify-center">{renderIcon()}</div>

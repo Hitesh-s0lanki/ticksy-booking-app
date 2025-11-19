@@ -18,8 +18,8 @@ const RecommendedMovies = () => {
 
   if (isLoading) {
     return (
-      <div className="flex w-full flex-col gap-5 px-20 py-8">
-        <h2 className="text-2xl font-[500px]">Movies</h2>
+      <div className="flex w-full flex-col gap-4 sm:gap-5 px-4 sm:px-6 md:px-8 lg:px-12 xl:px-20 py-6 sm:py-8">
+        <h2 className="text-xl sm:text-2xl font-semibold">Movies</h2>
 
         <Carousel className="w-full">
           <CarouselContent className="-ml-1 gap-4">
@@ -35,27 +35,41 @@ const RecommendedMovies = () => {
     );
   }
 
+  if (data?.length === 0) return null;
+
   return (
-    <div className="flex w-full flex-col gap-5 px-20 py-8">
-      <h2 className="text-2xl font-[500px]">Movies</h2>
+    <div className="flex w-full flex-col gap-4 sm:gap-5 px-4 sm:px-6 md:px-8 lg:px-12 xl:px-20 py-6 sm:py-8">
+      <h2 className="text-xl sm:text-2xl font-semibold">Movies</h2>
 
       <Carousel className="w-full">
         <CarouselContent className="-ml-1 gap-4">
-          {data?.map((movie) => (
+          {data?.map((movie) => {
+            // Use logo as fallback if image is not available
+            const imageSrc = movie.imageKey && movie.imageKey.trim() !== "" 
+              ? movie.imageKey 
+              : "/logo.png";
+
+            return (
             <CarouselItem
               key={movie.movieId}
-              className="pl-1 md:basis-1/2 lg:basis-1/4"
+              className="pl-1 basis-full sm:basis-1/2 md:basis-1/3 lg:basis-1/4"
             >
               <div className="flex flex-col gap-3 rounded-2xl overflow-hidden bg-primary/10">
                 <div className="relative group">
                   {/* Image */}
-                  <div className="relative w-full h-80 overflow-hidden">
+                  <div className="relative w-full h-64 sm:h-72 md:h-80 overflow-hidden">
                     <Image
-                      src={movie.imageKey}
+                      src={imageSrc}
                       alt={movie.title}
                       fill
                       className="object-cover object-center transition-transform duration-300 group-hover:scale-105"
                       unoptimized
+                      onError={(e) => {
+                        const target = e.target as HTMLImageElement;
+                        if (target.src !== "/logo.png") {
+                          target.src = "/logo.png";
+                        }
+                      }}
                     />
                   </div>
 
@@ -77,7 +91,8 @@ const RecommendedMovies = () => {
                 </div>
               </div>
             </CarouselItem>
-          ))}
+            );
+          })}
         </CarouselContent>
         <CarouselNext />
       </Carousel>
