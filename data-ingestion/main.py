@@ -32,11 +32,21 @@ if __name__ == "__main__":
     # load existing events from database
     # EventIngestion().get_database_events()
     
+    # upload events to pinecone
+    # EventIngestion().upload_events_to_pinecone()
+    
+    # upload events to showtimes
+    # ShowtimeIngestion().upload_event_showtimes()
+    
+    # upload movies to pinecone
+    MovieIngestion().upload_movies_to_pinecone()
+    
     # upload venues data
     # venues_data_upload()
     
+    
     # upload event showtimes data
-    event_showtimes_data_upload()
+    # event_showtimes_data_upload()
     
     # generate movie showtimes data
     # movies_ids = MovieIngestion().get_database_movies()
@@ -45,5 +55,7 @@ if __name__ == "__main__":
 
     # upload movie showtimes data
     # ShowtimeIngestion().upload_movie_showtimes()
+    
+    # ShowtimeIngestion().upload_bulk_movie_showtimes()
     
     print("Data ingestion process completed.")

@@ -5,10 +5,10 @@ import Link from "next/link";
 const Footer = () => {
   return (
     <footer className="bg-gray-900 text-gray-300 rounded-t-[45%] shadow-2xl">
-      <div className="px-5 md:px-10 lg:px-32 pt-24 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+      <div className="px-4 sm:px-5 md:px-10 lg:px-32 pt-12 sm:pt-16 md:pt-20 lg:pt-24 py-8 sm:py-10 md:py-12">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 sm:gap-8">
           {/* Brand */}
-          <div className="col-span-1 md:col-span-2">
+          <div className="col-span-1 md:col-span-2 flex flex-col items-center md:items-start text-center md:text-left">
             {/* Logo */}
             <Link href="/" className="flex items-center space-x-2">
               <Image src={"/logo.png"} alt="logo" height={70} width={120} />
@@ -26,7 +26,7 @@ const Footer = () => {
           </div>
 
           {/* Quick Links */}
-          <div className="flex flex-col justify-center items-center text-start">
+          <div className="flex flex-col justify-center items-center md:items-start text-center md:text-start">
             <h3 className="text-white font-semibold mb-4">Quick Links</h3>
             <ul className="space-y-2 text-sm">
               <li>
@@ -65,7 +65,7 @@ const Footer = () => {
           </div>
 
           {/* Support */}
-          <div className="flex flex-col justify-center items-start text-start">
+          <div className="flex flex-col justify-center items-center md:items-start text-center md:text-start">
             <h3 className="text-white font-semibold mb-4">Support</h3>
             <ul className="space-y-2 text-sm">
               <li>

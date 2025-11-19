@@ -95,12 +95,12 @@ export const SeatMap: React.FC<SeatMapProps> = ({
   );
 
   return (
-    <div className="relative flex flex-1 flex-col items-center h-full">
-      <h2 className="text-lg font-semibold mb-4">Select Your Seats</h2>
+    <div className="relative flex flex-1 flex-col items-center h-full px-2 sm:px-4">
+      <h2 className="text-base sm:text-lg font-semibold mb-3 sm:mb-4">Select Your Seats</h2>
 
-      <div className="flex flex-col items-center w-full mb-8">
+      <div className="flex flex-col items-center w-full mb-6 sm:mb-8">
         <ScreenBar />
-        <p className="text-[11px] uppercase tracking-widest text-muted-foreground mb-3">
+        <p className="text-[10px] sm:text-[11px] uppercase tracking-widest text-muted-foreground mb-2 sm:mb-3">
           Screen
         </p>
       </div>
@@ -171,12 +171,12 @@ export const SeatMap: React.FC<SeatMapProps> = ({
             : "bg-gray-100 border-slate-300";
 
         return (
-          <div className="mt-10 flex flex-wrap gap-4 text-xs text-muted-foreground">
+          <div className="mt-6 sm:mt-10 flex flex-wrap gap-3 sm:gap-4 text-[10px] sm:text-xs text-muted-foreground justify-center">
             {sections.map((section) => (
-              <div key={section} className="flex items-center gap-2">
+              <div key={section} className="flex items-center gap-1.5 sm:gap-2">
                 <span
                   className={cn(
-                    "h-4 w-4 rounded-sm border",
+                    "h-3 w-3 sm:h-4 sm:w-4 rounded-sm border",
                     getSectionClass(section)
                   )}
                 />
@@ -186,13 +186,13 @@ export const SeatMap: React.FC<SeatMapProps> = ({
               </div>
             ))}
 
-            <div className="flex items-center gap-2">
-              <span className="h-4 w-4 rounded-sm bg-emerald-300 border border-emerald-400" />
+            <div className="flex items-center gap-1.5 sm:gap-2">
+              <span className="h-3 w-3 sm:h-4 sm:w-4 rounded-sm bg-emerald-300 border border-emerald-400" />
               Selected
             </div>
 
-            <div className="flex items-center gap-2">
-              <span className="h-4 w-4 rounded-sm bg-rose-200 border border-rose-400" />
+            <div className="flex items-center gap-1.5 sm:gap-2">
+              <span className="h-3 w-3 sm:h-4 sm:w-4 rounded-sm bg-rose-200 border border-rose-400" />
               Booked
             </div>
           </div>

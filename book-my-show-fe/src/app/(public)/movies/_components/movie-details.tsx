@@ -31,7 +31,7 @@ const MovieDetails = ({ movieId }: Props) => {
   }
 
   return (
-    <div className="p-8 flex flex-col gap-8">
+    <div className="p-4 sm:p-6 md:p-8 flex flex-col gap-6 sm:gap-8">
       <MovieHeroSection movie={data} />
       <DataSelection
         selectedDate={selectedDate}

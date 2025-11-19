@@ -24,7 +24,7 @@ class MovieIngestion:
         rapidapi_host: str | None = None,
     ):
         self.java_server_url = java_server_url or os.getenv("JAVA_SERVER_URL")
-        self.movies_file = Path(movies_file) if movies_file else Path("src/data/movies.json")
+        self.movies_file = Path(movies_file) if movies_file else Path("src/data/database_movies.json")
         self.rapidapi_key = rapidapi_key or os.getenv("RAPIDAPI_KEY") or "db68717ecemsh7537959e53f1ff2p115a3ajsn122cf34378f5"
         self.rapidapi_host = rapidapi_host or os.getenv("RAPIDAPI_HOST") or "imdb236.p.rapidapi.com"
         
@@ -157,4 +157,26 @@ class MovieIngestion:
         except Exception as e:
             print(f"❌ Exception occurred while uploading to Pinecone: {e}")
         
+        return "Upload complete"
+
+    def upload_movies_to_pinecone(self) -> str:
+        movies_data = self.fetch_movies_upload()
+        movies_docs = []
+        
+        for movie in movies_data:
+            movie_doc = Document(
+                page_content=str(movie),
+                metadata={
+                    "id": movie.get("movieId", ""),
+                    "data_source": "movie",
+                    "genre": movie.get("genre", []),
+                    "rating": float(movie.get("rating", 0)),
+                }            )
+            movies_docs.append(movie_doc)
+        
+        try:
+            self.pinecone_db.add_documents(movies_docs)
+            print(f"✅ Uploaded {len(movies_docs)} movie documents to Pinecone.")
+        except Exception as e:
+            print(f"❌ Exception occurred while uploading to Pinecone: {e}")
         return "Upload complete"

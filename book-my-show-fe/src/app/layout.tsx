@@ -17,6 +17,11 @@ export const metadata: Metadata = {
   description:
     "Discover and book the best Movies, Events, and Sports in seconds. Seamless seat selection, instant confirmations, and unforgettable experiences - all in one place.",
   icons: ["/logo.png"],
+  viewport: {
+    width: "device-width",
+    initialScale: 1,
+    maximumScale: 5,
+  },
 };
 
 export default function RootLayout({

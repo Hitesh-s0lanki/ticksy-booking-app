@@ -22,7 +22,7 @@ class EventIngestion:
         events_file: Path | str | None = None,
     ):
         self.java_server_url = java_server_url or os.getenv("JAVA_SERVER_URL")
-        self.events_file = Path(events_file) if events_file else Path("src/data/events.json")
+        self.events_file = Path(events_file) if events_file else Path("src/data/database_events.json")
         
         self.pinecone_db = PineconeVectorDB()
 
@@ -75,6 +75,7 @@ class EventIngestion:
             event_doc = Document(
                 page_content=str(event),
                 metadata={
+                    "id": event.get("eventId", ""),
                     "data_source": "event",
                     "category": event.get("categoryType", ""),
                     "organizer": event.get("organizerName", ""),
@@ -110,10 +111,28 @@ class EventIngestion:
                 title = event.get("title", "<unknown>")
                 print(f"❌ Exception occurred while uploading event: {title}. Error: {e}")
 
+        return "Upload complete"
+
+    def upload_events_to_pinecone(self) -> str:
+        
+        events_data = self.fetch_events_upload()
+        events_docs = []
+        
+        for event in events_data:
+            event_doc = Document(
+                page_content=str(event),
+                metadata={
+                    "id": event.get("eventId", ""),
+                    "data_source": "event",
+                    "category": event.get("categoryType", ""),
+                    "organizer": event.get("organizerName", ""),
+                }
+            )
+            events_docs.append(event_doc)
+        
         try:
             self.pinecone_db.add_documents(events_docs)
             print(f"✅ Uploaded {len(events_docs)} event documents to Pinecone.")
         except Exception as e:
             print(f"❌ Exception occurred while uploading to Pinecone: {e}")
-        
         return "Upload complete"

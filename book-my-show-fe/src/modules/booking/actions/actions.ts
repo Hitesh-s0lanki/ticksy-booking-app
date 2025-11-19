@@ -36,8 +36,6 @@ export const getShowtimeById = async ({
   }
 };
 
-CreateBookingRequest;
-
 export const createBooking = async (
   payload: BookingPayload,
   user_id: string

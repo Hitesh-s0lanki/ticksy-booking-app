@@ -1,0 +1,10 @@
+.git
+.gitignore
+target
+build
+.gradle
+.mvn/wrapper/maven-wrapper.jar
+**/*.iml
+**/.idea
+**/.vscode
+node_modules

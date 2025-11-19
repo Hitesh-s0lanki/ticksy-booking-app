@@ -108,26 +108,32 @@ const EventBookingDetails: React.FC<EventBookingDetailsProps> = ({
   }
 
   return (
-    <div className="flex flex-col xl:flex-row px-6 md:px-16 lg:px-24 py-8 md:pt-10 gap-10 items-start">
+    <div className="flex flex-col xl:flex-row px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 2xl:px-24 py-6 sm:py-8 md:pt-10 gap-6 sm:gap-8 md:gap-10 items-start">
       {/* Left column - Event Details */}
       <div className="flex-1 w-full">
-        <div className="w-full p-8 bg-primary/10 border-2 border-primary/30 rounded-md shadow-lg">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="relative w-full h-64 md:h-80">
-              {eventDetails.imageUrl && (
-                <Image
-                  src={eventDetails.imageUrl}
-                  alt={eventDetails.title || "Event Image"}
-                  fill
-                  className="object-cover rounded-md shadow-2xl"
-                  unoptimized
-                />
-              )}
+        <div className="w-full p-4 sm:p-6 md:p-8 bg-primary/10 border-2 border-primary/30 rounded-md shadow-lg">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
+            <div className="relative w-full h-48 sm:h-64 md:h-80 mx-auto md:mx-0">
+              <Image
+                src={eventDetails.imageUrl && eventDetails.imageUrl.trim() !== "" 
+                  ? eventDetails.imageUrl 
+                  : "/logo.png"}
+                alt={eventDetails.title || "Event Image"}
+                fill
+                className="object-cover rounded-md shadow-2xl"
+                unoptimized
+                onError={(e) => {
+                  const target = e.target as HTMLImageElement;
+                  if (target.src !== "/logo.png") {
+                    target.src = "/logo.png";
+                  }
+                }}
+              />
             </div>
-            <div className="md:col-span-2 flex flex-col gap-4 justify-center">
-              <h1 className="text-2xl font-bold">{eventDetails.title}</h1>
-              <p className="text-gray-700">{eventDetails.description}</p>
-              <div className="text-sm text-gray-600 flex flex-col gap-1">
+            <div className="md:col-span-2 flex flex-col gap-3 sm:gap-4 justify-center">
+              <h1 className="text-xl sm:text-2xl font-bold">{eventDetails.title}</h1>
+              <p className="text-sm sm:text-base text-gray-700">{eventDetails.description}</p>
+              <div className="text-xs sm:text-sm text-gray-600 flex flex-col gap-1">
                 <p>
                   <strong>Event Timing:</strong>{" "}
                   {data.showtime?.startAt &&
@@ -150,7 +156,7 @@ const EventBookingDetails: React.FC<EventBookingDetailsProps> = ({
           </div>
         </div>
 
-        <div className="mt-6">
+        <div className="mt-4 sm:mt-6">
           <ShowtimeDetail
             date={data.showtime?.date}
             startAt={data.showtime?.startAt}
@@ -160,8 +166,8 @@ const EventBookingDetails: React.FC<EventBookingDetailsProps> = ({
       </div>
 
       {/* Right column - Booking Details */}
-      <div className="w-full xl:w-80 2xl:w-96 space-y-6">
-        <div className="relative w-full xl:w-80 2xl:w-96 bg-background border border-primary/20 rounded-xl p-5 h-max shadow-sm">
+      <div className="w-full xl:w-80 2xl:w-96 space-y-4 sm:space-y-6">
+        <div className="relative w-full xl:w-80 2xl:w-96 bg-background border border-primary/20 rounded-xl p-4 sm:p-5 h-max shadow-sm">
           <Invoice
             selectedBySection={{
               incliner: [],
@@ -182,7 +188,7 @@ const EventBookingDetails: React.FC<EventBookingDetailsProps> = ({
             eventPrice={eventPrice}
           />
 
-          <div className="py-5">
+          <div className="py-4 sm:py-5">
             <Separator />
           </div>
 

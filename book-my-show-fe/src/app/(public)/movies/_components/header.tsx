@@ -61,17 +61,17 @@ const Header = () => {
 
   return (
     <div className="">
-      <div className="container mx-auto px-4 py-6">
-        <h1 className="text-3xl font-bold text-gray-800 mb-4">Movies</h1>
+      <div className="container mx-auto px-3 sm:px-4 md:px-6 py-4 sm:py-6">
+        <h1 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-3 sm:mb-4">Movies</h1>
 
         {/* Search and Filters */}
-        <div className="flex gap-4 justify-between py-2">
+        <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-between py-2">
           <div className="flex flex-wrap gap-2">
             {genres.map((genre) => (
               <button
                 key={genre}
                 onClick={() => handleGenreFilter(genre)}
-                className={`px-4 py-0 rounded-full h-8 text-xs transition-colors ${
+                className={`px-3 sm:px-4 py-0 rounded-full h-7 sm:h-8 text-[10px] sm:text-xs transition-colors ${
                   genreFilter === genre
                     ? "bg-primary text-white"
                     : "bg-gray-200 text-gray-700 hover:bg-gray-300"
@@ -82,14 +82,14 @@ const Header = () => {
             ))}
           </div>
 
-          <div className="relative w-[400px]">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
+          <div className="relative w-full sm:w-[300px] md:w-[400px]">
+            <Search className="absolute left-2 sm:left-3 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4 sm:w-5 sm:h-5" />
             <Input
               type="text"
               placeholder="Search movies..."
               value={searchTerm}
               onChange={(e) => handleSearchChange(e.target.value)}
-              className="pl-10"
+              className="pl-8 sm:pl-10 text-sm sm:text-base"
             />
           </div>
         </div>
