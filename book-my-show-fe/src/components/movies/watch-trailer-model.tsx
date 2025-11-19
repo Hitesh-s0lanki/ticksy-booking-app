@@ -77,7 +77,7 @@ const WatchTrailerModel: React.FC = () => {
       <DialogContent className="sm:max-w-4xl">
         <DialogHeader>
           <DialogTitle className="line-clamp-2">
-            {data?.title ?? "Trailer"}
+            {isLoading ? "Loading Trailer..." : data?.title ?? "Trailer"}
           </DialogTitle>
           {data?.description ? (
             <DialogDescription className="line-clamp-3">

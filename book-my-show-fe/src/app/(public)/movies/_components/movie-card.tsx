@@ -11,6 +11,11 @@ type Props = {
 };
 
 const MovieCard = ({ movie }: Props) => {
+  // Use logo as fallback if image is not available
+  const imageSrc = movie.imageKey && movie.imageKey.trim() !== "" 
+    ? movie.imageKey 
+    : "/logo.png";
+
   return (
     <Card
       key={movie.movieId}
@@ -21,11 +26,17 @@ const MovieCard = ({ movie }: Props) => {
           <div className="relative">
             <div className="relative w-full h-80 overflow-hidden rounded-t-lg">
               <Image
-                src={movie.imageKey}
+                src={imageSrc}
                 alt={movie.title}
                 fill
                 className="object-cover"
                 unoptimized
+                onError={(e) => {
+                  const target = e.target as HTMLImageElement;
+                  if (target.src !== "/logo.png") {
+                    target.src = "/logo.png";
+                  }
+                }}
               />
             </div>
             <div className="absolute top-2 right-2 bg-black bg-opacity-70 text-white px-2 py-1 rounded-md flex items-center">

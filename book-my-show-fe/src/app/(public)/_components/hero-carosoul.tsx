@@ -36,37 +36,39 @@ const HeroCarousel = () => {
           onMouseEnter={plugin.current.stop}
           onMouseLeave={plugin.current.reset}
         >
-          <CarouselContent defaultValue={2}>
-            {Array.from({ length: 3 }).map((_, i) => (
+        <CarouselContent className="-ml-2 sm:-ml-4">
+          {Array.from({ length: 3 }).map((_, i) => (
               <CarouselItem
                 key={i}
-                className="max-w-[1280px] max-h-[400px] px-5  rounded-lg w-full "
+                className="pl-2 sm:pl-4 basis-full"
               >
-                <div className="relative text-white rounded-md w-full h-[400px] overflow-hidden bg-transparent">
+                <div className="relative text-white rounded-md w-full min-h-[400px] sm:min-h-[450px] md:h-[400px] lg:h-[450px] overflow-hidden bg-transparent mx-auto max-w-7xl">
                   <div className="absolute inset-0 -z-10 bg-gray-300/30 animate-pulse" />
-                  <div className="h-full flex items-end">
-                    <div className="flex flex-col lg:flex-row gap-8 items-end w-full p-4">
-                      <div className="flex-shrink-0 h-full">
-                        <div className="w-[256px] h-[384px] bg-gray-300 rounded-lg shadow-inner animate-pulse mx-auto lg:mx-0" />
-                      </div>
-
-                      <div className="flex-1 py-2">
-                        <div className="h-6 bg-gray-300 rounded w-3/5 mb-4 animate-pulse" />
-                        <div className="flex flex-wrap items-center gap-4 mb-4">
-                          <div className="h-4 w-16 bg-gray-300 rounded animate-pulse" />
-                          <div className="h-4 w-12 bg-gray-300 rounded animate-pulse" />
-                          <div className="h-4 w-24 bg-gray-300 rounded animate-pulse" />
+                  <div className="h-full min-h-[400px] sm:min-h-[450px] flex items-end">
+                    <div className="container mx-auto px-4 sm:px-6 md:px-8 lg:px-12 py-4 sm:py-6 md:py-8 w-full">
+                      <div className="flex flex-col lg:flex-row gap-4 sm:gap-6 md:gap-8 items-center lg:items-end justify-center lg:justify-start h-full">
+                        <div className="flex-shrink-0 h-40 sm:h-52 md:h-72 lg:h-80 w-28 sm:w-36 md:w-48 lg:w-56 mx-auto lg:mx-0">
+                          <div className="w-full h-full bg-gray-300 rounded-lg shadow-inner animate-pulse" />
                         </div>
 
-                        <div className="space-y-2 mb-6">
-                          <div className="h-3 bg-gray-300 rounded w-full animate-pulse" />
-                          <div className="h-3 bg-gray-300 rounded w-5/6 animate-pulse" />
-                          <div className="h-3 bg-gray-300 rounded w-4/6 animate-pulse" />
-                        </div>
+                        <div className="flex-1 py-2 w-full lg:w-auto text-center lg:text-left">
+                          <div className="h-6 sm:h-7 md:h-8 bg-gray-300 rounded w-3/5 mx-auto lg:mx-0 mb-4 animate-pulse" />
+                          <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4 sm:gap-6 md:gap-8 mb-3 sm:mb-4">
+                            <div className="h-4 w-16 bg-gray-300 rounded animate-pulse" />
+                            <div className="h-4 w-12 bg-gray-300 rounded animate-pulse" />
+                            <div className="h-4 w-24 bg-gray-300 rounded animate-pulse" />
+                          </div>
 
-                        <div className="flex gap-4">
-                          <div className="h-10 w-36 bg-gray-300 rounded animate-pulse" />
-                          <div className="h-10 w-36 bg-gray-300 rounded animate-pulse" />
+                          <div className="space-y-2 mb-4 sm:mb-6">
+                            <div className="h-3 bg-gray-300 rounded w-full animate-pulse" />
+                            <div className="h-3 bg-gray-300 rounded w-5/6 mx-auto lg:mx-0 animate-pulse" />
+                            <div className="h-3 bg-gray-300 rounded w-4/6 mx-auto lg:mx-0 animate-pulse" />
+                          </div>
+
+                          <div className="flex flex-col sm:flex-row gap-2 sm:gap-4 justify-center lg:justify-start">
+                            <div className="h-10 w-36 bg-gray-300 rounded mx-auto lg:mx-0 animate-pulse" />
+                            <div className="h-10 w-36 bg-gray-300 rounded mx-auto lg:mx-0 animate-pulse" />
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -80,6 +82,8 @@ const HeroCarousel = () => {
     );
   }
 
+  if (data?.length === 0) return <div className="h-40 w-full"></div>;
+
   return (
     <section className="w-full py-5">
       <Carousel
@@ -88,59 +92,69 @@ const HeroCarousel = () => {
         onMouseEnter={plugin.current.stop}
         onMouseLeave={plugin.current.reset}
       >
-        <CarouselContent defaultValue={2}>
-          {data?.map((item, index) => (
+        <CarouselContent className="-ml-2 sm:-ml-4">
+          {data?.map((item, index) => {
+            // Use logo as fallback if image is not available
+            const imageSrc = item.image && item.image.trim() !== "" 
+              ? item.image 
+              : "/logo.png";
+
+            return (
             <CarouselItem
               key={item.id}
-              className="max-w-[1280px] max-h-[400px] px-5  rounded-lg w-full "
+              className="pl-2 sm:pl-4 basis-full"
             >
               <div
                 className={cn(
-                  "relative  text-white rounded-md w-full h-[400px] overflow-hidden",
-                  index == 0 && "pl-20",
-                  index == data.length - 1 && "pr-20"
+                  "relative text-white rounded-md w-full min-h-[400px] sm:min-h-[450px] md:h-[400px] lg:h-[450px] overflow-hidden mx-auto max-w-7xl"
                 )}
               >
                 {/* BACKGROUND IMAGE */}
-                <div
-                  className={cn(
-                    "absolute inset-0 -z-10",
-                    index == 0 && "left-16",
-                    index == data.length - 1 && "right-16"
-                  )}
-                >
+                <div className="absolute inset-0 -z-10">
                   <Image
-                    src={item.image}
+                    src={imageSrc}
                     alt={`${item.title} backdrop`}
                     fill
                     className="object-cover"
                     quality={50} // drop quality a bit for perf
                     style={{ filter: "brightness(0.3)" }} // darken for contrast
                     unoptimized
+                    onError={(e) => {
+                      const target = e.target as HTMLImageElement;
+                      if (target.src !== "/logo.png") {
+                        target.src = "/logo.png";
+                      }
+                    }}
                   />
                 </div>
-                <div className="container mx-auto px-4 py-8 h-[400px]">
-                  <div className="flex flex-col lg:flex-row gap-8 items-end h-full">
+                <div className="container mx-auto px-4 sm:px-6 md:px-8 lg:px-12 py-4 sm:py-6 md:py-8 h-full min-h-[400px] sm:min-h-[450px]">
+                  <div className="flex flex-col lg:flex-row gap-4 sm:gap-6 md:gap-8 items-center lg:items-end justify-center lg:justify-start h-full">
                     {/* Movie Poster */}
-                    <div className="flex-shrink-0 h-full">
+                    <div className="flex-shrink-0 h-40 sm:h-52 md:h-72 lg:h-80 w-28 sm:w-36 md:w-48 lg:w-56 mx-auto lg:mx-0">
                       <Image
-                        src={item.image}
+                        src={imageSrc}
                         alt={item.title}
-                        width={256} // ← match w-64 (64 * 4 = 256px)
-                        height={384} // ← match h-96 (96 * 4 = 384px)
-                        className="object-cover rounded-lg shadow-2xl mx-auto lg:mx-0 h-full"
-                        quality={100} // optional: bump quality if you still see artifacts
+                        width={256}
+                        height={384}
+                        className="object-cover rounded-lg shadow-2xl w-full h-full"
+                        quality={100}
                         unoptimized
+                        onError={(e) => {
+                          const target = e.target as HTMLImageElement;
+                          if (target.src !== "/logo.png") {
+                            target.src = "/logo.png";
+                          }
+                        }}
                       />
                     </div>
 
                     {/* Movie Info */}
-                    <div className="flex-1 py-2">
-                      <h1 className="text-2xl font-semibold mb-4">
+                    <div className="flex-1 py-2 w-full lg:w-auto text-center lg:text-left">
+                      <h1 className="text-lg sm:text-xl md:text-2xl font-semibold mb-2 sm:mb-3 md:mb-4">
                         {item.title}
                       </h1>
 
-                      <div className="flex flex-wrap items-center gap-8 mb-4">
+                      <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4 sm:gap-6 md:gap-8 mb-3 sm:mb-4">
                         {item?.rating && (
                           <div className="flex items-center gap-2">
                             <Star className="size-4 text-yellow-400" />
@@ -172,11 +186,11 @@ const HeroCarousel = () => {
                         )}
                       </div>
 
-                      <p className="text-sm mb-6 leading-relaxed pr-20">
+                      <p className="text-xs sm:text-sm mb-4 sm:mb-6 leading-relaxed pr-0 sm:pr-4 md:pr-8 lg:pr-20 line-clamp-none">
                         {item.description}
                       </p>
 
-                      <div className="flex gap-4">
+                      <div className="flex flex-col sm:flex-row gap-2 sm:gap-4 justify-center lg:justify-start">
                         {item.posterKey && (
                           <Button size="lg" onClick={() => onOpen(item.id)}>
                             <Play className="w-5 h-5 mr-1" />
@@ -206,7 +220,8 @@ const HeroCarousel = () => {
                 </div>
               </div>
             </CarouselItem>
-          ))}
+            );
+          })}
         </CarouselContent>
       </Carousel>
     </section>

@@ -1,10 +1,12 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { use, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { ArrowUpIcon, Sparkles } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useAiSheet } from "@/modules/ai/hooks/use-ai-sheet";
+import { toast } from "sonner";
 
 type PromptInputProps = {
   onSend?: (text: string) => Promise<void> | void;
@@ -24,6 +26,8 @@ const PromptInput = ({
   maxLength = 500,
   className,
 }: PromptInputProps) => {
+  const { onOpen } = useAiSheet();
+
   const [value, setValue] = useState("");
   const [isSending, setIsSending] = useState(false);
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
@@ -46,10 +50,10 @@ const PromptInput = ({
   );
 
   const handleSend = useCallback(async () => {
-    if (!canSend) return;
+    if (!canSend) return toast("Please enter a message to send.");
     try {
       setIsSending(true);
-      await onSend?.(value.trim());
+      onOpen(value.trim());
       setValue("");
     } finally {
       setIsSending(false);
@@ -77,22 +81,23 @@ const PromptInput = ({
   const overLimit = maxLength ? count > maxLength : false;
 
   return (
-    <div className={cn("w-full py-4", className)}>
-      <div className="mx-auto max-w-3xl px-4">
+    <div className={cn("w-full py-4 sm:py-6 md:py-8", className)}>
+      <div className="mx-auto max-w-3xl px-4 sm:px-6 md:px-8">
         {/* Suggestion chips */}
         <div className="mb-3 flex flex-wrap items-center gap-2">
-          <span className="inline-flex items-center gap-1 text-sm text-muted-foreground">
-            <Sparkles className="size-4" />
-            Try:
+          <span className="inline-flex items-center gap-1 text-xs sm:text-sm text-muted-foreground">
+            <Sparkles className="size-3 sm:size-4" />
+            <span className="hidden sm:inline">Try:</span>
           </span>
           {SUGGESTIONS.map((s) => (
             <button
               key={s}
               type="button"
               onClick={() => applySuggestion(s)}
-              className="rounded-full bg-muted px-3 py-1 text-sm text-muted-foreground hover:bg-muted/80 transition-colors"
+              className="rounded-full bg-muted px-2 sm:px-3 py-1 text-xs sm:text-sm text-muted-foreground hover:bg-muted/80 transition-colors"
             >
-              {s}
+              <span className="hidden sm:inline">{s}</span>
+              <span className="sm:hidden">{s.split(" ")[0]}...</span>
             </button>
           ))}
         </div>
@@ -121,22 +126,22 @@ const PromptInput = ({
               aria-describedby="prompt-hint"
               className={cn(
                 "w-full resize-none",
-                "min-h-[120px] max-h-[280px]",
-                "px-4 pb-14 pt-4 md:px-5", // bottom padding for the floating button
-                "text-base leading-relaxed",
+                "min-h-[100px] sm:min-h-[120px] max-h-[280px]",
+                "px-3 sm:px-4 pb-12 sm:pb-14 pt-3 sm:pt-4 md:px-5", // bottom padding for the floating button
+                "text-sm sm:text-base leading-relaxed",
                 "bg-transparent outline-none border-0 focus-visible:ring-0 focus-visible:ring-offset-0",
                 "placeholder:text-muted-foreground"
               )}
             />
 
             {/* Bottom bar: counter + hint + send */}
-            <div className="pointer-events-none absolute inset-x-0 bottom-0 flex items-end justify-between px-4 pb-3 md:px-5">
+            <div className="pointer-events-none absolute inset-x-0 bottom-0 flex items-end justify-between px-3 sm:px-4 pb-2 sm:pb-3 md:px-5">
               {/* Counter + hint */}
               <div className="pointer-events-auto flex flex-col gap-1">
                 {maxLength ? (
                   <span
                     className={cn(
-                      "text-[11px]",
+                      "text-[10px] sm:text-[11px]",
                       overLimit ? "text-destructive" : "text-muted-foreground"
                     )}
                   >
@@ -153,7 +158,7 @@ const PromptInput = ({
                   onClick={handleSend}
                   disabled={!canSend || overLimit}
                   className={cn(
-                    "h-10 w-10 rounded-full shadow-lg transition-all",
+                    "h-8 w-8 sm:h-10 sm:w-10 rounded-full shadow-lg transition-all",
                     "bg-primary text-primary-foreground",
                     "hover:scale-[1.03] active:scale-95",
                     "disabled:opacity-50 disabled:hover:scale-100"
@@ -161,7 +166,7 @@ const PromptInput = ({
                 >
                   <ArrowUpIcon
                     className={cn(
-                      "size-4 transition-transform",
+                      "size-3 sm:size-4 transition-transform",
                       canSend && !overLimit && "group-hover:translate-y-[-1px]"
                     )}
                   />
@@ -172,8 +177,8 @@ const PromptInput = ({
         </div>
 
         {/* Small helper text below */}
-        <p className="mt-2 text-center text-xs text-muted-foreground">
-          I’ll tailor picks to your mood, time, and location — just ask.
+        <p className="mt-2 text-center text-[10px] sm:text-xs text-muted-foreground px-2">
+          I'll tailor picks to your mood, time, and location — just ask.
         </p>
       </div>
     </div>

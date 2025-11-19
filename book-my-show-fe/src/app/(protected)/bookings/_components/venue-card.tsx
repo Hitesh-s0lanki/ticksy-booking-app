@@ -52,22 +52,22 @@ export default function VenueCard({ data }: Props) {
   return (
     <div className="">
       {/* Header */}
-      <p className="text-base font-semibold mb-3">Venue Details</p>
+      <p className="text-sm sm:text-base font-semibold mb-2 sm:mb-3">Venue Details</p>
       <div className="flex flex-col gap-1">
-        <h3 className="text-sm font-semibold tracking-tight">
+        <h3 className="text-xs sm:text-sm font-semibold tracking-tight">
           {data.venueName}
         </h3>
-        <p className="text-xs  text-gray-600">{data.venueLocation}</p>
+        <p className="text-xs text-gray-600 break-words">{data.venueLocation}</p>
       </div>
 
       {/* Map */}
-      <div className="aspect-video w-full mt-5">
+      <div className="aspect-video w-full mt-3 sm:mt-5">
         <iframe
           title={`${data.venueName} map`}
           src={embedSrc}
           loading="lazy"
           referrerPolicy="no-referrer-when-downgrade"
-          className="h-full w-full border-0"
+          className="h-full w-full border-0 rounded-md"
           allowFullScreen
         />
       </div>

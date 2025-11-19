@@ -21,8 +21,6 @@ class UserInputRouteNode:
             ]
         )
         
-        print(decision)
-        
         state['user_input_route_state'] = UserInputRouteState(step=decision.step)
 
         return state

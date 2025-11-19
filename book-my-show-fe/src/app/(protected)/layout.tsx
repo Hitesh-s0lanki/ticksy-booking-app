@@ -1,4 +1,5 @@
 import ModelProviders from "@/providers/protected-model-providers";
+import SheetProviders from "@/providers/sheet-providers";
 import Footer from "./_components/footer";
 import Navbar from "./_components/navbar";
 
@@ -11,6 +12,7 @@ const PrivateLayout = ({ children }: Props) => {
     <div className="min-h-screen w-full">
       <Navbar />
       <ModelProviders />
+      <SheetProviders />
       {children}
       <Footer />
     </div>

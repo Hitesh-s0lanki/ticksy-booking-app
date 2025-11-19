@@ -14,10 +14,10 @@ type Props = {
 
 const DataSelection = ({ selectedDate, setSelectedDate }: Props) => {
   return (
-    <div className="mb-6 w-full flex flex-col justify-center items-center">
-      <h3 className="font-semibold mb-3 ">Select Date</h3>
-      <div className="w-1/2 flex justify-center items-center">
-        <div className="space-y-4">
+    <div className="mb-4 sm:mb-6 w-full flex flex-col justify-center items-center px-2 sm:px-4">
+      <h3 className="font-semibold mb-2 sm:mb-3 text-base sm:text-lg">Select Date</h3>
+      <div className="w-full sm:w-3/4 md:w-1/2 flex justify-center items-center">
+        <div className="space-y-3 sm:space-y-4 w-full">
           <MiniCalendar
             onValueChange={(date) => {
               if (date) setSelectedDate(date);
@@ -39,7 +39,7 @@ const DataSelection = ({ selectedDate, setSelectedDate }: Props) => {
             <MiniCalendarNavigation direction="next" />
           </MiniCalendar>
           {selectedDate && (
-            <p className="text-muted-foreground text-sm text-center">
+            <p className="text-muted-foreground text-xs sm:text-sm text-center">
               Selected:{" "}
               {selectedDate.toLocaleDateString("en-US", {
                 weekday: "long",

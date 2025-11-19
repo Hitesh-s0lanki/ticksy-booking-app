@@ -1,0 +1,16 @@
+pytest
+langchain
+langgraph
+langchain_community
+langchain_openai 
+langchain_groq
+langchain_google_genai
+ipykernel
+python-dotenv
+gradio
+fastapi
+uvicorn
+sentence-transformers
+langchain-pinecone
+pinecone
+langchain-tavily
