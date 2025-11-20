@@ -27,7 +27,7 @@ const RecommendedEvents = () => {
             {Array.from({ length: 5 }).map((_, i) => (
               <CarouselItem
                 key={i}
-                className="h-80 bg-gray-300/30 rounded-lg animate-pulse md:basis-1/2 lg:basis-1/4"
+                className="h-64 bg-gray-300/30 rounded-lg animate-pulse md:basis-1/2 lg:basis-1/4"
               />
             ))}
           </CarouselContent>
@@ -45,53 +45,53 @@ const RecommendedEvents = () => {
       <Carousel className="w-full">
         <CarouselContent className="-ml-1 gap-4">
           {data?.map((event) => {
-            // Use logo as fallback if image is not available
-            const imageSrc = event.bannerUrl && event.bannerUrl.trim() !== "" 
-              ? event.bannerUrl 
-              : "/logo.png";
+            const imageSrc =
+              event.bannerUrl && event.bannerUrl.trim() !== ""
+                ? event.bannerUrl
+                : "/logo.png";
 
             return (
-            <CarouselItem
-              key={event.eventId}
-              className="pl-1 basis-full sm:basis-1/2 md:basis-1/3 lg:basis-1/4"
-            >
-              <div className="flex flex-col gap-3 rounded-2xl overflow-hidden bg-primary/10">
-                <div className="relative group">
-                  {/* Image */}
-                  <div className="relative w-full h-64 sm:h-72 md:h-80 overflow-hidden">
-                    <Image
-                      src={imageSrc}
-                      alt={event.title}
-                      fill
-                      className="object-cover object-center transition-transform duration-300 group-hover:scale-105"
-                      unoptimized
-                      onError={(e) => {
-                        const target = e.target as HTMLImageElement;
-                        if (target.src !== "/logo.png") {
-                          target.src = "/logo.png";
-                        }
-                      }}
-                    />
-                  </div>
+              <CarouselItem
+                key={event.eventId}
+                className="pl-1 basis-full sm:basis-1/2 md:basis-1/3 lg:basis-1/4"
+              >
+                <div className="flex flex-col gap-3 rounded-2xl overflow-hidden bg-primary/10">
+                  <div className="relative group">
+                    {/* Image */}
+                    <div className="relative w-full h-52 sm:h-60 md:h-72 overflow-hidden">
+                      <Image
+                        src={imageSrc}
+                        alt={event.title}
+                        fill
+                        className="object-cover object-center transition-transform duration-300 group-hover:scale-105"
+                        unoptimized
+                        onError={(e) => {
+                          const target = e.target as HTMLImageElement;
+                          if (target.src !== "/logo.png") {
+                            target.src = "/logo.png";
+                          }
+                        }}
+                      />
+                    </div>
 
-                  {/* Hover Overlay with Button */}
-                  <div className="absolute inset-0 flex flex-col gap-3 items-start justify-end bg-black/40 opacity-100 transition-opacity duration-300 px-4 py-4">
-                    <h3 className="text-white text-md font-semibold text-start">
-                      {event.title}
-                    </h3>
-                    <p className=" text-xs text-white line-clamp-3">
-                      {event.description.slice(0, 80)}...
-                    </p>
-                    <Link
-                      href={`/events/${event.eventId}`}
-                      className="px-4 py-1 bg-primary/70 text-white text-xs font-medium rounded-sm shadow hover:bg-primary/10"
-                    >
-                      Book Now
-                    </Link>
+                    {/* Hover Overlay with Button */}
+                    <div className="absolute inset-0 flex flex-col gap-2 items-start justify-end bg-black/40 opacity-100 transition-opacity duration-300 px-3 py-3">
+                      <h3 className="text-white text-sm sm:text-base font-semibold text-start line-clamp-1">
+                        {event.title}
+                      </h3>
+                      <p className="text-[11px] sm:text-xs text-white line-clamp-2">
+                        {event.description}
+                      </p>
+                      <Link
+                        href={`/events/${event.eventId}`}
+                        className="px-3 py-1 bg-primary/70 text-white text-xs font-medium rounded-sm shadow hover:bg-primary/10"
+                      >
+                        Book Now
+                      </Link>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </CarouselItem>
+              </CarouselItem>
             );
           })}
         </CarouselContent>
