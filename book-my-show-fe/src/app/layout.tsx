@@ -5,6 +5,7 @@ import { TRPCReactProvider } from "@/trpc/client";
 import { NuqsAdapter } from "nuqs/adapters/next";
 import { ClerkProvider } from "@clerk/nextjs";
 import { Toaster } from "sonner";
+import { Analytics } from "@vercel/analytics/next";
 
 const font = Archivo({
   weight: ["400", "500", "600"],
@@ -37,6 +38,7 @@ export default function RootLayout({
             <body className={font.className}>
               <Toaster />
               {children}
+              <Analytics />
             </body>
           </html>
         </TRPCReactProvider>
